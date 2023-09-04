@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Interfaces
 {
-    public interface ITestRepository
+    public interface IProductRepository
     {
-        List<Test> GetProducts();
-       
-        
+        List<Product> GetProducts();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NinjaApp.Business.Interfaces;
 using NinjaApp.Business.Managers;
+using NinjaApp.Business.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<ITestService,TestManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<ITestService,TestManager>().AddScoped<IProductService,ProductManager>().AddScoped<IStockService,StockManager>().BuildServiceProvider();
 
             
         }
@@ -27,6 +28,16 @@ namespace NinjaApp.Business
         public ITestService GetTestServiceInstance()
         {
             return serviceProvider.GetRequiredService<ITestService>();
+        }
+
+        public IProductService GetProductServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IProductService>();
+        }
+
+        public IStockService GetStockServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IStockService>();
         }
 
     }

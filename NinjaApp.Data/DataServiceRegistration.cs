@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data
 {
@@ -19,14 +14,19 @@ namespace NinjaApp.Data
         /// </summary>
         public DataServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<ITestRepository,TestRepository>().BuildServiceProvider();  
+            serviceProvider = new ServiceCollection().AddScoped<ITestRepository,TestRepository>().AddScoped<IProductRepository,ProductRepository>().BuildServiceProvider();  
             
-            
+          
         }
 
         public ITestRepository  GetTestRepositoryInstance()
         {
             return serviceProvider.GetRequiredService<ITestRepository>();
+        }
+
+        public IProductRepository GetProductRepositoryInstance()
+        {
+            return serviceProvider.GetRequiredService<IProductRepository>();
         }
     }
 }
