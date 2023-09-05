@@ -26,8 +26,10 @@ namespace NinjaApp.Winform.Forms
 
         private void HandleStockBelowThreshold(string productName, int stockAmount)
         {
-            string message = $"{productName} ürünün stok miktarı {stockAmount} adete düştü.";
+            string message = $"{productName} ürününün stok miktarı {stockAmount} oldu.";
             MessageBox.Show(message, "Stok Uyarısı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+
     }
 }

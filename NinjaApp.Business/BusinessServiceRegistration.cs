@@ -20,7 +20,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<ITestService,TestManager>().AddScoped<IProductService,ProductManager>().AddScoped<IStockService,StockManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<ITestService,TestManager>().AddScoped<IProductService,ProductManager>().AddScoped<IStockService,StockManager>().AddScoped<IPriceEditService,PriceEditManager>().BuildServiceProvider();
 
             
         }
@@ -38,6 +38,10 @@ namespace NinjaApp.Business
         public IStockService GetStockServiceInstance()
         {
             return serviceProvider.GetRequiredService<IStockService>();
+        }
+        public IPriceEditService GetPriceEditServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IPriceEditService>();
         }
 
     }

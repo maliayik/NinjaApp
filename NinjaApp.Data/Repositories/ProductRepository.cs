@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {
     public class ProductRepository : IProductRepository
-    {      
+    {        
 
         public List<Product> GetProducts()
         {
@@ -42,7 +43,7 @@ namespace NinjaApp.Data.Repositories
                 product.ShopId = Convert.ToInt32(reader[6]);
                 product.CategoryId = Convert.ToInt32(reader[7]);
                 product.SuplierId = Convert.ToInt32(reader[8]);
-                
+
                 products.Add(product);
 
             }
@@ -51,9 +52,28 @@ namespace NinjaApp.Data.Repositories
             connection.Close();
 
 
-
-
             return products;
         }
+
+       
+
+        public void UpdateProduct(int productId, decimal newPrice)
+        {
+            var connection = new DbConnectionHelper().Connection;
+
+            SQLiteCommand command = new SQLiteCommand();
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.CommandText = "UPDATE Products SET Price = @Price WHERE Id = @Id";
+
+            command.Parameters.AddWithValue("@Id", productId);
+            command.Parameters.AddWithValue("@Price", newPrice);
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+      
     }
 }

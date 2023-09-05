@@ -1,5 +1,7 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
+using NinjaApp.DTOs;
+using NinjaApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,8 +18,10 @@ namespace NinjaApp.Winform.Forms
     {
         private readonly IProductService _productService;
         private readonly IStockService _stockService;
+        private readonly IPriceEditService _priceEditService;
 
         public event Action<string, int> StockBelowThreshold;
+
 
 
         public AdminForm()
@@ -26,10 +30,14 @@ namespace NinjaApp.Winform.Forms
             var dependencyContainer = new BusinessServiceRegistration();
             _productService = dependencyContainer.GetProductServiceInstance();
             _stockService = dependencyContainer.GetStockServiceInstance();
+            _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
 
         }
 
 
+        /// <summary>
+        /// Bu metot DataGridView tablomuzdaki çift tıklama aksiyonunu yakalıyarak belirlenen sayfaya yönlendirmeyi sağlar.
+        /// </summary>
         private void DataGridViewDoubleClickHandler()
         {
             dataGridView1.CellDoubleClick += (sender, e) =>
@@ -60,6 +68,10 @@ namespace NinjaApp.Winform.Forms
         }
 
 
+        /// <summary>
+        /// Bu metot Stok tablosundaki satırların hücrelerindeki değerlerin belirtilen değer aralığına göre renk almasını sağlar.
+        /// </summary>
+
         private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Sadece stok sütununu kontrol etmek istiyorsak sütun numarasını belirleyin
@@ -68,42 +80,81 @@ namespace NinjaApp.Winform.Forms
             // Sadece belirli bir sütunu kontrol edelim
             if (e.ColumnIndex == stokSutunIndex && e.RowIndex >= 0)
             {
-                // DataGridView hücresinin değerini alın
-                int stokMiktari = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-
-
-                if (stokMiktari < 100) // Değiştirmeniz gereken alt sınırı belirtin
+                int stokMiktari;
+                if (int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out stokMiktari))
                 {
-                    e.CellStyle.BackColor = Color.Red; // Stok azaldığında hücre rengini kırmızı yapabilirsiniz
-                    e.CellStyle.ForeColor = Color.White; // Opsiyonel: metin rengini beyaz yapabilirsiniz
-                }
-                else if (stokMiktari <= 200)
-                {
-                    e.CellStyle.BackColor = Color.Yellow;
-                    e.CellStyle.ForeColor = Color.Black;
+                    if (stokMiktari < 100) // Değiştirmeniz gereken alt sınırı belirtin
+                    {
+                        e.CellStyle.BackColor = Color.Red; // Stok azaldığında hücre rengini kırmızı yapabilirsiniz
+                        e.CellStyle.ForeColor = Color.White; // Opsiyonel: metin rengini beyaz yapabilirsiniz
+                    }
+                    else if (stokMiktari <= 200)
+                    {
+                        e.CellStyle.BackColor = Color.Yellow;
+                        e.CellStyle.ForeColor = Color.Black;
+                    }
+                    else
+                    {
+                        e.CellStyle.BackColor = Color.Green;
+                        e.CellStyle.ForeColor = Color.White;
+                    }
                 }
                 else
                 {
-                    e.CellStyle.BackColor = Color.Green;
-                    e.CellStyle.ForeColor = Color.White;
+                    MessageBox.Show($"stoğunuz bitmiştir kalan stok = {stokMiktari} ");
                 }
+
+
+
 
             }
         }
 
-
-        
-
-        private void SendNotificationToSuppliers(string productName, int stockAmount)
+        /// <summary>
+        /// Bu metot Fiyat günceleme tablosundaki seçilen değerleri güncelemeye yarar.
+        /// </summary>     
+        private void DataGridViewCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Supliers formundaki mesaj gridview tablosuna mesaj ekleme kodunu burada yazın.
-            // Mesaj içeriği "ürünAdi + sayısı azaldı" olacak şekilde ayarlanmalıdır.
-            // İlgili satırları ekleyebilirsiniz.
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridView2.Rows[e.RowIndex];
+
+                selectedRow.Selected = true;
+
+
+                string ProductName = selectedRow.Cells["Ürünler"].Value.ToString();
+                decimal Price = Convert.ToDecimal(selectedRow.Cells["Fiyat"].Value);
+
+                txtSelectedPrice.Text = Price.ToString();
+                txtSelectedProduct.Text = ProductName;
+            }
         }
 
+
+        /// <summary>
+        /// Bu metot Fiyat güncellemesi işlemlerini gerçekleştirir.
+        /// </summary>
+        public void PriceEdit()
+        {
+            //dataGridView2.DataSource = null;            
+            var stockData = _priceEditService.GetPriceEditDtos();
+            stockData = stockData.OrderBy(item => item.Ürünler).ToList();
+            dataGridView2.DataSource = stockData;
+            dataGridView2.Columns["Id"].Visible = false;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView2.CellClick += DataGridViewCellClick;
+        }
+
+
+
+        /// <summary>
+        /// Bu metot mevcut stok tablosunu gösterir ve yeni stoklar eklememize olanak tanır.
+        /// </summary>
         public void Stock()
         {
-            dataGridView1.DataSource = null;
+            //dataGridView1.DataSource = null;
             var stockData = _stockService.GetStockListDto();
             stockData = stockData.OrderBy(item => item.Stok).ToList();
             dataGridView1.DataSource = stockData;
@@ -129,12 +180,43 @@ namespace NinjaApp.Winform.Forms
 
 
 
-
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            //dataGridView1.DataSource = null;
             Stock();
             Chart();
+            PriceEdit();
+
+        }
+
+
+        /// <summary>
+        /// Bu metod PriceEdit tablosunun ubdate price işlemini gerçekleştirmeye yarar.
+        /// </summary>
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView2.SelectedRows[0];
+
+                decimal newPrice;
+                if (decimal.TryParse(txtSelectedPrice.Text, out newPrice))
+                {
+                    int productId = (int)selectedRow.Cells["Id"].Value;
+
+                    // Yalnızca fiyatı güncelle
+                    _priceEditService.UpdatePriceEditDtos(new PriceEditDto
+                    {
+                        Id = productId,
+                        Fiyat = newPrice
+                    });
+
+                    PriceEdit();
+                    Stock();
+                    Chart();
+                }
+            }
         }
 
        

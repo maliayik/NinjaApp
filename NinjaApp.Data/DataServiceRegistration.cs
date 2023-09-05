@@ -24,6 +24,8 @@ namespace NinjaApp.Data
             return serviceProvider.GetRequiredService<ITestRepository>();
         }
 
+
+        //Bana product repository içeriğini getir.
         public IProductRepository GetProductRepositoryInstance()
         {
             return serviceProvider.GetRequiredService<IProductRepository>();
