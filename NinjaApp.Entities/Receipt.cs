@@ -11,8 +11,7 @@ namespace NinjaApp.Entities
         public int Id { get; set; }
         public int ProductName { get; set; }
         public DateTime PurchaseDate { get; set; }
-        public string ReceiptNo { get; set; }
-        public int MyProperty { get; set; }
+        public string ReceiptNo { get; set; }        
         public decimal Total { get; set; }
         public int ProductId { get; set; }
         public int ShopId { get; set; }
