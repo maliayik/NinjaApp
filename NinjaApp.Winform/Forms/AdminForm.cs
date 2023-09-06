@@ -1,16 +1,7 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
-using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -19,9 +10,13 @@ namespace NinjaApp.Winform.Forms
         private readonly IProductService _productService;
         private readonly IStockService _stockService;
         private readonly IPriceEditService _priceEditService;
+        private readonly IChartService _chartService;
 
+
+        /// <summary>
+        /// Mesaj eventini yakalamak için yazılmıs action.
+        /// </summary>
         public event Action<string, int> StockBelowThreshold;
-
 
 
         public AdminForm()
@@ -31,7 +26,7 @@ namespace NinjaApp.Winform.Forms
             _productService = dependencyContainer.GetProductServiceInstance();
             _stockService = dependencyContainer.GetStockServiceInstance();
             _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
-
+            _chartService = dependencyContainer.GetChartServiceInstance();
         }
 
 
@@ -51,21 +46,6 @@ namespace NinjaApp.Winform.Forms
             };
         }
 
-
-        public void Chart()
-        {
-            List<string> sliceNames = new List<string> { "Kırmızı Et", "Bakliyat", "Şarküteri" };
-            List<double> sliceValues = new List<double> { 30.0, 45.0, 25.0 };
-
-            chart1.Series.Clear();
-            chart1.Series.Add("PieSeries");
-            chart1.Series["PieSeries"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-
-            for (int i = 0; i < sliceNames.Count; i++)
-            {
-                chart1.Series["PieSeries"].Points.AddXY(sliceNames[i], sliceValues[i]);
-            }
-        }
 
 
         /// <summary>
@@ -136,7 +116,6 @@ namespace NinjaApp.Winform.Forms
         /// </summary>
         public void PriceEdit()
         {
-            //dataGridView2.DataSource = null;            
             var stockData = _priceEditService.GetPriceEditDtos();
             stockData = stockData.OrderBy(item => item.Ürünler).ToList();
             dataGridView2.DataSource = stockData;
@@ -154,7 +133,6 @@ namespace NinjaApp.Winform.Forms
         /// </summary>
         public void Stock()
         {
-            //dataGridView1.DataSource = null;
             var stockData = _stockService.GetStockListDto();
             stockData = stockData.OrderBy(item => item.Stok).ToList();
             dataGridView1.DataSource = stockData;
@@ -182,10 +160,13 @@ namespace NinjaApp.Winform.Forms
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            //dataGridView1.DataSource = null;
             Stock();
-            Chart();
             PriceEdit();
+
+            comboBox1.Items.Add(3);
+            comboBox1.Items.Add(6);
+            comboBox1.Items.Add(9);
+            comboBox1.SelectedIndex = 0;
 
         }
 
@@ -214,11 +195,30 @@ namespace NinjaApp.Winform.Forms
 
                     PriceEdit();
                     Stock();
-                    Chart();
                 }
             }
         }
 
-       
+
+        /// <summary>
+        /// Bu event chartımızdaki verileri seçilen değere göre listelemeye yarar.
+        /// </summary>
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedItem = Convert.ToInt32(comboBox1.SelectedItem);
+
+            List<ChartDto> chartData = _chartService.GetChart(selectedItem);
+
+            chart1.Series.Clear();
+            chart1.Series.Add("PieSeries");
+            chart1.Series["PieSeries"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+            foreach (var data in chartData)
+            {
+                chart1.Series["PieSeries"].Points.AddXY(data.ProductName, data.SaleCount);
+            }
+
+        }
     }
 }

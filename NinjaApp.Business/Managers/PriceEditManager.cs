@@ -1,13 +1,7 @@
 ﻿using NinjaApp.Business.Services;
-using NinjaApp.Data.Interfaces;
 using NinjaApp.Data;
+using NinjaApp.Data.Interfaces;
 using NinjaApp.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NinjaApp.Entities;
 
 namespace NinjaApp.Business.Managers
 {
@@ -30,7 +24,7 @@ namespace NinjaApp.Business.Managers
             {
                 var dto = new PriceEditDto();
 
-                dto.Id=product.Id;
+                dto.Id = product.Id;
                 dto.Ürünler = product.ProductName;
                 dto.Birim = product.Unit;
                 dto.Fiyat = product.Price;
@@ -46,7 +40,7 @@ namespace NinjaApp.Business.Managers
             int productId = priceEditDto.Id;
             decimal newPrice = priceEditDto.Fiyat;
 
-            _productRepository.UpdateProduct(productId,newPrice);
+            _productRepository.UpdateProduct(productId, newPrice);
         }
     }
 }

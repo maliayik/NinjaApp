@@ -1,19 +1,13 @@
 ﻿using NinjaApp.Data.Helpers;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {
     public class ProductRepository : IProductRepository
-    {        
+    {
 
         public List<Product> GetProducts()
         {
@@ -55,7 +49,7 @@ namespace NinjaApp.Data.Repositories
             return products;
         }
 
-       
+
 
         public void UpdateProduct(int productId, decimal newPrice)
         {
@@ -74,6 +68,6 @@ namespace NinjaApp.Data.Repositories
             connection.Close();
         }
 
-      
+
     }
 }

@@ -3,7 +3,7 @@
 namespace NinjaApp.Data.Helpers
 {
     public class DbConnectionHelper
-    {       
+    {
         private string GetDatabasePath()
         {
             string baseFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NinjaApp.Entities
+﻿namespace NinjaApp.Entities
 {
     public class Receipt
     {
         public int Id { get; set; }
-        public int ProductName { get; set; }
+        public string ProductName { get; set; }
         public DateTime PurchaseDate { get; set; }
-        public string ReceiptNo { get; set; }        
+        public string ReceiptNo { get; set; }
+        public int SaleCount { get; set; }
         public decimal Total { get; set; }
         public int ProductId { get; set; }
         public int ShopId { get; set; }

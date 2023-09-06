@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -46,6 +47,9 @@
             label3 = new Label();
             label4 = new Label();
             btnUpdate = new Button();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            comboBox1 = new ComboBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
@@ -135,11 +139,13 @@
             // 
             // chart1
             // 
+            chart1.BorderlineColor = Color.Transparent;
+            chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea1.Name = "ChartArea1";
             chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             chart1.Legends.Add(legend1);
-            chart1.Location = new Point(1668, 152);
+            chart1.Location = new Point(1668, 234);
             chart1.Margin = new Padding(3, 4, 3, 4);
             chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
@@ -147,9 +153,9 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             chart1.Series.Add(series1);
-            chart1.Size = new Size(418, 652);
+            chart1.Size = new Size(418, 570);
             chart1.TabIndex = 2;
-            chart1.Text = "chart1";            
+            chart1.Text = "chart1";
             // 
             // txtSelectedProduct
             // 
@@ -196,11 +202,37 @@
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(18, 18);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(1862, 190);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(224, 26);
+            comboBox1.TabIndex = 7;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(1862, 168);
+            label5.Name = "label5";
+            label5.Size = new Size(64, 18);
+            label5.TabIndex = 8;
+            label5.Text = "Listele";
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2098, 1064);
+            Controls.Add(label5);
+            Controls.Add(comboBox1);
             Controls.Add(btnUpdate);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -236,5 +268,8 @@
         private Label label3;
         private Label label4;
         private Button btnUpdate;
+        private ContextMenuStrip contextMenuStrip1;
+        private ComboBox comboBox1;
+        private Label label5;
     }
 }
