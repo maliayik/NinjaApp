@@ -14,21 +14,30 @@ namespace NinjaApp.Data
         /// </summary>
         public DataServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<ITestRepository,TestRepository>().AddScoped<IProductRepository,ProductRepository>().BuildServiceProvider();  
-            
-          
-        }
+            serviceProvider = new ServiceCollection().AddScoped<IProductRepository, ProductRepository>().AddScoped<IReceiptRepository, ReceiptRepository>().BuildServiceProvider();
 
-        public ITestRepository  GetTestRepositoryInstance()
-        {
-            return serviceProvider.GetRequiredService<ITestRepository>();
+
         }
 
 
-        //Bana product repository içeriğini getir.
+        /// <summary>
+        /// Bana product repository içeriğini getirir.
+        /// </summary>        
         public IProductRepository GetProductRepositoryInstance()
         {
             return serviceProvider.GetRequiredService<IProductRepository>();
         }
+
+
+        /// <summary>
+        /// Bana Receipt repository içeriğini getirir.
+        /// </summary> 
+        public IReceiptRepository GetReceiptRepositoryInstance()
+        {
+            return serviceProvider.GetRequiredService<IReceiptRepository>();
+        }
+
+
+
     }
 }

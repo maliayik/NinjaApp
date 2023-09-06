@@ -1,12 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NinjaApp.Business.Interfaces;
 using NinjaApp.Business.Managers;
 using NinjaApp.Business.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Business
 {
@@ -20,29 +14,42 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<ITestService,TestManager>().AddScoped<IProductService,ProductManager>().AddScoped<IStockService,StockManager>().AddScoped<IPriceEditService,PriceEditManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().BuildServiceProvider();
 
-            
+
         }
 
-        public ITestService GetTestServiceInstance()
-        {
-            return serviceProvider.GetRequiredService<ITestService>();
-        }
 
+        /// <summary>
+        /// Bu metot Product service içeriğini getirir.
+        /// </summary>
         public IProductService GetProductServiceInstance()
         {
             return serviceProvider.GetRequiredService<IProductService>();
         }
 
+        /// <summary>
+        /// Bu metot Stok service içeriğini getirir.
+        /// </summary>
         public IStockService GetStockServiceInstance()
         {
             return serviceProvider.GetRequiredService<IStockService>();
         }
+
+        /// <summary>
+        /// Bu metot PriceEdit service içeriğini getirir.
+        /// </summary>
         public IPriceEditService GetPriceEditServiceInstance()
         {
             return serviceProvider.GetRequiredService<IPriceEditService>();
         }
 
+        /// <summary>
+        /// Bu metot chart service içeriğini getirir.
+        /// </summary>        
+        public IChartService GetChartServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IChartService>();
+        }
     }
 }
