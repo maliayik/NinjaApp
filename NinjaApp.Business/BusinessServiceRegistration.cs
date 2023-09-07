@@ -14,7 +14,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService,UserManager>().BuildServiceProvider();
 
 
         }
@@ -50,6 +50,12 @@ namespace NinjaApp.Business
         public IChartService GetChartServiceInstance()
         {
             return serviceProvider.GetRequiredService<IChartService>();
+        }
+
+
+        public IUserService GetUserServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IUserService>();
         }
     }
 }

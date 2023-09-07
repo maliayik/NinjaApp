@@ -8,6 +8,48 @@ namespace NinjaApp.Data.Repositories
 {
     public class ReceiptRepository : IReceiptRepository
     {
+        public List<Receipt> GetReceiptByUserId(int userId)
+        {
+            List<Receipt> receipts = new List<Receipt>();
+
+            using (var connection = new DbConnectionHelper().Connection)
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand())
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+
+                    command.CommandText = "SELECT * FROM Receipts WHERE UserId = @UserId;";
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            Receipt receipt = new Receipt
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                ProductName = reader["ProductName"].ToString(),
+                                PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),
+                                ReceiptNo = reader["ReceiptNo"].ToString(),                              
+                                Total = Convert.ToDecimal(reader["Total"]),
+                                ProductId = Convert.ToInt32(reader["ProductId"]),
+                                ShopId = Convert.ToInt32(reader["ShopId"]),
+                                UserId = Convert.ToInt32(reader["UserId"])
+                            };
+                            receipts.Add(receipt);
+                        }
+                    }
+                }
+            }
+
+            return receipts;
+        }
+
         public List<Receipt> GetTopSellingReceipts(int count)
         {
             List<Receipt> products = new List<Receipt>();
@@ -41,6 +83,9 @@ namespace NinjaApp.Data.Repositories
             connection.Close();
             return products;
         }
+
+
+
     }
 }
 
