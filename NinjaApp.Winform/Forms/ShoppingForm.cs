@@ -18,13 +18,20 @@ namespace NinjaApp.Winform.Forms
     {
         private readonly IShoppingService _shoppingService;
         private List<ShoppingDto> _shoppingData;
+        private IUserService _userService;
+
 
         public ShoppingForm()
         {
             InitializeComponent();
             var dependencyContainer = new BusinessServiceRegistration();
             _shoppingService = dependencyContainer.GetShoppingServiceInstance();
+            _userService = dependencyContainer.GetUserServiceInstance();
             cmbCategories.SelectedIndexChanged += new EventHandler(cmbCategories_SelectedIndexChanged);
+            dataGridView1.DoubleClick += new EventHandler(dataGridView1_DoubleClick);
+            dataGridView1.CellFormatting += DataGridView_CellFormatting;
+            dataGridView2.CellFormatting += DataGridView_CellFormatting;
+            dataGridView2.CellClick += dataGridView2_CellClick;
         }
 
 
@@ -37,6 +44,18 @@ namespace NinjaApp.Winform.Forms
 
             // Tüm ürünleri DataGridView'e yükle
             UpdateDataGridView(_shoppingData);
+
+            //datagridview2 columnlarını yükler
+            SetupDataGridViewColumns();
+
+
+            cmbUnit.Items.Clear();
+            for (int i = 1; i <= 10; i++)
+            {
+                cmbUnit.Items.Add(i.ToString());
+            }
+
+            UpdateTotalLabel();
         }
 
         /// <summary>
@@ -77,9 +96,249 @@ namespace NinjaApp.Winform.Forms
             shoppingData = shoppingData.OrderBy(item => item.Ürünler).ToList();
             dataGridView1.DataSource = shoppingData;
             dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["Adet"].Visible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
+
+
+        /// <summary>
+        /// DataGridView1'de çift tıklanan bir ürünü DataGridView2'ye ekleyen bir metottur.
+        /// </summary> 
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+
+                int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dataGridView1.Rows[selectedRowIndex];
+                string productName = selectedRow.Cells["Ürünler"].Value.ToString();
+                string unit = selectedRow.Cells["Birim"].Value.ToString();
+                string euroPriceStr = selectedRow.Cells["Fiyat"].Value.ToString();
+                string adetStr = selectedRow.Cells["Adet"].Value.ToString(); // Adet değerini al
+
+                string tlPriceStr = euroPriceStr.Replace("EUR", "TL");
+
+                dataGridView2.Rows.Add(productName, unit, tlPriceStr, adetStr);
+                UpdateTotalLabel();
+            }
+        }
+
+        /// <summary>
+        /// DataGridView sütunlarını biçimlendiren bir metottur, özellikle "Fiyat" sütununa "TL" ekler.
+        /// </summary>       
+        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView dataGridView = sender as DataGridView;
+
+            if (dataGridView != null && e.RowIndex >= 0 && e.Value != null)
+            {
+                DataGridViewColumn column = dataGridView.Columns[e.ColumnIndex];
+
+                if (column.Name == "Fiyat")
+                {
+                    // Fiyat sütunu ve satır indeksi uygunsa ve değer null değilse, değere "TL" ekleyin
+                    string priceStr = e.Value.ToString();
+                    string tlPriceStr = priceStr + "tl";
+                    e.Value = tlPriceStr;
+                    e.FormattingApplied = true; // Düzenleme uygulandığını işaretleyin
+                }
+            }
+        }
+
+        /// <summary>
+        /// Kasa tablomuza sabit kolonları eklmeye yarar.
+        /// </summary>
+        private void SetupDataGridViewColumns()
+        {
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+            DataGridViewTextBoxColumn productNameColumn = new DataGridViewTextBoxColumn();
+            productNameColumn.HeaderText = "Ürünler";
+            productNameColumn.Name = "Ürünler";
+            dataGridView2.Columns.Add(productNameColumn);
+
+            DataGridViewTextBoxColumn unitColumn = new DataGridViewTextBoxColumn();
+            unitColumn.HeaderText = "Birim";
+            unitColumn.Name = "Birim";
+            dataGridView2.Columns.Add(unitColumn);
+
+            DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn();
+            priceColumn.HeaderText = "Fiyat";
+            priceColumn.Name = "Fiyat";
+            dataGridView2.Columns.Add(priceColumn);
+
+            DataGridViewTextBoxColumn adetColumn = new DataGridViewTextBoxColumn();
+            adetColumn.HeaderText = "Adet";
+            adetColumn.Name = "Adet";
+            dataGridView2.Columns.Add(adetColumn);
+
+
+            dataGridView2.Columns["Adet"].Visible = false;
+
+        }
+
+        /// <summary>
+        ///  DataGridView2'de bir hücreye tıkladığınızda çalışan bir metottur ve seçilen ürünün detaylarını gösterir.
+        /// </summary>        
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                // Tıklanan satırı alın
+                DataGridViewRow selectedRow = dataGridView2.Rows[e.RowIndex];
+
+                // Ürün adını alın
+                object productNameObj = selectedRow.Cells["Ürünler"].Value;
+                if (productNameObj != null)
+                {
+                    string productName = productNameObj.ToString();
+
+                    // Diğer hücrelerden bilgileri alabilirsiniz, ama sadece ürün adını txtSelectedProduct içine yerleştirin
+                    // Örnek olarak fiyatı para birimi ile gösteriyoruz
+                    decimal price;
+                    if (decimal.TryParse(selectedRow.Cells["Fiyat"].Value?.ToString(), out price))
+                    {
+                        // Diğer bilgileri de alabilirsiniz
+
+                        // Ürün adını txtSelectedProduct içerisine yerleştirin
+                        txtSelectedProduct.Text = productName;
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Ürün eklemek için "Ekle" düğmesine tıkladığınızda çalışan bir metottur.
+        ///  </summary>       
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(txtSelectedProduct.Text))
+            {
+
+                string selectedUnit = cmbUnit.SelectedItem?.ToString(); // Seçilen birimi alın
+                string selectedProductName = txtSelectedProduct.Text; // Seçilen ürün adını alın
+
+                // DataGridView2'de ilgili ürün adına sahip satırı bulun
+                DataGridViewRow existingRow = null;
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    if (row.Cells["Ürünler"].Value != null && row.Cells["Ürünler"].Value.ToString() == selectedProductName)
+                    {
+                        existingRow = row;
+                        break; // Ürünü bulduktan sonra döngüyü sonlandırın
+                    }
+                }
+
+                // Seçilen birim sonuna "kg" ekleyin
+                if (!string.IsNullOrEmpty(selectedUnit) && !selectedUnit.EndsWith("kg"))
+                {
+                    selectedUnit += "kg";
+                }
+
+                decimal unitPrice = 0; // Fiyatı saklamak için 0 olarak başlatın
+                if (existingRow != null)
+                {
+                    // Mevcut satırdan fiyatı alın
+                    unitPrice = decimal.Parse(existingRow.Cells["Fiyat"].Value.ToString()); // Mevcut fiyatı decimal olarak çevirin
+                }
+
+                // Eklenen birim miktarını alın
+                int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
+
+                // Toplam fiyatı hesaplayın
+                decimal totalPrice = unitPrice * unitQuantity;
+
+                // Eğer mevcut bir satır varsa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
+                if (existingRow != null)
+                {
+                    int existingUnitCount = int.Parse(existingRow.Cells["Birim"].Value.ToString().Replace("kg", ""));
+
+                    if (existingUnitCount + unitQuantity > 10)
+                    {
+                        // 10 birim sınırını aştığında kullanıcıya uyarı verin
+                        MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
+                    }
+                    else
+                    {
+                        // Mevcut birimi ve miktarını güncelle
+                        existingRow.Cells["Birim"].Value = (existingUnitCount + unitQuantity) + "kg";
+                        existingRow.Cells["Fiyat"].Value = totalPrice.ToString(""); // Para birimi ile göster
+                    }
+                }
+                else
+                {
+                    // Eğer mevcut bir satır yoksa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
+                    if (unitQuantity <= 10)
+                    {
+                        dataGridView2.Rows.Add(selectedProductName, selectedUnit, totalPrice.ToString("")); // Toplam fiyatı yerleştirin
+                    }
+                    else
+                    {
+                        // 10 birim sınırını aştığında kullanıcıya uyarı verin
+                        MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
+                    }
+                }
+
+
+
+                // İşlem tamamlandığında combobox'ı temizleyin
+                cmbUnit.SelectedIndex = -1;
+
+                UpdateTotalLabel();
+            }
+        }
+
+
+        /// <summary>
+        /// Toplam fiyatı hesaplayan ve etiketi güncelleyen bir metottur.
+        /// </summary>
+        private void UpdateTotalLabel()
+        {
+
+            decimal total = 0;
+
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                object fiyatValue = row.Cells["Fiyat"].Value;
+                if (fiyatValue != null)
+                {
+                    string priceStr = fiyatValue.ToString();
+                    decimal price = decimal.Parse(priceStr.Replace("TL", "").Trim()); // TL sembolünü kaldırın ve boşlukları temizleyin
+                    total += price;
+                }
+            }
+
+            lblTotal.Text = total.ToString("") + " TL"; // Toplama "TL" ekleyin
+        }
+
+
+
+        /// <summary>
+        ///  Seçili bir ürünü kaldırmak için "Kaldır" düğmesine tıkladığınızda çalışan bir metottur.
+        /// </summary>      
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedCells.Count > 0)
+            {
+                // Seçilen hücrenin satırını alın
+                int selectedRowIndex = dataGridView2.SelectedCells[0].RowIndex;
+
+                // Seçilen satırı DataGridView2'den kaldırın
+                dataGridView2.Rows.RemoveAt(selectedRowIndex);
+
+                UpdateTotalLabel();
+            }
+        }
+
+
     }
+
+
 }
+

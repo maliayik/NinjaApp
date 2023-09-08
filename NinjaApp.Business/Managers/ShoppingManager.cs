@@ -28,7 +28,7 @@ namespace NinjaApp.Business.Managers
 
             foreach (var product in products)
             {
-                // Ürünün kategorisi seçilen kategori ile eşleşiyorsa, bu ürünü listeye ekleyin
+                
                 if (product.CategoryName.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
                 {
                     var dto = new ShoppingDto();
@@ -38,6 +38,7 @@ namespace NinjaApp.Business.Managers
                     dto.Kategori = product.CategoryName;
                     dto.Birim = product.Unit;
                     dto.Fiyat = product.Price;
+                    dto.Adet = product.Stock;
 
                     dtoList.Add(dto);
                 }
@@ -62,6 +63,7 @@ namespace NinjaApp.Business.Managers
                 dto.Kategori = product.CategoryName;
                 dto.Birim = product.Unit;
                 dto.Fiyat = product.Price;
+                dto.Adet= product.Stock;
 
                 dtoList.Add(dto);
             }
