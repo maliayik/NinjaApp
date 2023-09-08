@@ -53,9 +53,39 @@ namespace NinjaApp.Data.Repositories
             return null;
         }
 
+        public AppUser GetUserLogin(string userName, string password)
+        {
+
+            using (var connection = new DbConnectionHelper().Connection)
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand("SELECT * FROM Users WHERE UserName=@username AND Password=@password", connection))
+                {
+                    command.Parameters.AddWithValue("@username", userName);
+                    command.Parameters.AddWithValue("@password", password);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var user = new AppUser
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Username = reader["UserName"].ToString(),
+                                Password = reader["Password"].ToString()
+                            };
+
+                            return user;
+                        }
+                    }
+                }
+            }
+            return null;
 
 
 
+        }
 
         public void UpdateUserBalance(int userId, decimal balance)
         {
