@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using NinjaApp.DTOs;
+using NinjaApp.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,11 @@ namespace NinjaApp.Winform.Forms
 {
     public partial class NavigationForm : Form
     {        
-        public NavigationForm()
+        private UserLoginDto _user;
+        public NavigationForm(UserLoginDto userLoginDto)
         {
             InitializeComponent();
+            _user = userLoginDto;
         }
     }
 }
