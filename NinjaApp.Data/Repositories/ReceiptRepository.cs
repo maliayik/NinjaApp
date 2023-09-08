@@ -8,6 +8,37 @@ namespace NinjaApp.Data.Repositories
 {
     public class ReceiptRepository : IReceiptRepository
     {
+        public void AddReceipt(Receipt receipt)
+        {
+            using (var connection = new DbConnectionHelper().Connection)
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand())
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+                    
+                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, ReceiptNo, Total, ProductId, ShopId, UserId) " +
+                                          "VALUES (@ProductName, @PurchaseDate, @ReceiptNo, @Total, @ProductId, @ShopId, @UserId)";
+                    
+                    command.Parameters.AddWithValue("@ProductName", receipt.ProductName);
+                    command.Parameters.AddWithValue("@PurchaseDate", receipt.PurchaseDate);
+                    command.Parameters.AddWithValue("@ReceiptNo", receipt.ReceiptNo);
+                    command.Parameters.AddWithValue("@Total", receipt.Total);
+                    command.Parameters.AddWithValue("@ProductId", receipt.ProductId);
+                    command.Parameters.AddWithValue("@ShopId", receipt.ShopId);
+                    command.Parameters.AddWithValue("@UserId", receipt.UserId);
+
+                  
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                    connection.Close();
+
+                }
+            }
+        }
+
         public List<Receipt> GetReceiptByUserId(int userId)
         {
             List<Receipt> receipts = new List<Receipt>();

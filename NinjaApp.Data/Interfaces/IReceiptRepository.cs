@@ -6,5 +6,6 @@ namespace NinjaApp.Data.Interfaces
     {
         List<Receipt> GetTopSellingReceipts(int count);
         List<Receipt> GetReceiptByUserId(int userId);
+       void  AddReceipt(Receipt receipt);
     }
 }
