@@ -109,5 +109,6 @@ namespace NinjaApp.Winform.Forms
         {
             changePasswordForm.Show();
         }
+        
     }
 }

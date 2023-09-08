@@ -6,5 +6,6 @@ namespace NinjaApp.Data.Interfaces
     {
         List<Product> GetProducts();
         void UpdateProduct(int productId, decimal newPrice);
+        List<Product> GetProductsByCategory(string categoryName);
     }
 }

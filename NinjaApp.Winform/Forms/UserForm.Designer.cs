@@ -46,7 +46,7 @@
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
             dataGridView1.Size = new Size(433, 627);
-            dataGridView1.TabIndex = 0;
+            dataGridView1.TabIndex = 0;      
             // 
             // userLogin
             // 
