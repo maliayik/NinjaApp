@@ -14,7 +14,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService,UserManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService,UserManager>().AddScoped<IShoppingService,ShoppingManager>().BuildServiceProvider();
 
 
         }
@@ -51,11 +51,21 @@ namespace NinjaApp.Business
         {
             return serviceProvider.GetRequiredService<IChartService>();
         }
-
-
+        
+        /// <summary>
+        /// Bu metot User service içeriğini getirir.
+        /// </summary>        
         public IUserService GetUserServiceInstance()
         {
             return serviceProvider.GetRequiredService<IUserService>();
+        }
+
+        /// <summary>
+        /// Bu metot shopping service içeriğini getirir.
+        /// </summary>
+        public IShoppingService GetShoppingServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IShoppingService>();
         }
     }
 }

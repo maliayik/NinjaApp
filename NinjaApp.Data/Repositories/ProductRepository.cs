@@ -49,6 +49,46 @@ namespace NinjaApp.Data.Repositories
             return products;
         }
 
+        public List<Product> GetProductsByCategory(string categoryName)
+        {
+            List<Product> products = new List<Product>();
+
+            var connection = new DbConnectionHelper().Connection;
+
+            SQLiteCommand command = new SQLiteCommand();
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.CommandText = "SELECT * FROM Products WHERE CategoryName = @CategoryName";
+            command.Parameters.AddWithValue("@CategoryName", categoryName);
+
+            connection.Open();
+
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var product = new Product();
+
+                product.Id = Convert.ToInt32(reader[0]);
+                product.ProductName = Convert.ToString(reader[1]);
+                product.CategoryName = Convert.ToString(reader[2]);
+                product.Unit = Convert.ToString(reader[3]);
+                product.Price = Convert.ToDecimal(reader[4]);
+                product.Stock = Convert.ToInt32(reader[5]);
+                product.ShopId = Convert.ToInt32(reader[6]);
+                product.CategoryId = Convert.ToInt32(reader[7]);
+                product.SuplierId = Convert.ToInt32(reader[8]);
+
+                products.Add(product);
+            }
+
+            reader.Close();
+            command.Parameters.Clear();
+            connection.Close();
+
+            return products;
+        }
+
 
 
         public void UpdateProduct(int productId, decimal newPrice)
@@ -67,7 +107,8 @@ namespace NinjaApp.Data.Repositories
             command.ExecuteNonQuery();
             connection.Close();
         }
+    }    
 
-
-    }
 }
+    
+
