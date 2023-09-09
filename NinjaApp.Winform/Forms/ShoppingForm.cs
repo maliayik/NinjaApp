@@ -37,7 +37,7 @@ namespace NinjaApp.Winform.Forms
 
         private void ShoppingForm_Load(object sender, EventArgs e)
         {
-            userForm.UserFormClosed += UserForm_UserFormClosed;
+
 
             _shoppingData = _shoppingService.GetShoppingProductWithDto();
 
@@ -60,11 +60,7 @@ namespace NinjaApp.Winform.Forms
             UpdateTotalLabel();
         }
 
-        private void UserForm_UserFormClosed(object sender, EventArgs e)
-        {
-            UpdateUserInformation(_loggedInUser);
-            this.Show();
-        }
+
 
 
         /// <summary>
@@ -356,18 +352,20 @@ namespace NinjaApp.Winform.Forms
         }
 
 
+        /// <summary>
+        /// Bu metot, kullanıcı bağlantısına tıklandığında çalışır ve kullanıcı formunu gösterir.
+        /// </summary>    
         private void linkLabelUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
             this.Hide();
-
             UserForm userForm = new UserForm(_loggedInUser);
-            userForm.UserFormClosed += UserForm_UserFormClosed;
             userForm.Show();
 
         }
 
-
+        /// <summary>
+        /// Bu metot, form kapatıldığında çalışır ve giriş formunu yeniden gösterir.
+        /// </summary>      
         private void SuplierForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // LoginForm'u yeni bir nesne olarak oluşturup göster
@@ -376,19 +374,19 @@ namespace NinjaApp.Winform.Forms
 
         }
 
-
+        /// <summary>
+        /// Bu metot, kullanıcı bilgilerini günceller ve kullanıcının adını ve bakiyesini gösterir.
+        /// </summary>    
         public void UpdateUserInformation(UserLoginDto updatedUser)
         {
             _loggedInUser = updatedUser;
             linkLabelUser.Text = "Hoş geldiniz, " + _loggedInUser.Fullname;
 
-            UserDto user =_userService.GetUsersById(_loggedInUser.Id);
+            UserDto user = _userService.GetUsersById(_loggedInUser.Id);
             decimal balance = user.Balance;
             lblBalance.Text = "Bakiyeniz: " + balance.ToString("0.00") + " TL";
 
         }
-
-
     }
 }
 

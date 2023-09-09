@@ -11,7 +11,7 @@ namespace NinjaApp.Winform.Forms
         public event EventHandler MoneyAdded;
         private UserLoginDto loggedInUser;
 
-        //değişecek giriş yapan kullanıcıya göre bu form açılacak.
+        
         int userId;
         public AddMoneyForm(UserLoginDto loggedInUser)
         {

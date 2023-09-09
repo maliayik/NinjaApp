@@ -16,10 +16,7 @@ namespace NinjaApp.Winform.Forms
         private UserLoginDto loggedInUser;
 
 
-        int userId;
-
-
-        //değişecek giriş yapan kullanıcıya göre bu form açılacak.
+        int userId;        
 
         public UserForm(UserLoginDto loggedInUser)
         {
@@ -44,18 +41,7 @@ namespace NinjaApp.Winform.Forms
         {
             Orders();
             GetBalance();
-
-            addMoneyForm.MoneyAdded += AddMoneyForm_MoneyAdded;
-
-
-        }
-
-
-        private void UserForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            UserFormClosed?.Invoke(this, EventArgs.Empty);
-            this.Show();
-        }
+        }      
 
         /// <summary>
         /// Bu metot kullanıcının bakiyesini görüntülemek için.
@@ -105,7 +91,7 @@ namespace NinjaApp.Winform.Forms
 
 
         /// <summary>
-        /// güncellenmesi gerekiyor bu form şifre değiştirildiginde login forma yönlendirecek.
+        /// Bu metot, "ChangePasswordForm" kapatıldığında kullanıcının şifresinin değiştirildiğini işler ve kullanıcıyı giriş formuna yönlendirir.
         /// </summary>
 
         private void ChangePasswordForm_ChangePassword(object sender, EventArgs e)
@@ -118,12 +104,17 @@ namespace NinjaApp.Winform.Forms
             loginForm.Show();
         }
 
-
+        /// <summary>
+        /// Bu metot, "Şifre Değiştir" düğmesine tıklandığında çalışır ve şifre değiştirmek için bir form açar.
+        /// </summary>  
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             changePasswordForm.Show();
         }
 
+        /// <summary>
+        /// Bu metot, "Alışveriş Yap" düğmesine tıklandığında çalışır ve alışveriş formunu açar, bu formu gizler.
+        /// </summary>      
         private void btnShopping_Click(object sender, EventArgs e)
         {
             ShoppingForm shoppingForm = new ShoppingForm(loggedInUser);
