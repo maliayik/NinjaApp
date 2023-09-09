@@ -2,12 +2,6 @@
 using NinjaApp.Data;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Business.Managers
 {
@@ -17,7 +11,7 @@ namespace NinjaApp.Business.Managers
 
         public ShoppingManager()
         {
-            _productRepository=new DataServiceRegistration().GetProductRepositoryInstance();
+            _productRepository = new DataServiceRegistration().GetProductRepositoryInstance();
         }
 
         public List<ShoppingDto> GetShoppingProductByCategoryWithDto(string categoryName)
@@ -28,7 +22,7 @@ namespace NinjaApp.Business.Managers
 
             foreach (var product in products)
             {
-                
+
                 if (product.CategoryName.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
                 {
                     var dto = new ShoppingDto();
@@ -63,7 +57,7 @@ namespace NinjaApp.Business.Managers
                 dto.Kategori = product.CategoryName;
                 dto.Birim = product.Unit;
                 dto.Fiyat = product.Price;
-                dto.Adet= product.Stock;
+                dto.Adet = product.Stock;
 
                 dtoList.Add(dto);
             }

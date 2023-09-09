@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NinjaApp.DTOs
+﻿namespace NinjaApp.DTOs
 {
     public class ShoppingDto
     {
@@ -13,6 +7,6 @@ namespace NinjaApp.DTOs
         public string Kategori { get; set; }
         public string Birim { get; set; }
         public decimal Fiyat { get; set; }
-        public int  Adet { get; set; }
+        public int Adet { get; set; }
     }
 }

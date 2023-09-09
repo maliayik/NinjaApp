@@ -9,7 +9,6 @@
         public int SaleCount { get; set; }
         public decimal Total { get; set; }
         public int ProductId { get; set; }
-        public int ShopId { get; set; }
         public int UserId { get; set; }
 
     }

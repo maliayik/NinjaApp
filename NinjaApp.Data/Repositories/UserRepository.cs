@@ -1,13 +1,8 @@
 ﻿using NinjaApp.Data.Helpers;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {
@@ -40,7 +35,6 @@ namespace NinjaApp.Data.Repositories
                                 Username = reader["Username"].ToString(),
                                 Password = reader["Password"].ToString(),
                                 Balance = Convert.ToDecimal(reader["Balance"]),
-                                ShopId = Convert.ToInt32(reader["ShopId"]),
                                 ReceiptId = Convert.ToInt32(reader["ReceiptId"])
                             };
 

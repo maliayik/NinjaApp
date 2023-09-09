@@ -1,16 +1,7 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -220,20 +211,8 @@ namespace NinjaApp.Winform.Forms
 
             if (!string.IsNullOrEmpty(txtSelectedProduct.Text))
             {
-
                 string selectedUnit = cmbUnit.SelectedItem?.ToString(); // Seçilen birimi alın
                 string selectedProductName = txtSelectedProduct.Text; // Seçilen ürün adını alın
-
-                // DataGridView2'de ilgili ürün adına sahip satırı bulun
-                DataGridViewRow existingRow = null;
-                foreach (DataGridViewRow row in dataGridView2.Rows)
-                {
-                    if (row.Cells["Ürünler"].Value != null && row.Cells["Ürünler"].Value.ToString() == selectedProductName)
-                    {
-                        existingRow = row;
-                        break; // Ürünü bulduktan sonra döngüyü sonlandırın
-                    }
-                }
 
                 // Seçilen birim sonuna "kg" ekleyin
                 if (!string.IsNullOrEmpty(selectedUnit) && !selectedUnit.EndsWith("kg"))
@@ -241,42 +220,66 @@ namespace NinjaApp.Winform.Forms
                     selectedUnit += "kg";
                 }
 
-                decimal unitPrice = 0; // Fiyatı saklamak için 0 olarak başlatın
-                if (existingRow != null)
-                {
-                    // Mevcut satırdan fiyatı alın
-                    unitPrice = decimal.Parse(existingRow.Cells["Fiyat"].Value.ToString()); // Mevcut fiyatı decimal olarak çevirin
-                }
-
-                // Eklenen birim miktarını alın
-                int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
-
-                // Toplam fiyatı hesaplayın
-                decimal totalPrice = unitPrice * unitQuantity;
-
                 // Eğer mevcut bir satır varsa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
-                if (existingRow != null)
+                if (dataGridView2.Rows.Count > 0)
                 {
-                    int existingUnitCount = int.Parse(existingRow.Cells["Birim"].Value.ToString().Replace("kg", ""));
+                    bool existingRowFound = false;
 
-                    if (existingUnitCount + unitQuantity > 10)
+                    foreach (DataGridViewRow row in dataGridView2.Rows)
                     {
-                        // 10 birim sınırını aştığında kullanıcıya uyarı verin
-                        MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
+                        if (row.Cells["Ürünler"].Value != null && row.Cells["Ürünler"].Value.ToString() == selectedProductName)
+                        {
+                            // Mevcut birimi ve miktarını güncelle
+                            int existingUnitCount = int.Parse(row.Cells["Birim"].Value.ToString().Replace("kg", ""));
+                            int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
+
+                            if (existingUnitCount + unitQuantity > 10)
+                            {
+                                // 10 birim sınırını aştığında kullanıcıya uyarı verin
+                                MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
+                            }
+                            else
+                            {
+                                decimal unitPrice = decimal.Parse(row.Cells["Fiyat"].Value.ToString().Replace("TL", "").Trim());
+                                decimal totalPrice = (existingUnitCount + unitQuantity) * unitPrice;
+
+                                row.Cells["Birim"].Value = (existingUnitCount + unitQuantity) + "kg";
+                                row.Cells["Fiyat"].Value = totalPrice.ToString("") + "";
+                            }
+
+                            existingRowFound = true;
+                            break; // Ürünü bulduktan sonra döngüyü sonlandırın
+                        }
                     }
-                    else
+
+                    if (!existingRowFound)
                     {
-                        // Mevcut birimi ve miktarını güncelle
-                        existingRow.Cells["Birim"].Value = (existingUnitCount + unitQuantity) + "kg";
-                        existingRow.Cells["Fiyat"].Value = totalPrice.ToString(""); // Para birimi ile göster
+                        // Mevcut bir satır yoksa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
+                        int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
+                        decimal unitPrice = _shoppingData.First(item => item.Ürünler == selectedProductName).Fiyat; // Ürün fiyatını alın
+                        decimal totalPrice = unitQuantity * unitPrice;
+
+                        if (unitQuantity <= 10)
+                        {
+                            dataGridView2.Rows.Add(selectedProductName, selectedUnit, totalPrice.ToString("") + "");
+                        }
+                        else
+                        {
+                            // 10 birim sınırını aştığında kullanıcıya uyarı verin
+                            MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
+                        }
                     }
                 }
                 else
                 {
-                    // Eğer mevcut bir satır yoksa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
+                    // Mevcut bir satır yoksa ve eklenen birim sayısı 10'u aşmıyorsa yeni bir satır ekleyin
+                    int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
+                    decimal unitPrice = _shoppingData.First(item => item.Ürünler == selectedProductName).Fiyat; // Ürün fiyatını alın
+                    decimal totalPrice = unitQuantity * unitPrice;
+
                     if (unitQuantity <= 10)
                     {
-                        dataGridView2.Rows.Add(selectedProductName, selectedUnit, totalPrice.ToString("")); // Toplam fiyatı yerleştirin
+                        dataGridView2.Rows.Add(selectedProductName, selectedUnit, totalPrice.ToString("") + "");
                     }
                     else
                     {
@@ -284,8 +287,6 @@ namespace NinjaApp.Winform.Forms
                         MessageBox.Show("Birim sınırını aştınız. En fazla 10 birim ekleyebilirsiniz.");
                     }
                 }
-
-
 
                 // İşlem tamamlandığında combobox'ı temizleyin
                 cmbUnit.SelectedIndex = -1;

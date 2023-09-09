@@ -34,9 +34,8 @@ namespace NinjaApp.Data.Repositories
                 product.Unit = Convert.ToString(reader[3]);
                 product.Price = Convert.ToDecimal(reader[4]);
                 product.Stock = Convert.ToInt32(reader[5]);
-                product.ShopId = Convert.ToInt32(reader[6]);
-                product.CategoryId = Convert.ToInt32(reader[7]);
-                product.SuplierId = Convert.ToInt32(reader[8]);
+                product.CategoryId = Convert.ToInt32(reader[6]);
+                product.SuplierId = Convert.ToInt32(reader[7]);
 
                 products.Add(product);
 
@@ -75,9 +74,8 @@ namespace NinjaApp.Data.Repositories
                 product.Unit = Convert.ToString(reader[3]);
                 product.Price = Convert.ToDecimal(reader[4]);
                 product.Stock = Convert.ToInt32(reader[5]);
-                product.ShopId = Convert.ToInt32(reader[6]);
-                product.CategoryId = Convert.ToInt32(reader[7]);
-                product.SuplierId = Convert.ToInt32(reader[8]);
+                product.CategoryId = Convert.ToInt32(reader[6]);
+                product.SuplierId = Convert.ToInt32(reader[7]);
 
                 products.Add(product);
             }
@@ -107,8 +105,8 @@ namespace NinjaApp.Data.Repositories
             command.ExecuteNonQuery();
             connection.Close();
         }
-    }    
+    }
 
 }
-    
+
 

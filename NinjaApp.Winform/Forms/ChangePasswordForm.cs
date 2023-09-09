@@ -1,14 +1,5 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -38,20 +29,20 @@ namespace NinjaApp.Winform.Forms
             string confirmPassword = txtConfirmPassword.Text;
             if (!string.IsNullOrEmpty(newPassword) && newPassword == confirmPassword)
             {
-                
+
                 // userId değişkenini kullanmak isterseniz, burada userId'i alabilirsiniz.
 
                 // Şifre güncelleme işlemini yapmak için _userService.UpdateUserPassword metodu kullanılır.
                 _userService.UpdateUserPassword(userId, newPassword);
 
                 // Şifre güncellendiğinde ChangePassword olayını tetikleyebilirsiniz.
-                
+
 
                 // Kullanıcıya bilgi ver
                 MessageBox.Show(this, "Şifre güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ChangePassword?.Invoke(this, EventArgs.Empty);
                 this.Close();
-                
+
             }
             else
             {

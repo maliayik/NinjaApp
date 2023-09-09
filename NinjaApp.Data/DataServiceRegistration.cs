@@ -14,7 +14,7 @@ namespace NinjaApp.Data
         /// </summary>
         public DataServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductRepository, ProductRepository>().AddScoped<IReceiptRepository, ReceiptRepository>().AddScoped<IUserRepository,UserRepository>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductRepository, ProductRepository>().AddScoped<IReceiptRepository, ReceiptRepository>().AddScoped<IUserRepository, UserRepository>().BuildServiceProvider();
 
 
         }

@@ -18,19 +18,18 @@ namespace NinjaApp.Data.Repositories
                 {
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
-                    
-                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, ReceiptNo, Total, ProductId, ShopId, UserId) " +
-                                          "VALUES (@ProductName, @PurchaseDate, @ReceiptNo, @Total, @ProductId, @ShopId, @UserId)";
-                    
+
+                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, ReceiptNo, Total, ProductId) " +
+                                          "VALUES (@ProductName, @PurchaseDate, @ReceiptNo, @Total, @ProductId)";
+
                     command.Parameters.AddWithValue("@ProductName", receipt.ProductName);
                     command.Parameters.AddWithValue("@PurchaseDate", receipt.PurchaseDate);
                     command.Parameters.AddWithValue("@ReceiptNo", receipt.ReceiptNo);
                     command.Parameters.AddWithValue("@Total", receipt.Total);
                     command.Parameters.AddWithValue("@ProductId", receipt.ProductId);
-                    command.Parameters.AddWithValue("@ShopId", receipt.ShopId);
                     command.Parameters.AddWithValue("@UserId", receipt.UserId);
 
-                  
+
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                     connection.Close();
@@ -60,16 +59,15 @@ namespace NinjaApp.Data.Repositories
                     {
                         while (reader.Read())
                         {
-                            
+
                             Receipt receipt = new Receipt
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 ProductName = reader["ProductName"].ToString(),
                                 PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),
-                                ReceiptNo = reader["ReceiptNo"].ToString(),                              
+                                ReceiptNo = reader["ReceiptNo"].ToString(),
                                 Total = Convert.ToDecimal(reader["Total"]),
                                 ProductId = Convert.ToInt32(reader["ProductId"]),
-                                ShopId = Convert.ToInt32(reader["ShopId"]),
                                 UserId = Convert.ToInt32(reader["UserId"])
                             };
                             receipts.Add(receipt);

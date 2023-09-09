@@ -3,11 +3,6 @@ using NinjaApp.Data;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.DTOs;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Business.Managers
 {
@@ -19,14 +14,14 @@ namespace NinjaApp.Business.Managers
         public UserManager()
         {
             _userRepository = new DataServiceRegistration().GetUserRepositoryInstance();
-            _receiptRepository=new DataServiceRegistration().GetReceiptRepositoryInstance();
+            _receiptRepository = new DataServiceRegistration().GetReceiptRepositoryInstance();
         }
 
         public List<ReceiptDto> GetReceiptByUserId(int userId)
         {
             var user = _userRepository.GetAppUserById(userId);
             var receipts = _receiptRepository.GetReceiptByUserId(userId);
-            
+
             var receiptDtos = new List<ReceiptDto>();
 
             foreach (var receipt in receipts)
@@ -40,8 +35,8 @@ namespace NinjaApp.Business.Managers
                     Total = receipt.Total,
                     UserId = receipt.UserId
                 };
-               
-                receiptDto.ToplamTutar=$"{receiptDto.Total}TL";
+
+                receiptDto.ToplamTutar = $"{receiptDto.Total}TL";
                 receiptDtos.Add(receiptDto);
             }
 
@@ -78,10 +73,10 @@ namespace NinjaApp.Business.Managers
             AppUser user = _userRepository.GetAppUserById(userId);
 
             if (user != null)
-            {               
+            {
                 decimal currentBalance = user.Balance;
                 decimal newBalance = currentBalance + additionalBalance;
-             
+
                 user.Balance = newBalance;
                 _userRepository.UpdateUserBalance(userId, newBalance);
             }
@@ -95,8 +90,8 @@ namespace NinjaApp.Business.Managers
             {
                 user.Id = userId;
                 user.Password = password;
-                
-                _userRepository.UpdateUserPassword(userId,password);
+
+                _userRepository.UpdateUserPassword(userId, password);
             }
         }
     }
