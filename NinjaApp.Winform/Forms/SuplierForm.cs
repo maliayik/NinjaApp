@@ -1,14 +1,17 @@
-﻿namespace NinjaApp.Winform.Forms
+﻿using NinjaApp.DTOs;
+
+namespace NinjaApp.Winform.Forms
 {
     public partial class SuplierForm : Form
     {
         private string selectedProductName;
 
-        public SuplierForm(string productName)
+        private AdminDto _logggedInAdmin;
+        public SuplierForm(string productName,AdminDto loggedInAdmin)
         {
             InitializeComponent();
             selectedProductName = productName;
-            var adminForm = new AdminForm();
+            var adminForm = new AdminForm(loggedInAdmin);
             adminForm.StockBelowThreshold += HandleStockBelowThreshold;
         }
 

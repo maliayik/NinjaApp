@@ -35,6 +35,7 @@
             txtUserLogin = new TextBox();
             btnAddMoney = new Button();
             btnChangePassword = new Button();
+            btnShopping = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
             dataGridView1.Size = new Size(433, 627);
-            dataGridView1.TabIndex = 0;      
+            dataGridView1.TabIndex = 0;
             // 
             // userLogin
             // 
@@ -82,9 +83,9 @@
             // 
             // btnAddMoney
             // 
-            btnAddMoney.Location = new Point(59, 252);
+            btnAddMoney.Location = new Point(12, 267);
             btnAddMoney.Name = "btnAddMoney";
-            btnAddMoney.Size = new Size(161, 46);
+            btnAddMoney.Size = new Size(96, 46);
             btnAddMoney.TabIndex = 4;
             btnAddMoney.Text = "Bakiye Yükle";
             btnAddMoney.UseVisualStyleBackColor = true;
@@ -92,19 +93,30 @@
             // 
             // btnChangePassword
             // 
-            btnChangePassword.Location = new Point(59, 368);
+            btnChangePassword.Location = new Point(137, 267);
             btnChangePassword.Name = "btnChangePassword";
-            btnChangePassword.Size = new Size(161, 46);
+            btnChangePassword.Size = new Size(102, 46);
             btnChangePassword.TabIndex = 6;
             btnChangePassword.Text = "Şifre Değiştir";
             btnChangePassword.UseVisualStyleBackColor = true;
             btnChangePassword.Click += btnChangePassword_Click;
             // 
+            // btnShopping
+            // 
+            btnShopping.Location = new Point(12, 199);
+            btnShopping.Name = "btnShopping";
+            btnShopping.Size = new Size(227, 38);
+            btnShopping.TabIndex = 7;
+            btnShopping.Text = "Alışverişe Geri Dön";
+            btnShopping.UseVisualStyleBackColor = true;
+            btnShopping.Click += btnShopping_Click;
+            // 
             // UserForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(802, 824);
+            ClientSize = new Size(802, 826);
+            Controls.Add(btnShopping);
             Controls.Add(btnChangePassword);
             Controls.Add(btnAddMoney);
             Controls.Add(txtUserLogin);
@@ -129,7 +141,7 @@
         private TextBox txtBalance;
         private TextBox txtUserLogin;
         private Button btnAddMoney;
-        private Button button1;
+        private Button btnShopping;
         private Button btnChangePassword;
     }
 }

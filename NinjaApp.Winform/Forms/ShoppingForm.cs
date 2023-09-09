@@ -10,9 +10,14 @@ namespace NinjaApp.Winform.Forms
         private readonly IShoppingService _shoppingService;
         private List<ShoppingDto> _shoppingData;
         private IUserService _userService;
+        private UserForm userForm;
 
 
-        public ShoppingForm()
+        private UserLoginDto _loggedInUser;
+
+
+
+        public ShoppingForm(UserLoginDto loggedInUser)
         {
             InitializeComponent();
             var dependencyContainer = new BusinessServiceRegistration();
@@ -23,11 +28,17 @@ namespace NinjaApp.Winform.Forms
             dataGridView1.CellFormatting += DataGridView_CellFormatting;
             dataGridView2.CellFormatting += DataGridView_CellFormatting;
             dataGridView2.CellClick += dataGridView2_CellClick;
+            _loggedInUser = loggedInUser;
+            this.FormClosed += SuplierForm_FormClosed;
+            userForm = new UserForm(loggedInUser);
+
         }
 
 
         private void ShoppingForm_Load(object sender, EventArgs e)
         {
+            userForm.UserFormClosed += UserForm_UserFormClosed;
+
             _shoppingData = _shoppingService.GetShoppingProductWithDto();
 
             // Form yüklendiğinde ComboBox'ı kategorilerle doldur
@@ -39,7 +50,7 @@ namespace NinjaApp.Winform.Forms
             //datagridview2 columnlarını yükler
             SetupDataGridViewColumns();
 
-
+            UpdateUserInformation(_loggedInUser);
             cmbUnit.Items.Clear();
             for (int i = 1; i <= 10; i++)
             {
@@ -48,6 +59,13 @@ namespace NinjaApp.Winform.Forms
 
             UpdateTotalLabel();
         }
+
+        private void UserForm_UserFormClosed(object sender, EventArgs e)
+        {
+            UpdateUserInformation(_loggedInUser);
+            this.Show();
+        }
+
 
         /// <summary>
         /// ComboBox'ı temizler ve kategorileri ComboBox'a ekler.
@@ -338,8 +356,39 @@ namespace NinjaApp.Winform.Forms
         }
 
 
+        private void linkLabelUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            this.Hide();
+
+            UserForm userForm = new UserForm(_loggedInUser);
+            userForm.UserFormClosed += UserForm_UserFormClosed;
+            userForm.Show();
+
+        }
+
+
+        private void SuplierForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // LoginForm'u yeni bir nesne olarak oluşturup göster
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+
+        }
+
+
+        public void UpdateUserInformation(UserLoginDto updatedUser)
+        {
+            _loggedInUser = updatedUser;
+            linkLabelUser.Text = "Hoş geldiniz, " + _loggedInUser.Fullname;
+
+            UserDto user =_userService.GetUsersById(_loggedInUser.Id);
+            decimal balance = user.Balance;
+            lblBalance.Text = "Bakiyeniz: " + balance.ToString("0.00") + " TL";
+
+        }
+
+
     }
-
-
 }
 

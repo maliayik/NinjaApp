@@ -1,5 +1,6 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
+using NinjaApp.DTOs;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -8,14 +9,21 @@ namespace NinjaApp.Winform.Forms
         private readonly IUserService _userService;
 
         public event EventHandler MoneyAdded;
+        private UserLoginDto loggedInUser;
 
         //değişecek giriş yapan kullanıcıya göre bu form açılacak.
-        int userId = 1;
-        public AddMoneyForm()
+        int userId;
+        public AddMoneyForm(UserLoginDto loggedInUser)
         {
             InitializeComponent();
             var dependencyContainer = new BusinessServiceRegistration();
             _userService = dependencyContainer.GetUserServiceInstance();
+
+
+            if (loggedInUser != null)
+            {
+                userId = loggedInUser.Id;
+            }
 
         }
 
@@ -37,6 +45,7 @@ namespace NinjaApp.Winform.Forms
                 decimal amount = decimal.Parse(txtAmound.Text);
 
                 _userService.UpdateUserBalance(userId, amount);
+               
 
                 MessageBox.Show(this, "Bakiye güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MoneyAdded?.Invoke(this, EventArgs.Empty);

@@ -50,6 +50,7 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             comboBox1 = new ComboBox();
             label5 = new Label();
+            lblAdmin = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
@@ -226,11 +227,21 @@
             label5.TabIndex = 8;
             label5.Text = "Listele";
             // 
+            // lblAdmin
+            // 
+            lblAdmin.AutoSize = true;
+            lblAdmin.Location = new Point(65, 22);
+            lblAdmin.Name = "lblAdmin";
+            lblAdmin.Size = new Size(168, 18);
+            lblAdmin.TabIndex = 9;
+            lblAdmin.Text = "Giriş yapan yönetici";
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2098, 1064);
+            Controls.Add(lblAdmin);
             Controls.Add(label5);
             Controls.Add(comboBox1);
             Controls.Add(btnUpdate);
@@ -247,6 +258,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "AdminForm";
             Text = "AdminForm";
+            FormClosed += AdminForm_FormClosed;
             Load += AdminForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
@@ -271,5 +283,6 @@
         private ContextMenuStrip contextMenuStrip1;
         private ComboBox comboBox1;
         private Label label5;
+        private Label lblAdmin;
     }
 }

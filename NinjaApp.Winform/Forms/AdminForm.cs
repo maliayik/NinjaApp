@@ -12,6 +12,8 @@ namespace NinjaApp.Winform.Forms
         private readonly IPriceEditService _priceEditService;
         private readonly IChartService _chartService;
 
+        private AdminDto _loggedInAdmin;
+
 
         /// <summary>
         /// Mesaj eventini yakalamak için yazılmıs action.
@@ -19,7 +21,7 @@ namespace NinjaApp.Winform.Forms
         public event Action<string, int> StockBelowThreshold;
 
 
-        public AdminForm()
+        public AdminForm(AdminDto loggedInAdmin)
         {
             InitializeComponent();
             var dependencyContainer = new BusinessServiceRegistration();
@@ -27,6 +29,7 @@ namespace NinjaApp.Winform.Forms
             _stockService = dependencyContainer.GetStockServiceInstance();
             _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
             _chartService = dependencyContainer.GetChartServiceInstance();
+            _loggedInAdmin = loggedInAdmin;
         }
 
 
@@ -40,8 +43,8 @@ namespace NinjaApp.Winform.Forms
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
                     string selectedProductName = dataGridView1.Rows[e.RowIndex].Cells["Ürünler"].Value.ToString();
-                    SuplierForm suplierForm = new SuplierForm(selectedProductName);
-                    suplierForm.Show();
+                    //SuplierForm suplierForm = new SuplierForm(selectedProductName);
+                    // suplierForm.Show();
                 }
             };
         }
@@ -160,6 +163,8 @@ namespace NinjaApp.Winform.Forms
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            lblAdmin.Text = _loggedInAdmin.Fullname;
+
             Stock();
             PriceEdit();
 
@@ -167,6 +172,8 @@ namespace NinjaApp.Winform.Forms
             comboBox1.Items.Add(6);
             comboBox1.Items.Add(9);
             comboBox1.SelectedIndex = 0;
+
+
 
         }
 
@@ -219,6 +226,11 @@ namespace NinjaApp.Winform.Forms
                 chart1.Series["PieSeries"].Points.AddXY(data.ProductName, data.SaleCount);
             }
 
+        }
+
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

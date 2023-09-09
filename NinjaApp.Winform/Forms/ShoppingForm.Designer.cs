@@ -38,13 +38,13 @@
             btnRemove = new Button();
             dataGridView2 = new DataGridView();
             label5 = new Label();
-            lblUser = new Label();
             label4 = new Label();
             cmbUnit = new ComboBox();
             label6 = new Label();
             btnPay = new Button();
             lblTotal = new Label();
             lblBalance = new Label();
+            linkLabelUser = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -142,15 +142,6 @@
             label5.TabIndex = 10;
             label5.Text = "NİNJA SUPER MARKET";
             // 
-            // lblUser
-            // 
-            lblUser.AutoSize = true;
-            lblUser.Location = new Point(1404, 10);
-            lblUser.Name = "lblUser";
-            lblUser.Size = new Size(80, 18);
-            lblUser.TabIndex = 11;
-            lblUser.Text = "Kullanıcı";
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -198,24 +189,36 @@
             // lblBalance
             // 
             lblBalance.AutoSize = true;
-            lblBalance.Location = new Point(1428, 38);
+            lblBalance.Location = new Point(1327, 37);
             lblBalance.Name = "lblBalance";
             lblBalance.Size = new Size(56, 18);
             lblBalance.TabIndex = 18;
             lblBalance.Text = "Bakiye";
+            // 
+            // linkLabelUser
+            // 
+            linkLabelUser.AutoSize = true;
+            linkLabelUser.LinkColor = Color.Black;
+            linkLabelUser.Location = new Point(1295, 9);
+            linkLabelUser.Name = "linkLabelUser";
+            linkLabelUser.Size = new Size(80, 18);
+            linkLabelUser.TabIndex = 19;
+            linkLabelUser.TabStop = true;
+            linkLabelUser.Text = "Kullanıcı";
+            linkLabelUser.LinkClicked += linkLabelUser_LinkClicked;
             // 
             // ShoppingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1502, 953);
+            Controls.Add(linkLabelUser);
             Controls.Add(lblBalance);
             Controls.Add(btnPay);
             Controls.Add(lblTotal);
             Controls.Add(label6);
             Controls.Add(cmbUnit);
             Controls.Add(label4);
-            Controls.Add(lblUser);
             Controls.Add(label5);
             Controls.Add(dataGridView2);
             Controls.Add(btnRemove);
@@ -228,7 +231,7 @@
             Controls.Add(dataGridView1);
             Font = new Font("Consolas", 10.18868F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ShoppingForm";
-            Text = "ShoppingForm";
+            Text = "ShoppingForm";            
             Load += ShoppingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
@@ -248,12 +251,12 @@
         private Button btnRemove;
         private DataGridView dataGridView2;
         private Label label5;
-        private Label lblUser;
         private Label label4;
         private ComboBox cmbUnit;
         private Label label6;
         private Button btnPay;
         private Label lblTotal;
         private Label lblBalance;
+        private LinkLabel linkLabelUser;
     }
 }

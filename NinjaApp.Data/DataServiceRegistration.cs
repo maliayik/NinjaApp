@@ -14,7 +14,7 @@ namespace NinjaApp.Data
         /// </summary>
         public DataServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductRepository, ProductRepository>().AddScoped<IReceiptRepository, ReceiptRepository>().AddScoped<IUserRepository, UserRepository>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductRepository, ProductRepository>().AddScoped<IReceiptRepository, ReceiptRepository>().AddScoped<IUserRepository, UserRepository>().AddScoped<IAdminRepository,AdminRepository>().BuildServiceProvider();
 
 
         }
@@ -44,6 +44,14 @@ namespace NinjaApp.Data
         public IUserRepository GetUserRepositoryInstance()
         {
             return serviceProvider.GetRequiredService<IUserRepository>();
+        }
+
+        /// <summary>
+        /// Bana Admin repository içeriğini getirir.
+        /// </summary>      
+        public IAdminRepository GetAdminRepositoryInstance()
+        {
+            return serviceProvider.GetRequiredService<IAdminRepository>();
         }
 
 

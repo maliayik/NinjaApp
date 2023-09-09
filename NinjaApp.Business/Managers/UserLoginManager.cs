@@ -24,7 +24,9 @@ namespace NinjaApp.Business.Managers
                 {
                     Id = UserLogin.Id,
                     UserName = UserLogin.Username,
-                    Password = UserLogin.Password
+                    Password = UserLogin.Password,
+                    Fullname = UserLogin.Fullname,
+                    Balance= UserLogin.Balance,
                 };
 
                 return userLoginDto;

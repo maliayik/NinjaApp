@@ -2,6 +2,7 @@
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
 using System.Data;
+using System.Data.SQLite;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -11,20 +12,32 @@ namespace NinjaApp.Winform.Forms
         private AddMoneyForm addMoneyForm;
         private ChangePasswordForm changePasswordForm;
 
+        public event EventHandler UserFormClosed;
+        private UserLoginDto loggedInUser;
+
+
+        int userId;
+
 
         //değişecek giriş yapan kullanıcıya göre bu form açılacak.
-        int userId = 1;
-        public UserForm()
+
+        public UserForm(UserLoginDto loggedInUser)
         {
             InitializeComponent();
             var dependencyContainer = new BusinessServiceRegistration();
             _userService = dependencyContainer.GetUserServiceInstance();
 
-            addMoneyForm = new AddMoneyForm();
+            addMoneyForm = new AddMoneyForm(loggedInUser);
             addMoneyForm.MoneyAdded += AddMoneyForm_MoneyAdded;
 
-            changePasswordForm = new ChangePasswordForm();
+            changePasswordForm = new ChangePasswordForm(loggedInUser);
             changePasswordForm.ChangePassword += ChangePasswordForm_ChangePassword;
+
+            this.loggedInUser = loggedInUser;
+            if (loggedInUser != null)
+            {
+                userId = loggedInUser.Id;
+            }
         }
 
         private void UserForm_Load(object sender, EventArgs e)
@@ -32,8 +45,17 @@ namespace NinjaApp.Winform.Forms
             Orders();
             GetBalance();
 
+            addMoneyForm.MoneyAdded += AddMoneyForm_MoneyAdded;
+
+
         }
 
+
+        private void UserForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UserFormClosed?.Invoke(this, EventArgs.Empty);
+            this.Show();
+        }
 
         /// <summary>
         /// Bu metot kullanıcının bakiyesini görüntülemek için.
@@ -101,6 +123,15 @@ namespace NinjaApp.Winform.Forms
         {
             changePasswordForm.Show();
         }
+
+        private void btnShopping_Click(object sender, EventArgs e)
+        {
+            ShoppingForm shoppingForm = new ShoppingForm(loggedInUser);
+            shoppingForm.Show();
+            this.Hide();
+
+        }
+
 
     }
 }

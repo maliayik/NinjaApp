@@ -1,5 +1,6 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
+using NinjaApp.DTOs;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -7,15 +8,21 @@ namespace NinjaApp.Winform.Forms
     {
         private readonly IUserService _userService;
         public event EventHandler ChangePassword;
+        private UserLoginDto loggedInUser;
 
         //değişecek giriş yapan kullanıcıya göre bu form açılacak.
-        int userId = 1;
+        int userId;
 
-        public ChangePasswordForm()
+        public ChangePasswordForm(UserLoginDto loggedInUser)
         {
             InitializeComponent();
             var dependencyCotainer = new BusinessServiceRegistration();
             _userService = dependencyCotainer.GetUserServiceInstance();
+
+            if (loggedInUser != null)
+            {
+                userId = loggedInUser.Id;
+            }
         }
 
         private void ChangePasswordForm_Load(object sender, EventArgs e)

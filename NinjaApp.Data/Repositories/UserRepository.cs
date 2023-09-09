@@ -40,9 +40,11 @@ namespace NinjaApp.Data.Repositories
 
                             return user;
                         }
+                        command.Parameters.Clear();
                     }
 
                 }
+                connection.Close();
             }
             return null;
         }
@@ -66,14 +68,19 @@ namespace NinjaApp.Data.Repositories
                             var user = new AppUser
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
+                                Fullname = reader["Fullname"].ToString(),
                                 Username = reader["UserName"].ToString(),
-                                Password = reader["Password"].ToString()
+                                Password = reader["Password"].ToString(),
+                                Balance = Convert.ToDecimal(reader["Balance"]),
+
                             };
 
                             return user;
+                           
                         }
-                    }
+                    }command.Parameters.Clear();
                 }
+                connection.Close();
             }
             return null;
 
