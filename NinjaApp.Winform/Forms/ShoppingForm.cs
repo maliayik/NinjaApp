@@ -13,7 +13,7 @@ namespace NinjaApp.Winform.Forms
 
         private List<ShoppingDto> _shoppingData;
         private UserForm userForm;
-       
+
         private List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
         private UserLoginDto _loggedInUser;
         private Dictionary<string, DataGridViewRow> addedProducts = new Dictionary<string, DataGridViewRow>();
@@ -274,8 +274,8 @@ namespace NinjaApp.Winform.Forms
 
                 UpdateTotalLabel();
             }
-            
-           
+
+
         }
 
 
@@ -288,9 +288,9 @@ namespace NinjaApp.Winform.Forms
 
             decimal total = GetTotalToPay();
             decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
-           
+
             lblTotal.Text = total.ToString("") + " TL"; // Toplama "TL" ekleyin         
-           
+
         }
 
 
@@ -349,7 +349,7 @@ namespace NinjaApp.Winform.Forms
         /// Bu metod, kullanıcının alışveriş sepetindeki ürünleri ödeme yapmak için işleme koyduğu ve ödeme dekontunu görüntülediği bir işlemi temsil eder.
         /// </summary>    
         private void btnPay_Click(object sender, EventArgs e)
-        {           
+        {
 
             decimal totalToPay = GetTotalToPay();
             decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
@@ -398,7 +398,7 @@ namespace NinjaApp.Winform.Forms
                 ReceiptForm receiptForm = new ReceiptForm(receiptDataList);
                 receiptForm.FormClosed += (formSender, formArgs) =>
                 {
-                    this.Show();                   
+                    this.Show();
 
 
                 };
@@ -413,7 +413,7 @@ namespace NinjaApp.Winform.Forms
                 MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
 
                 // Ödeme işlemi başarısız oldu, bayrağı devre dışı bırak
-               
+
             }
         }
 
