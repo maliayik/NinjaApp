@@ -31,7 +31,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -56,19 +55,19 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Location = new Point(-2, 138);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
-            dataGridView1.Size = new Size(691, 398);
+            dataGridView1.Size = new Size(691, 365);
             dataGridView1.TabIndex = 0;
             // 
             // ReceiptForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(692, 398);
+            ClientSize = new Size(688, 499);
             Controls.Add(dataGridView1);
             Font = new Font("Consolas", 8.830189F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ReceiptForm";
@@ -81,6 +80,5 @@
         #endregion
 
         public DataGridView dataGridView1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

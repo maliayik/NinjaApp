@@ -45,25 +45,30 @@
             lblTotal = new Label();
             lblBalance = new Label();
             linkLabelUser = new LinkLabel();
+            panel1 = new Panel();
+            panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.BackgroundColor = Color.FromArgb(255, 192, 128);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(14, 220);
+            dataGridView1.Location = new Point(2, 103);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
-            dataGridView1.Size = new Size(585, 734);
+            dataGridView1.Size = new Size(518, 557);
             dataGridView1.TabIndex = 0;
             // 
             // cmbCategories
             // 
             cmbCategories.FormattingEnabled = true;
-            cmbCategories.Location = new Point(408, 164);
+            cmbCategories.Location = new Point(10, 60);
             cmbCategories.Name = "cmbCategories";
             cmbCategories.Size = new Size(191, 26);
             cmbCategories.TabIndex = 1;
@@ -71,24 +76,27 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(182, 167);
+            label1.Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(7, 30);
             label1.Name = "label1";
-            label1.Size = new Size(208, 18);
+            label1.Size = new Size(178, 24);
             label1.TabIndex = 2;
-            label1.Text = "Ürün Kategorisi Seçiniz :";
+            label1.Text = "Kategori Seçin";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(895, 592);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Consolas", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(779, 268);
             label2.Name = "label2";
-            label2.Size = new Size(80, 18);
+            label2.Size = new Size(155, 28);
             label2.TabIndex = 4;
-            label2.Text = "SELF-KASA";
+            label2.Text = "ÜRÜN SEPETİ";
             // 
             // txtSelectedProduct
             // 
-            txtSelectedProduct.Location = new Point(1258, 258);
+            txtSelectedProduct.Location = new Point(160, 16);
             txtSelectedProduct.Name = "txtSelectedProduct";
             txtSelectedProduct.Size = new Size(226, 25);
             txtSelectedProduct.TabIndex = 5;
@@ -96,7 +104,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(1115, 258);
+            label3.Location = new Point(10, 16);
             label3.Name = "label3";
             label3.Size = new Size(120, 18);
             label3.TabIndex = 6;
@@ -104,48 +112,67 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(1250, 364);
+            btnAdd.BackColor = Color.FromArgb(255, 224, 192);
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdd.ForeColor = Color.Black;
+            btnAdd.Image = Properties.Resources.add_to_cart__2_;
+            btnAdd.Location = new Point(392, 16);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(95, 26);
+            btnAdd.Size = new Size(143, 61);
             btnAdd.TabIndex = 7;
             btnAdd.Text = "Ekle";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnRemove
             // 
-            btnRemove.Location = new Point(1389, 364);
+            btnRemove.BackColor = Color.FromArgb(255, 224, 192);
+            btnRemove.Cursor = Cursors.Hand;
+            btnRemove.FlatAppearance.BorderSize = 0;
+            btnRemove.FlatStyle = FlatStyle.Flat;
+            btnRemove.Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnRemove.ForeColor = Color.Black;
+            btnRemove.Image = Properties.Resources.rubbish_bin;
+            btnRemove.Location = new Point(10, 271);
             btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(95, 26);
+            btnRemove.Size = new Size(135, 66);
             btnRemove.TabIndex = 7;
             btnRemove.Text = "Çıkar";
-            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRemove.UseVisualStyleBackColor = false;
             btnRemove.Click += btnRemove_Click;
             // 
             // dataGridView2
             // 
+            dataGridView2.BackgroundColor = Color.FromArgb(255, 224, 192);
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(981, 396);
+            dataGridView2.Location = new Point(10, 93);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 45;
             dataGridView2.RowTemplate.Height = 27;
-            dataGridView2.Size = new Size(525, 466);
+            dataGridView2.Size = new Size(525, 172);
             dataGridView2.TabIndex = 8;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Consolas", 14.2641506F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(713, 10);
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Consolas", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(646, 14);
             label5.Name = "label5";
-            label5.Size = new Size(226, 24);
+            label5.Size = new Size(378, 42);
             label5.TabIndex = 10;
-            label5.Text = "NİNJA SUPER MARKET";
+            label5.Text = "NİNJA SANAL MARKET";
+    
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1274, 306);
+            label4.Location = new Point(82, 49);
             label4.Name = "label4";
             label4.Size = new Size(56, 18);
             label4.TabIndex = 14;
@@ -154,88 +181,126 @@
             // cmbUnit
             // 
             cmbUnit.FormattingEnabled = true;
-            cmbUnit.Location = new Point(1356, 303);
+            cmbUnit.Location = new Point(160, 49);
             cmbUnit.Name = "cmbUnit";
-            cmbUnit.Size = new Size(128, 26);
+            cmbUnit.Size = new Size(226, 26);
             cmbUnit.TabIndex = 15;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(1271, 885);
+            label6.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(286, 266);
             label6.Name = "label6";
-            label6.Size = new Size(112, 18);
+            label6.Size = new Size(140, 22);
             label6.TabIndex = 16;
             label6.Text = "Toplam Tutar:";
             // 
             // btnPay
             // 
-            btnPay.Location = new Point(1373, 916);
+            btnPay.BackColor = Color.FromArgb(0, 73, 175);
+            btnPay.FlatAppearance.BorderSize = 0;
+            btnPay.FlatStyle = FlatStyle.Flat;
+            btnPay.Font = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPay.ForeColor = Color.White;
+            btnPay.Location = new Point(392, 296);
             btnPay.Name = "btnPay";
-            btnPay.Size = new Size(83, 38);
+            btnPay.Size = new Size(143, 41);
             btnPay.TabIndex = 17;
             btnPay.Text = "Öde";
-            btnPay.UseVisualStyleBackColor = true;
+            btnPay.UseVisualStyleBackColor = false;
             btnPay.Click += btnPay_Click;
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(1389, 885);
+            lblTotal.Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTotal.Location = new Point(445, 266);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(56, 18);
+            lblTotal.Size = new Size(82, 24);
             lblTotal.TabIndex = 16;
             lblTotal.Text = "label6";
             // 
             // lblBalance
             // 
             lblBalance.AutoSize = true;
-            lblBalance.Location = new Point(1327, 37);
+            lblBalance.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblBalance.Location = new Point(216, 60);
             lblBalance.Name = "lblBalance";
-            lblBalance.Size = new Size(56, 18);
+            lblBalance.Size = new Size(70, 22);
             lblBalance.TabIndex = 18;
             lblBalance.Text = "Bakiye";
             // 
             // linkLabelUser
             // 
             linkLabelUser.AutoSize = true;
+            linkLabelUser.Cursor = Cursors.Hand;
+            linkLabelUser.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point);
             linkLabelUser.LinkColor = Color.Black;
-            linkLabelUser.Location = new Point(1295, 9);
+            linkLabelUser.Location = new Point(250, 30);
             linkLabelUser.Name = "linkLabelUser";
-            linkLabelUser.Size = new Size(80, 18);
+            linkLabelUser.Size = new Size(100, 22);
             linkLabelUser.TabIndex = 19;
             linkLabelUser.TabStop = true;
             linkLabelUser.Text = "Kullanıcı";
             linkLabelUser.LinkClicked += linkLabelUser_LinkClicked;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(255, 224, 192);
+            panel1.Controls.Add(dataGridView1);
+            panel1.Controls.Add(linkLabelUser);
+            panel1.Controls.Add(lblBalance);
+            panel1.Controls.Add(cmbCategories);
+            panel1.Controls.Add(label1);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(520, 657);
+            panel1.TabIndex = 20;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(255, 192, 128);
+            panel2.Controls.Add(dataGridView2);
+            panel2.Controls.Add(btnPay);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(txtSelectedProduct);
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(cmbUnit);
+            panel2.Controls.Add(lblTotal);
+            panel2.Controls.Add(btnAdd);
+            panel2.Controls.Add(btnRemove);
+            panel2.Controls.Add(label6);
+            panel2.Location = new Point(589, 313);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(543, 347);
+            panel2.TabIndex = 21;
+            // 
             // ShoppingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1502, 953);
-            Controls.Add(linkLabelUser);
-            Controls.Add(lblBalance);
-            Controls.Add(btnPay);
-            Controls.Add(lblTotal);
-            Controls.Add(label6);
-            Controls.Add(cmbUnit);
-            Controls.Add(label4);
+            BackColor = Color.FromArgb(255, 224, 192);
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(1133, 657);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(label5);
-            Controls.Add(dataGridView2);
-            Controls.Add(btnRemove);
-            Controls.Add(btnAdd);
-            Controls.Add(label3);
-            Controls.Add(txtSelectedProduct);
             Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(cmbCategories);
-            Controls.Add(dataGridView1);
+            DoubleBuffered = true;
             Font = new Font("Consolas", 10.18868F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ShoppingForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ShoppingForm";
             Load += ShoppingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -259,5 +324,7 @@
         private Label lblTotal;
         private Label lblBalance;
         private LinkLabel linkLabelUser;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

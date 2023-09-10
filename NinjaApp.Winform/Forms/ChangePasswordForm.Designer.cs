@@ -30,20 +30,21 @@
         {
             txtPassword = new TextBox();
             btnChangePassword = new Button();
-            label1 = new Label();
             txtConfirmPassword = new TextBox();
-            label2 = new Label();
             panel1 = new Panel();
             label4 = new Label();
+            label1 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(48, 50);
+            txtPassword.Location = new Point(48, 37);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.PlaceholderText = "ŞİFRE";
             txtPassword.Size = new Size(294, 31);
-            txtPassword.TabIndex = 0;
+            txtPassword.TabIndex = 1;
             // 
             // btnChangePassword
             // 
@@ -52,52 +53,33 @@
             btnChangePassword.FlatAppearance.BorderSize = 0;
             btnChangePassword.FlatStyle = FlatStyle.Popup;
             btnChangePassword.ForeColor = Color.White;
-            btnChangePassword.Location = new Point(113, 179);
+            btnChangePassword.Location = new Point(48, 111);
             btnChangePassword.Name = "btnChangePassword";
-            btnChangePassword.Size = new Size(157, 32);
-            btnChangePassword.TabIndex = 1;
+            btnChangePassword.Size = new Size(294, 32);
+            btnChangePassword.TabIndex = 3;
             btnChangePassword.Text = "Güncelle";
             btnChangePassword.UseVisualStyleBackColor = false;
             btnChangePassword.Click += btnChangePassword_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(48, 23);
-            label1.Name = "label1";
-            label1.Size = new Size(70, 24);
-            label1.TabIndex = 2;
-            label1.Text = "Şifre";
-            // 
             // txtConfirmPassword
             // 
-            txtConfirmPassword.Location = new Point(48, 135);
+            txtConfirmPassword.Location = new Point(48, 74);
             txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.PasswordChar = '*';
+            txtConfirmPassword.PlaceholderText = "ŞİFRE TEKRAR";
             txtConfirmPassword.Size = new Size(294, 31);
-            txtConfirmPassword.TabIndex = 0;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(48, 108);
-            label2.Name = "label2";
-            label2.Size = new Size(154, 24);
-            label2.TabIndex = 2;
-            label2.Text = "Şifre Tekrar";
-            
+            txtConfirmPassword.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientInactiveCaption;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(txtPassword);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(txtConfirmPassword);
-            panel1.Controls.Add(label1);
             panel1.Controls.Add(btnChangePassword);
             panel1.Location = new Point(0, 32);
             panel1.Name = "panel1";
-            panel1.Size = new Size(396, 242);
+            panel1.Size = new Size(396, 173);
             panel1.TabIndex = 3;
             // 
             // label4
@@ -111,14 +93,24 @@
             label4.Name = "label4";
             label4.Size = new Size(36, 35);
             label4.TabIndex = 9;
-            label4.Text = "X";           
+            label4.Text = "X";            
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(73, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(238, 24);
+            label1.TabIndex = 10;
+            label1.Text = "Şifrenizi Yenileyin";
             // 
             // ChangePasswordForm
             // 
             AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(396, 274);
+            ClientSize = new Size(396, 204);
+            Controls.Add(label1);
             Controls.Add(label4);
             Controls.Add(panel1);
             Font = new Font("Consolas", 12.2264156F, FontStyle.Regular, GraphicsUnit.Point);
@@ -138,10 +130,9 @@
 
         private TextBox txtPassword;
         private Button btnChangePassword;
-        private Label label1;
         private TextBox txtConfirmPassword;
-        private Label label2;
         private Panel panel1;
         private Label label4;
+        private Label label1;
     }
 }

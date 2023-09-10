@@ -16,7 +16,7 @@ namespace NinjaApp.Winform.Forms
         private UserLoginDto loggedInUser;
 
 
-        int userId;        
+        int userId;
 
         public UserForm(UserLoginDto loggedInUser)
         {
@@ -41,7 +41,7 @@ namespace NinjaApp.Winform.Forms
         {
             Orders();
             GetBalance();
-        }      
+        }
 
         /// <summary>
         /// Bu metot kullanıcının bakiyesini görüntülemek için.

@@ -17,7 +17,7 @@ namespace NinjaApp.Winform.Forms
         {
             foreach (var receiptData in _receiptDataList)
             {
-                dataGridView1.Rows.Add(                   
+                dataGridView1.Rows.Add(
                    receiptData.Ürünler,
                    receiptData.Tarih,
                    receiptData.Toplam,

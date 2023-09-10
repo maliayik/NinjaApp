@@ -7,13 +7,13 @@ namespace NinjaApp.Winform.Forms
 {
     public partial class ShoppingForm : Form
     {
-        private readonly IShoppingService _shoppingService;        
+        private readonly IShoppingService _shoppingService;
         private IUserService _userService;
         private IReceiptService _receiptService;
 
         private List<ShoppingDto> _shoppingData;
         private UserForm userForm;
-       
+
 
 
         private UserLoginDto _loggedInUser;
@@ -432,8 +432,7 @@ namespace NinjaApp.Winform.Forms
 
             return balance;
         }
-
-
+        
     }
 }
 
