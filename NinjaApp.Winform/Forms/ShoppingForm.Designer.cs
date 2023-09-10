@@ -176,6 +176,7 @@
             btnPay.TabIndex = 17;
             btnPay.Text = "Öde";
             btnPay.UseVisualStyleBackColor = true;
+            btnPay.Click += btnPay_Click;
             // 
             // lblTotal
             // 
@@ -231,7 +232,7 @@
             Controls.Add(dataGridView1);
             Font = new Font("Consolas", 10.18868F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ShoppingForm";
-            Text = "ShoppingForm";            
+            Text = "ShoppingForm";
             Load += ShoppingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();

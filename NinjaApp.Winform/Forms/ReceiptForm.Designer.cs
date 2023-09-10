@@ -61,14 +61,14 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
-            dataGridView1.Size = new Size(807, 398);
+            dataGridView1.Size = new Size(691, 398);
             dataGridView1.TabIndex = 0;
             // 
             // ReceiptForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 397);
+            ClientSize = new Size(692, 398);
             Controls.Add(dataGridView1);
             Font = new Font("Consolas", 8.830189F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ReceiptForm";

@@ -31,12 +31,11 @@ namespace NinjaApp.Business.Managers
                     Id = receipt.Id,
                     Ürünler = receipt.ProductName,
                     Tarih = receipt.PurchaseDate,
-                    FisNo = receipt.ReceiptNo,
-                    Total = receipt.Total,
+                    Toplam = receipt.Total,
                     UserId = receipt.UserId
                 };
 
-                receiptDto.ToplamTutar = $"{receiptDto.Total}TL";
+                receiptDto.ToplamTutar = $"{receiptDto.Toplam}TL";
                 receiptDtos.Add(receiptDto);
             }
 
