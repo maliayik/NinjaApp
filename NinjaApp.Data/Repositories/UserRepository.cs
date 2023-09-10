@@ -115,6 +115,29 @@ namespace NinjaApp.Data.Repositories
             }
         }
 
+        public void UpdateUserBalanceAfterPayment(int userId, decimal newBalance)
+        {
+            using (var connection = new DbConnectionHelper().Connection)
+
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand())
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE Users SET Balance = @NewBalance WHERE Id = @UserId";
+
+                    command.Parameters.Add(new SQLiteParameter("@NewBalance", newBalance));
+                    command.Parameters.Add(new SQLiteParameter("@UserId", userId));
+
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                    connection.Close();
+                }
+            }
+        }
+
         public void UpdateUserPassword(int userId, string password)
         {
             using (var connection = new DbConnectionHelper().Connection)

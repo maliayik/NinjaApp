@@ -8,5 +8,6 @@ namespace NinjaApp.Business.Services
         List<ReceiptDto> GetReceiptByUserId(int userId);
         void UpdateUserBalance(int userId, decimal additionalBalance);
         void UpdateUserPassword(int userId, string password);
+        void UpdateUserBalanceAfterPayment(int userId, decimal newBalance);
     }
 }

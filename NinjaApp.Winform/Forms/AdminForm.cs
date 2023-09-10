@@ -232,5 +232,10 @@ namespace NinjaApp.Winform.Forms
         {
             Application.Exit();
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

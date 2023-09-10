@@ -11,7 +11,7 @@ namespace NinjaApp.Winform.Forms
         public event EventHandler MoneyAdded;
         private UserLoginDto loggedInUser;
 
-        
+
         int userId;
         public AddMoneyForm(UserLoginDto loggedInUser)
         {
@@ -39,24 +39,23 @@ namespace NinjaApp.Winform.Forms
         /// </summary>      
         private void btnAddedMoney_Click(object sender, EventArgs e)
         {
-
-            if (!string.IsNullOrEmpty(txtAmound.Text))
+            if (!string.IsNullOrEmpty(txtAmound.Text) && decimal.TryParse(txtAmound.Text, out decimal amount))
             {
-                decimal amount = decimal.Parse(txtAmound.Text);
-
                 _userService.UpdateUserBalance(userId, amount);
-               
-
                 MessageBox.Show(this, "Bakiye güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MoneyAdded?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
-
             else
             {
-                MessageBox.Show("Lütfen bakiye giriniz..");
+                MessageBox.Show("Lütfen geçerli bir bakiye giriniz.");
             }
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }        
     }
 }

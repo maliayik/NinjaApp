@@ -17,108 +17,93 @@ namespace NinjaApp.Business.Managers
             _receiptRepository = new DataServiceRegistration().GetReceiptRepositoryInstance();
         }
 
+        public void UpdateUserBalanceAfterPayment(int userId, decimal newBalance)
+        {
+            _userRepository.UpdateUserBalanceAfterPayment(userId, newBalance);
+        }
 
         public void UpdateUserBalance(int userId, decimal additionalBalance)
         {
+
 
             AppUser user = _userRepository.GetAppUserById(userId);
 
             if (user != null)
             {
                 decimal currentBalance = user.Balance;
+                decimal newBalance = currentBalance + additionalBalance;
 
-                if (additionalBalance >= 0)
-                {
-                    // Bakiye artırma işlemi
-                    decimal newBalance = currentBalance + additionalBalance;
-                    user.Balance = newBalance;
-
-                    _userRepository.UpdateUserBalance(userId, newBalance);
-                }
-                else if (currentBalance >= Math.Abs(additionalBalance))
-                {
-                    // Bakiye azaltma işlemi
-                    decimal newBalance = currentBalance - Math.Abs(additionalBalance);
-                    user.Balance = newBalance;
-
-                    _userRepository.UpdateUserBalance(userId, newBalance);
-
-                    //AppUser user = _userRepository.GetAppUserById(userId);
-
-                    //if (user != null)
-                    //{
-                    //    decimal currentBalance = user.Balance;
-                    //    decimal newBalance = currentBalance + additionalBalance;
-
-                    //    user.Balance = newBalance;
-                    //    _userRepository.UpdateUserBalance(userId, newBalance);
-                    //}
-                }
+                user.Balance = newBalance;
+                _userRepository.UpdateUserBalance(userId, newBalance);
             }
         }
-                public List<ReceiptDto> GetReceiptByUserId(int userId)
+
+
+        public List<ReceiptDto> GetReceiptByUserId(int userId)
+        {
+            var user = _userRepository.GetAppUserById(userId);
+            var receipts = _receiptRepository.GetReceiptByUserId(userId);
+
+            var receiptDtos = new List<ReceiptDto>();
+
+            foreach (var receipt in receipts)
+            {
+                var receiptDto = new ReceiptDto
                 {
-                    var user = _userRepository.GetAppUserById(userId);
-                    var receipts = _receiptRepository.GetReceiptByUserId(userId);
+                    Id = receipt.Id,
+                    Ürünler = receipt.ProductName,
+                    Tarih = receipt.PurchaseDate,
+                    Toplam = receipt.Total,
+                    UserId = receipt.UserId
+                };
 
-                    var receiptDtos = new List<ReceiptDto>();
+                receiptDto.ToplamTutar = $"{receiptDto.Toplam}TL";
+                receiptDtos.Add(receiptDto);
+            }
 
-                    foreach (var receipt in receipts)
-                    {
-                        var receiptDto = new ReceiptDto
-                        {
-                            Id = receipt.Id,
-                            Ürünler = receipt.ProductName,
-                            Tarih = receipt.PurchaseDate,
-                            Toplam = receipt.Total,
-                            UserId = receipt.UserId
-                        };
+            return receiptDtos;
+        }
 
-                        receiptDto.ToplamTutar = $"{receiptDto.Toplam}TL";
-                        receiptDtos.Add(receiptDto);
-                    }
+        public UserDto GetUsersById(int id)
+        {
+            var appUseR = _userRepository.GetAppUserById(id);
 
-                    return receiptDtos;
-                }
 
-                public UserDto GetUsersById(int id)
+            if (appUseR != null)
+            {
+                var userDto = new UserDto
                 {
-                    var appUseR = _userRepository.GetAppUserById(id);
+                    Id = appUseR.Id,
+                    Fullname = appUseR.Fullname,
+                    Username = appUseR.Username,
+                    Balance = appUseR.Balance,
+                    ReceiptId = appUseR.ReceiptId,
+                };
+                return userDto;
+            }
 
+            else
+            {
 
-                    if (appUseR != null)
-                    {
-                        var userDto = new UserDto
-                        {
-                            Id = appUseR.Id,
-                            Fullname = appUseR.Fullname,
-                            Username = appUseR.Username,
-                            Balance = appUseR.Balance,
-                            ReceiptId = appUseR.ReceiptId,
-                        };
-                        return userDto;
-                    }
-
-                    else
-                    {
-
-                        return null;
-                    }
-                }
-
-
-
-                public void UpdateUserPassword(int userId, string password)
-                {
-                    AppUser user = _userRepository.GetAppUserById(userId);
-
-                    if (user != null)
-                    {
-                        user.Id = userId;
-                        user.Password = password;
-
-                        _userRepository.UpdateUserPassword(userId, password);
-                    }
-                }
+                return null;
             }
         }
+
+
+
+        public void UpdateUserPassword(int userId, string password)
+        {
+            AppUser user = _userRepository.GetAppUserById(userId);
+
+            if (user != null)
+            {
+                user.Id = userId;
+                user.Password = password;
+
+                _userRepository.UpdateUserPassword(userId, password);
+            }
+        }
+
+       
+    }
+}

@@ -167,7 +167,6 @@
             label5.Size = new Size(378, 42);
             label5.TabIndex = 10;
             label5.Text = "NİNJA SANAL MARKET";
-    
             // 
             // label4
             // 
@@ -256,7 +255,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(520, 657);
+            panel1.Size = new Size(520, 661);
             panel1.TabIndex = 20;
             // 
             // panel2
@@ -283,7 +282,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 224, 192);
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1133, 657);
+            ClientSize = new Size(1133, 661);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label5);

@@ -238,6 +238,7 @@
             btnBack.TabIndex = 9;
             btnBack.Text = "Kapat";
             btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
             // panel1
             // 
@@ -249,7 +250,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(350, 754);
+            panel1.Size = new Size(350, 870);
             panel1.TabIndex = 10;
             // 
             // button5
@@ -257,9 +258,9 @@
             button5.Dock = DockStyle.Bottom;
             button5.FlatAppearance.BorderSize = 0;
             button5.FlatStyle = FlatStyle.Flat;
-            button5.Location = new Point(0, 707);
+            button5.Location = new Point(0, 807);
             button5.Name = "button5";
-            button5.Size = new Size(350, 47);
+            button5.Size = new Size(350, 63);
             button5.TabIndex = 1;
             button5.Text = "Yönetici Paneli";
             button5.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -328,7 +329,7 @@
             AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(1355, 754);
+            ClientSize = new Size(1402, 870);
             Controls.Add(panel1);
             Controls.Add(btnBack);
             Controls.Add(label5);

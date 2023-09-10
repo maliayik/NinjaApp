@@ -11,6 +11,8 @@ namespace NinjaApp.Data.Interfaces
 
         void UpdateUserPassword(int userId, string password);
 
+       void  UpdateUserBalanceAfterPayment(int userId, decimal newBalance);
+
 
     }
 }

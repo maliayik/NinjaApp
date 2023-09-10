@@ -7,7 +7,7 @@ namespace NinjaApp.Winform.Forms
         private string selectedProductName;
 
         private AdminDto _logggedInAdmin;
-        public SuplierForm(string productName,AdminDto loggedInAdmin)
+        public SuplierForm(string productName, AdminDto loggedInAdmin)
         {
             InitializeComponent();
             selectedProductName = productName;

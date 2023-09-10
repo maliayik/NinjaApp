@@ -32,6 +32,7 @@
             label2 = new Label();
             btnAddedMoney = new Button();
             panel1 = new Panel();
+            button1 = new Button();
             label1 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -39,10 +40,10 @@
             // txtAmound
             // 
             txtAmound.Font = new Font("Consolas", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            txtAmound.Location = new Point(12, 12);
+            txtAmound.Location = new Point(69, 25);
             txtAmound.Name = "txtAmound";
             txtAmound.PlaceholderText = "Lütfen Tutar Giriniz";
-            txtAmound.Size = new Size(303, 27);
+            txtAmound.Size = new Size(183, 25);
             txtAmound.TabIndex = 0;
             // 
             // label2
@@ -51,7 +52,7 @@
             label2.Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(50, 3);
             label2.Name = "label2";
-            label2.Size = new Size(194, 27);
+            label2.Size = new Size(178, 24);
             label2.TabIndex = 2;
             label2.Text = "Bakiye Yükleme";
             // 
@@ -60,9 +61,9 @@
             btnAddedMoney.BackColor = Color.ForestGreen;
             btnAddedMoney.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnAddedMoney.ForeColor = Color.White;
-            btnAddedMoney.Location = new Point(70, 45);
+            btnAddedMoney.Location = new Point(69, 56);
             btnAddedMoney.Name = "btnAddedMoney";
-            btnAddedMoney.Size = new Size(174, 73);
+            btnAddedMoney.Size = new Size(84, 58);
             btnAddedMoney.TabIndex = 3;
             btnAddedMoney.Text = "Bakiye Yükle";
             btnAddedMoney.UseVisualStyleBackColor = false;
@@ -71,12 +72,22 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientInactiveCaption;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnAddedMoney);
             panel1.Controls.Add(txtAmound);
             panel1.Location = new Point(0, 33);
             panel1.Name = "panel1";
             panel1.Size = new Size(327, 141);
             panel1.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(169, 56);
+            button1.Name = "button1";
+            button1.Size = new Size(83, 58);
+            button1.TabIndex = 6;
+            button1.Text = "Çıkış Yap";
+            button1.UseVisualStyleBackColor = true;            
             // 
             // label1
             // 
@@ -86,14 +97,14 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(297, 0);
             label1.Name = "label1";
-            label1.Size = new Size(30, 33);
+            label1.Size = new Size(25, 28);
             label1.TabIndex = 5;
             label1.Text = "X";
-          
+            label1.Click += label1_Click;
             // 
             // AddMoneyForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(327, 178);
@@ -119,5 +130,6 @@
         private Button btnAddedMoney;
         private Panel panel1;
         private Label label1;
+        private Button button1;
     }
 }

@@ -13,9 +13,8 @@ namespace NinjaApp.Winform.Forms
 
         private List<ShoppingDto> _shoppingData;
         private UserForm userForm;
-
-
-
+       
+        private List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
         private UserLoginDto _loggedInUser;
         private Dictionary<string, DataGridViewRow> addedProducts = new Dictionary<string, DataGridViewRow>();
 
@@ -275,6 +274,8 @@ namespace NinjaApp.Winform.Forms
 
                 UpdateTotalLabel();
             }
+            
+           
         }
 
 
@@ -283,21 +284,13 @@ namespace NinjaApp.Winform.Forms
         /// </summary>
         private void UpdateTotalLabel()
         {
+            //burdaki bakiyeyi databaseden alsın 1. çözüm
 
-            decimal total = 0;
-
-            foreach (DataGridViewRow row in dataGridView2.Rows)
-            {
-                object fiyatValue = row.Cells["Fiyat"].Value;
-                if (fiyatValue != null)
-                {
-                    string priceStr = fiyatValue.ToString();
-                    decimal price = decimal.Parse(priceStr.Replace("TL", "").Trim()); // TL sembolünü kaldırın ve boşlukları temizleyin
-                    total += price;
-                }
-            }
-
-            lblTotal.Text = total.ToString("") + " TL"; // Toplama "TL" ekleyin
+            decimal total = GetTotalToPay();
+            decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
+           
+            lblTotal.Text = total.ToString("") + " TL"; // Toplama "TL" ekleyin         
+           
         }
 
 
@@ -356,9 +349,10 @@ namespace NinjaApp.Winform.Forms
         /// Bu metod, kullanıcının alışveriş sepetindeki ürünleri ödeme yapmak için işleme koyduğu ve ödeme dekontunu görüntülediği bir işlemi temsil eder.
         /// </summary>    
         private void btnPay_Click(object sender, EventArgs e)
-        {
+        {           
+
             decimal totalToPay = GetTotalToPay();
-            decimal balance = GetBalance();
+            decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
 
             if (balance >= totalToPay)
             {
@@ -366,7 +360,10 @@ namespace NinjaApp.Winform.Forms
                 decimal newBalance = balance - totalToPay;
 
                 // Kullanıcının bakiyesini güncelle
-                _userService.UpdateUserBalance(_loggedInUser.Id, newBalance);
+                _userService.UpdateUserBalanceAfterPayment(_loggedInUser.Id, newBalance);
+
+                // Yeni bakiyeyi lblBalance içinde göster
+                lblBalance.Text = "Bakiyeniz: " + newBalance.ToString("0.00") + " TL";
 
                 List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
 
@@ -394,12 +391,29 @@ namespace NinjaApp.Winform.Forms
                     _receiptService.AddReceipt(receiptData);
                 }
 
+                // Ödeme başarılı mesajını göster
+                ShowPaymentSuccessMessage();
+
+                // ReceiptForm'u göster ve bu formu gizle
                 ReceiptForm receiptForm = new ReceiptForm(receiptDataList);
+                receiptForm.FormClosed += (formSender, formArgs) =>
+                {
+                    this.Show();                   
+
+
+                };
                 receiptForm.Show();
+
+                // Ödeme işlemi tamamlandığında alışveriş sepetini temizle
+                dataGridView2.Rows.Clear();
+                UpdateTotalLabel();
             }
             else
             {
                 MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
+
+                // Ödeme işlemi başarısız oldu, bayrağı devre dışı bırak
+               
             }
         }
 
@@ -432,7 +446,12 @@ namespace NinjaApp.Winform.Forms
 
             return balance;
         }
-        
+
+
+        private void ShowPaymentSuccessMessage()
+        {
+            MessageBox.Show("Satın alma işlemi başarıyla gerçekleşti. Bizi tercih ettiğiniz için teşekkür ederiz.", "Ödeme Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
 

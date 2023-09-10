@@ -27,8 +27,7 @@ namespace NinjaApp.Winform.Forms
 
 
         }
-
-
+        
 
         public void DataGridViewInstance()
         {
