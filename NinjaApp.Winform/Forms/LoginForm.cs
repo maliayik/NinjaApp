@@ -33,7 +33,7 @@ namespace NinjaApp.Winform.Forms
 
                 if (_user != null)
                 {
-                  
+
                     ShoppingForm form = new ShoppingForm(_user);
                     form.Show();
                     this.Hide();
@@ -56,17 +56,12 @@ namespace NinjaApp.Winform.Forms
             }
         }
 
-
-
-
-        private void btnClose_Click(object sender, EventArgs e)
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-
-
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void label4_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }

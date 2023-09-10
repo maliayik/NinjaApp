@@ -19,13 +19,12 @@ namespace NinjaApp.Data.Repositories
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
 
-                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, Total, ProductId) " +
-                                          "VALUES (@ProductName, @PurchaseDate, @Total, @ProductId)";
+                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, Total,UserId) " +
+                                          "VALUES (@ProductName, @PurchaseDate, @Total,@UserId)";
 
                     command.Parameters.AddWithValue("@ProductName", receipt.ProductName);
-                    command.Parameters.AddWithValue("@PurchaseDate", receipt.PurchaseDate);                    
-                    command.Parameters.AddWithValue("@Total", receipt.Total);
-                    command.Parameters.AddWithValue("@ProductId", receipt.ProductId);
+                    command.Parameters.AddWithValue("@PurchaseDate", receipt.PurchaseDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    command.Parameters.AddWithValue("@Total", receipt.Total);                  
                     command.Parameters.AddWithValue("@UserId", receipt.UserId);
 
 
@@ -64,8 +63,7 @@ namespace NinjaApp.Data.Repositories
                                 Id = Convert.ToInt32(reader["Id"]),
                                 ProductName = reader["ProductName"].ToString(),
                                 PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),                                
-                                Total = Convert.ToDecimal(reader["Total"]),
-                                ProductId = Convert.ToInt32(reader["ProductId"]),
+                                Total = Convert.ToDecimal(reader["Total"]),                                
                                 UserId = Convert.ToInt32(reader["UserId"])
                             };
                             receipts.Add(receipt);

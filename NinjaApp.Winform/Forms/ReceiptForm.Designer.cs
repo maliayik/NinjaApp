@@ -80,7 +80,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        public DataGridView dataGridView1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

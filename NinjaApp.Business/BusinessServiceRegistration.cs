@@ -14,7 +14,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService,AdminLoginManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService, AdminLoginManager>().AddScoped<IReceiptService, ReceiptManager>().BuildServiceProvider();
 
 
         }
@@ -84,6 +84,15 @@ namespace NinjaApp.Business
         public IAdminLoginService GetAdminLoginServiceInstance()
         {
             return serviceProvider.GetRequiredService<IAdminLoginService>();
+        }
+
+
+        /// <summary>
+        /// Bu metot receipt service içeriğini getirir.
+        /// </summary>       
+        public IReceiptService GetReceiptServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IReceiptService>();
         }
 
     }

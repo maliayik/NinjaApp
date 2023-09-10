@@ -7,12 +7,15 @@ namespace NinjaApp.Winform.Forms
 {
     public partial class ShoppingForm : Form
     {
-        private readonly IShoppingService _shoppingService;
-        private List<ShoppingDto> _shoppingData;
+        private readonly IShoppingService _shoppingService;        
         private IUserService _userService;
-        private UserForm userForm;
+        private IReceiptService _receiptService;
 
+        private List<ShoppingDto> _shoppingData;
+        private UserForm userForm;
        
+
+
         private UserLoginDto _loggedInUser;
         private Dictionary<string, DataGridViewRow> addedProducts = new Dictionary<string, DataGridViewRow>();
 
@@ -23,6 +26,9 @@ namespace NinjaApp.Winform.Forms
             var dependencyContainer = new BusinessServiceRegistration();
             _shoppingService = dependencyContainer.GetShoppingServiceInstance();
             _userService = dependencyContainer.GetUserServiceInstance();
+            _receiptService = dependencyContainer.GetReceiptServiceInstance();
+
+
             cmbCategories.SelectedIndexChanged += new EventHandler(cmbCategories_SelectedIndexChanged);
             dataGridView1.DoubleClick += new EventHandler(dataGridView1_DoubleClick);
             dataGridView1.CellFormatting += DataGridView_CellFormatting;
@@ -216,7 +222,7 @@ namespace NinjaApp.Winform.Forms
 
             }
         }
-        
+
 
         /// <summary>
         /// Ürün eklemek için "Ekle" düğmesine tıkladığınızda çalışan bir metottur.
@@ -303,12 +309,8 @@ namespace NinjaApp.Winform.Forms
         {
             if (dataGridView2.SelectedCells.Count > 0)
             {
-                // Seçilen hücrenin satırını alın
                 int selectedRowIndex = dataGridView2.SelectedCells[0].RowIndex;
-
-                // Seçilen satırı DataGridView2'den kaldırın
                 dataGridView2.Rows.RemoveAt(selectedRowIndex);
-
                 UpdateTotalLabel();
             }
         }
@@ -330,7 +332,7 @@ namespace NinjaApp.Winform.Forms
         /// </summary>      
         private void SuplierForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // LoginForm'u yeni bir nesne olarak oluşturup göster
+
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
 
@@ -350,10 +352,88 @@ namespace NinjaApp.Winform.Forms
 
         }
 
+        /// <summary>
+        /// Bu metod, kullanıcının alışveriş sepetindeki ürünleri ödeme yapmak için işleme koyduğu ve ödeme dekontunu görüntülediği bir işlemi temsil eder.
+        /// </summary>    
         private void btnPay_Click(object sender, EventArgs e)
         {
+            decimal totalToPay = GetTotalToPay();
+            decimal balance = GetBalance();
 
+            if (balance >= totalToPay)
+            {
+                // Bakiyeyi güncelle: Yeni bakiye, eski bakiyeden toplam tutarı çıkart
+                decimal newBalance = balance - totalToPay;
+
+                // Kullanıcının bakiyesini güncelle
+                _userService.UpdateUserBalance(_loggedInUser.Id, newBalance);
+
+                List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
+
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    string productName = row.Cells["Ürünler"].Value?.ToString();
+
+                    decimal price;
+                    if (decimal.TryParse(row.Cells["Fiyat"].Value?.ToString()?.Replace("TL", "").Trim(), out price))
+                    {
+                        ReceiptDto receiptData = new ReceiptDto
+                        {
+                            Ürünler = productName ?? "",
+                            Toplam = price,
+                            Tarih = DateTime.Now,
+                            UserId = _loggedInUser.Id
+                        };
+
+                        receiptDataList.Add(receiptData);
+                    }
+                }
+
+                foreach (var receiptData in receiptDataList)
+                {
+                    _receiptService.AddReceipt(receiptData);
+                }
+
+                ReceiptForm receiptForm = new ReceiptForm(receiptDataList);
+                receiptForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
+            }
         }
+
+
+        private decimal GetTotalToPay()
+        {
+            decimal total = 0;
+
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                object fiyatValue = row.Cells["Fiyat"].Value;
+                if (fiyatValue != null)
+                {
+                    string priceStr = fiyatValue.ToString();
+                    decimal price = decimal.Parse(priceStr.Replace("TL", "").Trim());
+                    total += price;
+                }
+            }
+
+            return total;
+        }
+
+
+        private decimal GetBalance()
+        {
+            decimal balance = 0;
+
+            UserDto user = _userService.GetUsersById(_loggedInUser.Id);
+            balance = user.Balance;
+
+            return balance;
+        }
+
+
     }
 }
 

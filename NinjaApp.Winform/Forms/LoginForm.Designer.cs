@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             label1 = new Label();
             label2 = new Label();
             txtUserName = new TextBox();
@@ -50,7 +49,7 @@
             label1.Location = new Point(28, 174);
             label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(181, 27);
+            label1.Size = new Size(166, 24);
             label1.TabIndex = 0;
             label1.Text = "Kullanıcı Adı";
             // 
@@ -60,7 +59,7 @@
             label2.Location = new Point(30, 261);
             label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(77, 27);
+            label2.Size = new Size(70, 24);
             label2.TabIndex = 0;
             label2.Text = "Şifre";
             // 
@@ -69,7 +68,7 @@
             txtUserName.Location = new Point(30, 205);
             txtUserName.Margin = new Padding(5, 4, 5, 4);
             txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(352, 34);
+            txtUserName.Size = new Size(352, 31);
             txtUserName.TabIndex = 1;
             // 
             // txtPass
@@ -77,7 +76,7 @@
             txtPass.Location = new Point(30, 292);
             txtPass.Margin = new Padding(5, 4, 5, 4);
             txtPass.Name = "txtPass";
-            txtPass.Size = new Size(352, 34);
+            txtPass.Size = new Size(352, 31);
             txtPass.TabIndex = 2;
             // 
             // btnLogin
@@ -113,7 +112,6 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(159, 14);
             pictureBox1.Margin = new Padding(5, 4, 5, 4);
             pictureBox1.Name = "pictureBox1";
@@ -144,7 +142,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(41, 119);
             label3.Name = "label3";
-            label3.Size = new Size(324, 27);
+            label3.Size = new Size(298, 24);
             label3.TabIndex = 7;
             label3.Text = "Hesabınıza Giriş Yapınız";
             // 
@@ -173,14 +171,14 @@
             label4.ForeColor = Color.White;
             label4.Location = new Point(368, -1);
             label4.Name = "label4";
-            label4.Size = new Size(36, 35);
+            label4.Size = new Size(33, 31);
             label4.TabIndex = 8;
             label4.Text = "X";
-            
+            label4.Click += label4_Click;
             // 
             // LoginForm
             // 
-            AutoScaleDimensions = new SizeF(13F, 27F);
+            AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(404, 489);
