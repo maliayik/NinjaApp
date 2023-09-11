@@ -39,6 +39,7 @@
             label3 = new Label();
             label4 = new Label();
             lblTotal = new Label();
+            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)suplierGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)messageDataGridView).BeginInit();
             SuspendLayout();
@@ -146,11 +147,22 @@
             lblTotal.TabIndex = 7;
             lblTotal.Text = "label5";
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(1032, 25);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(166, 25);
+            btnBack.TabIndex = 8;
+            btnBack.Text = "Admin Formuna Geri Dön";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // SuplierForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1229, 647);
+            Controls.Add(btnBack);
             Controls.Add(lblTotal);
             Controls.Add(btnBuy);
             Controls.Add(label3);
@@ -184,5 +196,6 @@
         private Label label3;
         private Label label4;
         private Label lblTotal;
+        private Button btnBack;
     }
 }

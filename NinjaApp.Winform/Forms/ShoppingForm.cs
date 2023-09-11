@@ -456,6 +456,10 @@ namespace NinjaApp.Winform.Forms
             MessageBox.Show("Satın alma işlemi başarıyla gerçekleşti. Bizi tercih ettiğiniz için teşekkür ederiz.", "Ödeme Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
 

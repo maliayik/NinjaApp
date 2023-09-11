@@ -49,6 +49,7 @@
             panel2 = new Panel();
             label8 = new Label();
             pictureBox1 = new PictureBox();
+            btnExit = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             panel1.SuspendLayout();
@@ -301,6 +302,16 @@
             pictureBox1.TabIndex = 24;
             pictureBox1.TabStop = false;
             // 
+            // btnExit
+            // 
+            btnExit.Location = new Point(12, 8);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(107, 25);
+            btnExit.TabIndex = 25;
+            btnExit.Text = "Çıkış Yap";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
+            // 
             // ShoppingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
@@ -308,6 +319,7 @@
             BackColor = Color.Gainsboro;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1068, 993);
+            Controls.Add(btnExit);
             Controls.Add(pictureBox1);
             Controls.Add(label8);
             Controls.Add(panel2);
@@ -354,5 +366,6 @@
         private Label label7;
         private Label label8;
         private PictureBox pictureBox1;
+        private Button btnExit;
     }
 }

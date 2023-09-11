@@ -23,7 +23,8 @@ namespace NinjaApp.Winform.Forms
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string userName = txtUserName.Text;
-            string password = txtPass.Text;
+            string password = txtPass.Text;            
+            
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {

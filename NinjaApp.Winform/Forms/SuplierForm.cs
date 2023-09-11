@@ -24,8 +24,8 @@ namespace NinjaApp.Winform.Forms
             var adminForm = new AdminForm(loggedInAdmin);
             adminForm.StockBelowThreshold += HandleStockBelowThreshold;
 
-            selectedProductName = productName;
-          
+            selectedProductName = productName;            
+
 
         }
 
@@ -178,6 +178,13 @@ namespace NinjaApp.Winform.Forms
             messageDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             messageDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             messageDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+        //    this.Close();
+        //    AdminForm adminForm = new AdminForm(_logggedInAdmin,);
+        //    adminForm.Show();
         }
     }
 }

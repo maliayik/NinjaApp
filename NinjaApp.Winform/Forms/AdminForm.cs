@@ -31,7 +31,7 @@ namespace NinjaApp.Winform.Forms
             _stockService = dependencyContainer.GetStockServiceInstance();
             _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
             _chartService = dependencyContainer.GetChartServiceInstance();
-            _loggedInAdmin = loggedInAdmin;
+            _loggedInAdmin = loggedInAdmin;           
         }
 
 
@@ -238,7 +238,9 @@ namespace NinjaApp.Winform.Forms
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
+            LoginForm loginForm=new LoginForm();
+            loginForm.Show();
         }
 
         private void btnSuplier_Click(object sender, EventArgs e)
