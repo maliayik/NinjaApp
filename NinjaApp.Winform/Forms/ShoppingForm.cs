@@ -354,7 +354,10 @@ namespace NinjaApp.Winform.Forms
             decimal totalToPay = GetTotalToPay();
             decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
 
-            if (balance >= totalToPay)
+
+
+
+            if (balance >= totalToPay && totalToPay != 0)
             {
                 // Bakiyeyi güncelle: Yeni bakiye, eski bakiyeden toplam tutarı çıkart
                 decimal newBalance = balance - totalToPay;
@@ -452,6 +455,7 @@ namespace NinjaApp.Winform.Forms
         {
             MessageBox.Show("Satın alma işlemi başarıyla gerçekleşti. Bizi tercih ettiğiniz için teşekkür ederiz.", "Ödeme Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
 

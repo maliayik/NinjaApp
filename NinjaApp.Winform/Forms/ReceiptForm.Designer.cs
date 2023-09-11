@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -38,6 +39,7 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Consolas", 14.2641506F, FontStyle.Bold, GraphicsUnit.Point);
@@ -55,30 +57,48 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Location = new Point(-2, 138);
+            dataGridView1.Location = new Point(0, 73);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowTemplate.Height = 27;
-            dataGridView1.Size = new Size(691, 365);
+            dataGridView1.Size = new Size(455, 338);
             dataGridView1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Consolas", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(186, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(70, 22);
+            label1.TabIndex = 1;
+            label1.Text = "FATURA";
             // 
             // ReceiptForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(688, 499);
+            BackColor = Color.Salmon;
+            ClientSize = new Size(453, 408);
+            Controls.Add(label1);
             Controls.Add(dataGridView1);
             Font = new Font("Consolas", 8.830189F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ReceiptForm";
-            Text = "ReceiptForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Fatura";
             Load += ReceiptForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         public DataGridView dataGridView1;
+        private Label label1;
     }
 }

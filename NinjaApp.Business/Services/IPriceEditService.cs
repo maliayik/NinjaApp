@@ -5,6 +5,6 @@ namespace NinjaApp.Business.Services
     public interface IPriceEditService
     {
         public List<PriceEditDto> GetPriceEditDtos();
-        void UpdatePriceEditDtos(PriceEditDto priceEditDto);
+        void UpdatePriceEdit(PriceEditDto priceEditDto);
     }
 }

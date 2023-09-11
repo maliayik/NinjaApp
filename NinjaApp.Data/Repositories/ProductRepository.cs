@@ -87,9 +87,25 @@ namespace NinjaApp.Data.Repositories
             return products;
         }
 
+        public void UpdateProductStock(string productName, int newStock)
+        {
+            var connection = new DbConnectionHelper().Connection;
 
+            SQLiteCommand command = new SQLiteCommand();
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.CommandText = "UPDATE Products SET Stock = Stock + @NewStock WHERE ProductName = @ProductName";
 
-        public void UpdateProduct(int productId, decimal newPrice)
+            command.Parameters.AddWithValue("@ProductName", productName);
+            command.Parameters.AddWithValue("@NewStock", newStock);
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
+            connection.Close();
+        }
+
+        public void UpdateProductPrice(int productId, decimal newPrice)
         {
             var connection = new DbConnectionHelper().Connection;
 
@@ -103,8 +119,12 @@ namespace NinjaApp.Data.Repositories
 
             connection.Open();
             command.ExecuteNonQuery();
+            command.Parameters.Clear();
             connection.Close();
         }
+
+
+
     }
 
 }

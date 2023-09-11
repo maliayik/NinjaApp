@@ -279,6 +279,7 @@
             btnSuplier.Text = "Tedarik Bilgileri";
             btnSuplier.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnSuplier.UseVisualStyleBackColor = true;
+            btnSuplier.Click += btnSuplier_Click;
             // 
             // btnAdmin
             // 

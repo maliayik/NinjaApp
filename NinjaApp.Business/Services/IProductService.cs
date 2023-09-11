@@ -6,5 +6,7 @@ namespace NinjaApp.Business.Services
     {
         public List<ProductListDto> GetProductListDto();
 
+        void UpdateProductStock(string productName, int newStock);
+
     }
 }

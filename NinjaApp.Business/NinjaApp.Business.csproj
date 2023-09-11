@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NinjaApp.Data\NinjaApp.Data.csproj" />
-    <ProjectReference Include="..\NinjaApp.DTOs\NinjaApp.DTOs.csproj" />
+    <Compile Remove="Tools\**" />
+    <EmbeddedResource Remove="Tools\**" />
+    <None Remove="Tools\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tools\" />
+    <ProjectReference Include="..\NinjaApp.Data\NinjaApp.Data.csproj" />
+    <ProjectReference Include="..\NinjaApp.DTOs\NinjaApp.DTOs.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using NinjaApp.Data;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.DTOs;
+using NinjaApp.Entities;
 
 namespace NinjaApp.Business.Managers
 {
@@ -13,6 +14,24 @@ namespace NinjaApp.Business.Managers
         {
             _productRepository = new DataServiceRegistration().GetProductRepositoryInstance();
         }
+
+        public void UpdateProductStock(string productName, int newStock)
+        {
+            // Ürünü zaten aldığınızı varsayalım, product parametresini kullanabilirsiniz
+            Product product = new Product();
+            product.ProductName = productName;
+
+            if (product != null)
+            {
+                // Alınan stok miktarını mevcut stok miktarına ekleyin
+                product.Stock += newStock;
+
+                // Ürünün stok miktarını güncellemek için UpdateProductStock metodunu kullanın
+                _productRepository.UpdateProductStock(product.ProductName, product.Stock);
+
+            }
+        }
+
 
         public List<ProductListDto> GetProductListDto()
         {
@@ -36,5 +55,7 @@ namespace NinjaApp.Business.Managers
 
             return dtoList;
         }
+
+      
     }
 }

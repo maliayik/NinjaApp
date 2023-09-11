@@ -35,12 +35,12 @@ namespace NinjaApp.Business.Managers
             return dtoList;
         }
 
-        public void UpdatePriceEditDtos(PriceEditDto priceEditDto)
+        public void UpdatePriceEdit(PriceEditDto priceEditDto)
         {
             int productId = priceEditDto.Id;
             decimal newPrice = priceEditDto.Fiyat;
 
-            _productRepository.UpdateProduct(productId, newPrice);
+            _productRepository.UpdateProductPrice(productId, newPrice);
         }
     }
 }

@@ -29,90 +29,91 @@
         private void InitializeComponent()
         {
             suplierGridView = new DataGridView();
-            dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            comboBox1 = new ComboBox();
+            messageDataGridView = new DataGridView();
+            txtSelectedProduct = new TextBox();
+            txtUnit = new TextBox();
+            cmbSelectedCategory = new ComboBox();
             label1 = new Label();
-            button1 = new Button();
+            btnBuy = new Button();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             lblTotal = new Label();
             ((System.ComponentModel.ISupportInitialize)suplierGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)messageDataGridView).BeginInit();
             SuspendLayout();
             // 
             // suplierGridView
             // 
-            suplierGridView.AllowUserToAddRows = false;
             suplierGridView.AllowUserToDeleteRows = false;
             suplierGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            suplierGridView.Location = new Point(12, 153);
+            suplierGridView.Location = new Point(-1, 115);
             suplierGridView.Name = "suplierGridView";
             suplierGridView.ReadOnly = true;
             suplierGridView.RowHeadersWidth = 45;
             suplierGridView.RowTemplate.Height = 27;
-            suplierGridView.Size = new Size(415, 744);
+            suplierGridView.Size = new Size(456, 532);
             suplierGridView.TabIndex = 0;
             // 
-            // dataGridView1
+            // messageDataGridView
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(744, 178);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 45;
-            dataGridView1.RowTemplate.Height = 27;
-            dataGridView1.Size = new Size(408, 719);
-            dataGridView1.TabIndex = 1;
+            messageDataGridView.AllowUserToAddRows = false;
+            messageDataGridView.AllowUserToDeleteRows = false;
+            messageDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            messageDataGridView.Location = new Point(804, 218);
+            messageDataGridView.Name = "messageDataGridView";
+            messageDataGridView.ReadOnly = true;
+            messageDataGridView.RowHeadersWidth = 45;
+            messageDataGridView.RowTemplate.Height = 27;
+            messageDataGridView.Size = new Size(425, 429);
+            messageDataGridView.TabIndex = 1;
             // 
-            // textBox1
+            // txtSelectedProduct
             // 
-            textBox1.Location = new Point(475, 260);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(134, 25);
-            textBox1.TabIndex = 3;
+            txtSelectedProduct.Location = new Point(529, 239);
+            txtSelectedProduct.Name = "txtSelectedProduct";
+            txtSelectedProduct.Size = new Size(134, 25);
+            txtSelectedProduct.TabIndex = 3;
             // 
-            // textBox2
+            // txtUnit
             // 
-            textBox2.Location = new Point(475, 333);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(134, 25);
-            textBox2.TabIndex = 3;
+            txtUnit.Location = new Point(529, 312);
+            txtUnit.Name = "txtUnit";
+            txtUnit.Size = new Size(134, 25);
+            txtUnit.TabIndex = 3;
             // 
-            // comboBox1
+            // cmbSelectedCategory
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(26, 84);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(208, 25);
-            comboBox1.TabIndex = 4;
+            cmbSelectedCategory.FormattingEnabled = true;
+            cmbSelectedCategory.Location = new Point(247, 84);
+            cmbSelectedCategory.Name = "cmbSelectedCategory";
+            cmbSelectedCategory.Size = new Size(208, 25);
+            cmbSelectedCategory.TabIndex = 4;
+            cmbSelectedCategory.SelectedIndexChanged += cmbSelectedCategory_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(475, 240);
+            label1.Location = new Point(529, 219);
             label1.Name = "label1";
             label1.Size = new Size(77, 17);
             label1.TabIndex = 5;
             label1.Text = "secilen ürün";
             // 
-            // button1
+            // btnBuy
             // 
-            button1.Location = new Point(475, 426);
-            button1.Name = "button1";
-            button1.Size = new Size(134, 25);
-            button1.TabIndex = 6;
-            button1.Text = "al";
-            button1.UseVisualStyleBackColor = true;
+            btnBuy.Location = new Point(529, 405);
+            btnBuy.Name = "btnBuy";
+            btnBuy.Size = new Size(134, 25);
+            btnBuy.TabIndex = 6;
+            btnBuy.Text = "al";
+            btnBuy.UseVisualStyleBackColor = true;
+            btnBuy.Click += btnBuy_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(475, 313);
+            label2.Location = new Point(529, 292);
             label2.Name = "label2";
             label2.Size = new Size(65, 17);
             label2.TabIndex = 5;
@@ -121,7 +122,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(475, 386);
+            label3.Location = new Point(529, 365);
             label3.Name = "label3";
             label3.Size = new Size(41, 17);
             label3.TabIndex = 5;
@@ -130,16 +131,16 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 51);
+            label4.Location = new Point(247, 51);
             label4.Name = "label4";
-            label4.Size = new Size(77, 17);
+            label4.Size = new Size(122, 17);
             label4.TabIndex = 5;
-            label4.Text = "secilen ürün";
+            label4.Text = "Tedarikçi Kategorisi";
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(531, 386);
+            lblTotal.Location = new Point(585, 365);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(43, 17);
             lblTotal.TabIndex = 7;
@@ -149,22 +150,23 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1152, 899);
+            ClientSize = new Size(1229, 647);
             Controls.Add(lblTotal);
-            Controls.Add(button1);
+            Controls.Add(btnBuy);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label4);
             Controls.Add(label1);
-            Controls.Add(comboBox1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(cmbSelectedCategory);
+            Controls.Add(txtUnit);
+            Controls.Add(txtSelectedProduct);
+            Controls.Add(messageDataGridView);
             Controls.Add(suplierGridView);
             Name = "SuplierForm";
             Text = "SuplierForm";
+            Load += SuplierForm_Load;
             ((System.ComponentModel.ISupportInitialize)suplierGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)messageDataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -172,12 +174,12 @@
         #endregion
 
         private DataGridView suplierGridView;
-        private DataGridView dataGridView1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private ComboBox comboBox1;
+        private DataGridView messageDataGridView;
+        private TextBox txtSelectedProduct;
+        private TextBox txtUnit;
+        private ComboBox cmbSelectedCategory;
         private Label label1;
-        private Button button1;
+        private Button btnBuy;
         private Label label2;
         private Label label3;
         private Label label4;

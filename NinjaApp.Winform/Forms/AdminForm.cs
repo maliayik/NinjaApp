@@ -14,6 +14,8 @@ namespace NinjaApp.Winform.Forms
 
         private AdminDto _loggedInAdmin;
 
+        //düzeltilecek.
+        string selectedProductName = "";
 
         /// <summary>
         /// Mesaj eventini yakalamak için yazılmıs action.
@@ -43,8 +45,9 @@ namespace NinjaApp.Winform.Forms
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
                     string selectedProductName = dataGridView1.Rows[e.RowIndex].Cells["Ürünler"].Value.ToString();
-                    //SuplierForm suplierForm = new SuplierForm(selectedProductName);
-                    // suplierForm.Show();
+                    this.selectedProductName = selectedProductName;
+                    SuplierForm suplierForm = new SuplierForm(selectedProductName,_loggedInAdmin);
+                    suplierForm.Show();
                 }
             };
         }
@@ -194,7 +197,7 @@ namespace NinjaApp.Winform.Forms
                     int productId = (int)selectedRow.Cells["Id"].Value;
 
                     // Yalnızca fiyatı güncelle
-                    _priceEditService.UpdatePriceEditDtos(new PriceEditDto
+                    _priceEditService.UpdatePriceEdit(new PriceEditDto
                     {
                         Id = productId,
                         Fiyat = newPrice
@@ -236,6 +239,13 @@ namespace NinjaApp.Winform.Forms
         private void btnBack_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnSuplier_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SuplierForm suplierForm = new SuplierForm(selectedProductName,_loggedInAdmin);
+            suplierForm.Show();
         }
     }
 }

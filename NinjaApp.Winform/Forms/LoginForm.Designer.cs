@@ -48,7 +48,7 @@
             txtUserName.Margin = new Padding(5, 4, 5, 4);
             txtUserName.Name = "txtUserName";
             txtUserName.PlaceholderText = "KULLANICI ADI";
-            txtUserName.Size = new Size(352, 34);
+            txtUserName.Size = new Size(352, 29);
             txtUserName.TabIndex = 1;
             // 
             // txtPass
@@ -58,7 +58,7 @@
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
             txtPass.PlaceholderText = "ŞİFRE";
-            txtPass.Size = new Size(352, 34);
+            txtPass.Size = new Size(352, 29);
             txtPass.TabIndex = 2;
             // 
             // btnLogin
@@ -102,7 +102,7 @@
             pictureBox1.Size = new Size(98, 85);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;           
+            pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -120,9 +120,9 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(111, 3);
+            label3.Location = new Point(142, 6);
             label3.Name = "label3";
-            label3.Size = new Size(168, 27);
+            label3.Size = new Size(130, 22);
             label3.TabIndex = 7;
             label3.Text = "GİRİŞ PANELİ";
             // 
@@ -135,7 +135,7 @@
             label4.ForeColor = Color.White;
             label4.Location = new Point(368, -1);
             label4.Name = "label4";
-            label4.Size = new Size(36, 35);
+            label4.Size = new Size(30, 29);
             label4.TabIndex = 8;
             label4.Text = "X";
             label4.Click += label4_Click;
@@ -146,7 +146,7 @@
             label5.Font = new Font("Consolas", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             label5.Location = new Point(3, 380);
             label5.Name = "label5";
-            label5.Size = new Size(150, 22);
+            label5.Size = new Size(120, 18);
             label5.TabIndex = 9;
             label5.Text = "Ninja App v1.0";
             // 
@@ -156,13 +156,14 @@
             label6.Font = new Font("Consolas", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             label6.Location = new Point(157, 380);
             label6.Name = "label6";
-            label6.Size = new Size(119, 15);
+            label6.Size = new Size(103, 13);
             label6.TabIndex = 10;
             label6.Text = "Copyright © 2023";
             // 
             // LoginForm
             // 
-            AutoScaleDimensions = new SizeF(13F, 27F);
+            AcceptButton = btnLogin;
+            AutoScaleDimensions = new SizeF(10F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(404, 408);
