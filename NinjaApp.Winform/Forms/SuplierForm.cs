@@ -2,6 +2,7 @@
 using NinjaApp.Business.Managers;
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace NinjaApp.Winform.Forms
@@ -13,7 +14,9 @@ namespace NinjaApp.Winform.Forms
         private readonly IProductService _productService;
         private readonly IInboxService _inboxService;
 
-        private AdminDto _logggedInAdmin;
+        private AdminDto loggedInAdmin;
+        string AdminFullname;
+       
         public SuplierForm(string productName, AdminDto loggedInAdmin)
         {
             InitializeComponent();
@@ -24,7 +27,9 @@ namespace NinjaApp.Winform.Forms
             var adminForm = new AdminForm(loggedInAdmin);
             adminForm.StockBelowThreshold += HandleStockBelowThreshold;
 
-            selectedProductName = productName;            
+            selectedProductName = productName;
+
+            this.loggedInAdmin = loggedInAdmin;
 
 
         }
@@ -33,6 +38,22 @@ namespace NinjaApp.Winform.Forms
         {
             string message = $"{productName} ürününün stok miktarı {stockAmount} oldu.";
             MessageBox.Show(message, "Stok Uyarısı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            string connectionString = "YourConnectionStringHere"; // Veritabanı bağlantı dizesini belirtin
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // SQL komutunu oluşturun (örneğin, "INSERT INTO StockThresholds (ProductName, StockAmount) VALUES (@ProductName, @StockAmount)")
+                string sql = "INSERT INTO StockThresholds (ProductName, StockAmount) VALUES (@ProductName, @StockAmount)";
+
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@ProductName", productName);
+                    cmd.Parameters.AddWithValue("@StockAmount", stockAmount);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
             Inbox();
         }
 
@@ -182,9 +203,9 @@ namespace NinjaApp.Winform.Forms
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-        //    this.Close();
-        //    AdminForm adminForm = new AdminForm(_logggedInAdmin,);
-        //    adminForm.Show();
+            this.Close();
+            AdminForm adminForm = new AdminForm(loggedInAdmin);
+            adminForm.Show();
         }
     }
 }

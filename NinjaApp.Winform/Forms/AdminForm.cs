@@ -31,7 +31,7 @@ namespace NinjaApp.Winform.Forms
             _stockService = dependencyContainer.GetStockServiceInstance();
             _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
             _chartService = dependencyContainer.GetChartServiceInstance();
-            _loggedInAdmin = loggedInAdmin;           
+            _loggedInAdmin = loggedInAdmin;
         }
 
 
@@ -46,7 +46,7 @@ namespace NinjaApp.Winform.Forms
                 {
                     string selectedProductName = dataGridView1.Rows[e.RowIndex].Cells["Ürünler"].Value.ToString();
                     this.selectedProductName = selectedProductName;
-                    SuplierForm suplierForm = new SuplierForm(selectedProductName,_loggedInAdmin);
+                    SuplierForm suplierForm = new SuplierForm(selectedProductName, _loggedInAdmin);
                     suplierForm.Show();
                 }
             };
@@ -176,8 +176,6 @@ namespace NinjaApp.Winform.Forms
             comboBox1.Items.Add(9);
             comboBox1.SelectedIndex = 0;
 
-
-
         }
 
 
@@ -239,14 +237,14 @@ namespace NinjaApp.Winform.Forms
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
-            LoginForm loginForm=new LoginForm();
+            LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
 
         private void btnSuplier_Click(object sender, EventArgs e)
         {
             this.Hide();
-            SuplierForm suplierForm = new SuplierForm(selectedProductName,_loggedInAdmin);
+            SuplierForm suplierForm = new SuplierForm(selectedProductName, _loggedInAdmin);
             suplierForm.Show();
         }
     }

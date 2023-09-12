@@ -55,6 +55,7 @@
             panel2 = new Panel();
             lblAdmin = new Label();
             pictureBox1 = new PictureBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
@@ -145,6 +146,7 @@
             // 
             // chart1
             // 
+            chart1.BackColor = SystemColors.ControlLightLight;
             chart1.BorderlineColor = Color.Transparent;
             chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea1.Name = "ChartArea1";
@@ -201,13 +203,14 @@
             // 
             // btnUpdate
             // 
+            btnUpdate.BackColor = Color.OldLace;
             btnUpdate.Location = new Point(922, 666);
             btnUpdate.Margin = new Padding(4, 5, 4, 5);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(273, 73);
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Fiyat Güncelle";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // comboBox1
@@ -223,21 +226,22 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1079, 436);
+            label5.Location = new Point(998, 446);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(94, 24);
+            label5.Size = new Size(298, 24);
             label5.TabIndex = 8;
-            label5.Text = "Listele";
+            label5.Text = "Satılan Ürünleri Listele";
             // 
             // btnBack
             // 
+            btnBack.BackColor = Color.OldLace;
             btnBack.Location = new Point(1202, 666);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(138, 73);
             btnBack.TabIndex = 9;
-            btnBack.Text = "Kapat";
-            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Text = "Çıkış";
+            btnBack.UseVisualStyleBackColor = false;
             btnBack.Click += btnBack_Click;
             // 
             // panel1
@@ -250,7 +254,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(350, 870);
+            panel1.Size = new Size(350, 751);
             panel1.TabIndex = 10;
             // 
             // button5
@@ -258,11 +262,11 @@
             button5.Dock = DockStyle.Bottom;
             button5.FlatAppearance.BorderSize = 0;
             button5.FlatStyle = FlatStyle.Flat;
-            button5.Location = new Point(0, 807);
+            button5.Location = new Point(0, 688);
             button5.Name = "button5";
             button5.Size = new Size(350, 63);
             button5.TabIndex = 1;
-            button5.Text = "Yönetici Paneli";
+            button5.Text = "ninjaApp v1.0";
             button5.TextImageRelation = TextImageRelation.ImageBeforeText;
             button5.UseVisualStyleBackColor = true;
             // 
@@ -276,7 +280,7 @@
             btnSuplier.Name = "btnSuplier";
             btnSuplier.Size = new Size(350, 47);
             btnSuplier.TabIndex = 1;
-            btnSuplier.Text = "Tedarik Bilgileri";
+            btnSuplier.Text = "Tedarikçi Sayfası";
             btnSuplier.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnSuplier.UseVisualStyleBackColor = true;
             btnSuplier.Click += btnSuplier_Click;
@@ -309,7 +313,7 @@
             // 
             lblAdmin.AutoSize = true;
             lblAdmin.Font = new Font("Consolas", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblAdmin.Location = new Point(10, 146);
+            lblAdmin.Location = new Point(27, 158);
             lblAdmin.Name = "lblAdmin";
             lblAdmin.Size = new Size(310, 24);
             lblAdmin.TabIndex = 1;
@@ -325,12 +329,22 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(1010, 23);
+            label6.Name = "label6";
+            label6.Size = new Size(286, 24);
+            label6.TabIndex = 11;
+            label6.Text = "Satılan Ürünler Grafiği";
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(1402, 870);
+            ClientSize = new Size(1402, 751);
+            Controls.Add(label6);
             Controls.Add(panel1);
             Controls.Add(btnBack);
             Controls.Add(label5);
@@ -385,5 +399,6 @@
         private Button btnAdmin;
         private Button button5;
         private Button btnSuplier;
+        private Label label6;
     }
 }

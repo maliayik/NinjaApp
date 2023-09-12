@@ -2,6 +2,7 @@
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -56,6 +57,7 @@ namespace NinjaApp.Winform.Forms
             SetupDataGridViewColumns();
 
             UpdateUserInformation(_loggedInUser);
+
             cmbUnit.Items.Clear();
             for (int i = 1; i <= 10; i++)
             {
@@ -126,7 +128,7 @@ namespace NinjaApp.Winform.Forms
                 string productName = selectedRow.Cells["Ürünler"].Value.ToString();
                 string unit = selectedRow.Cells["Birim"].Value.ToString();
                 string euroPriceStr = selectedRow.Cells["Fiyat"].Value.ToString();
-                string adetStr = selectedRow.Cells["Adet"].Value.ToString(); // Adet değerini al
+                string adetStr = selectedRow.Cells["Adet"].Value.ToString();
 
                 string tlPriceStr = euroPriceStr.Replace("EUR", "TL");
 
@@ -187,8 +189,7 @@ namespace NinjaApp.Winform.Forms
             dataGridView2.Columns.Add(adetColumn);
 
 
-            dataGridView2.Columns["Adet"].Visible = false;
-
+            dataGridView2.Columns["Adet"].Visible = true;          
         }
 
         /// <summary>
@@ -284,7 +285,6 @@ namespace NinjaApp.Winform.Forms
         /// </summary>
         private void UpdateTotalLabel()
         {
-            //burdaki bakiyeyi databaseden alsın 1. çözüm
 
             decimal total = GetTotalToPay();
             decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
@@ -353,8 +353,7 @@ namespace NinjaApp.Winform.Forms
 
             decimal totalToPay = GetTotalToPay();
             decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
-
-
+            int totalQuantityToPurchase = CalculateTotalQuantityToPurchase();
 
 
             if (balance >= totalToPay && totalToPay != 0)
@@ -402,8 +401,6 @@ namespace NinjaApp.Winform.Forms
                 receiptForm.FormClosed += (formSender, formArgs) =>
                 {
                     this.Show();
-
-
                 };
                 receiptForm.Show();
 
@@ -414,10 +411,31 @@ namespace NinjaApp.Winform.Forms
             else
             {
                 MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
-
-                // Ödeme işlemi başarısız oldu, bayrağı devre dışı bırak
-
             }
+        }       
+
+
+        private int CalculateTotalQuantityToPurchase()
+        {
+            int totalQuantityToPurchase = 0;
+
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                string birimStr = row.Cells["Birim"].Value?.ToString();
+                if (!string.IsNullOrEmpty(birimStr) && birimStr.EndsWith("kg"))
+                {
+                    // Birim ifadesini kg'yi kaldırarak alın
+                    string birimMiktarStr = birimStr.Replace("kg", "").Trim();
+
+                    // Birim miktarını tam sayıya çevirin
+                    if (int.TryParse(birimMiktarStr, out int birimMiktar))
+                    {
+                        totalQuantityToPurchase += birimMiktar;
+                    }
+                }
+            }
+
+            return totalQuantityToPurchase;
         }
 
 
@@ -449,6 +467,9 @@ namespace NinjaApp.Winform.Forms
 
             return balance;
         }
+
+
+
 
 
         private void ShowPaymentSuccessMessage()

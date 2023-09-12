@@ -46,15 +46,17 @@
             linkLabelUser = new LinkLabel();
             panel1 = new Panel();
             label7 = new Label();
-            panel2 = new Panel();
             label8 = new Label();
-            pictureBox1 = new PictureBox();
+            panel2 = new Panel();
             btnExit = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
@@ -230,7 +232,6 @@
             linkLabelUser.AutoSize = true;
             linkLabelUser.Cursor = Cursors.Hand;
             linkLabelUser.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            linkLabelUser.LinkColor = Color.Black;
             linkLabelUser.Location = new Point(232, 11);
             linkLabelUser.Name = "linkLabelUser";
             linkLabelUser.Size = new Size(100, 22);
@@ -242,16 +243,17 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.None;
-            panel1.BackColor = Color.MistyRose;
+            panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(label7);
             panel1.Controls.Add(dataGridView1);
+            panel1.Controls.Add(label8);
             panel1.Controls.Add(linkLabelUser);
             panel1.Controls.Add(lblBalance);
             panel1.Controls.Add(cmbCategories);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(0, 213);
+            panel1.Location = new Point(0, 304);
             panel1.Name = "panel1";
-            panel1.Size = new Size(537, 784);
+            panel1.Size = new Size(547, 693);
             panel1.TabIndex = 20;
             // 
             // label7
@@ -263,9 +265,18 @@
             label7.TabIndex = 20;
             label7.Text = "***Ürün seçmek için lütfen çift tıklayınız...";
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(425, 15);
+            label8.Name = "label8";
+            label8.Size = new Size(64, 18);
+            label8.TabIndex = 22;
+            label8.Text = "ÜRÜNLER";
+            // 
             // panel2
             // 
-            panel2.BackColor = Color.MistyRose;
+            panel2.BackColor = Color.FromArgb(255, 224, 192);
             panel2.Controls.Add(dataGridView2);
             panel2.Controls.Add(btnPay);
             panel2.Controls.Add(label4);
@@ -281,47 +292,46 @@
             panel2.Size = new Size(332, 629);
             panel2.TabIndex = 21;
             // 
-            // label8
+            // btnExit
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Consolas", 17.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(190, 179);
-            label8.Name = "label8";
-            label8.Size = new Size(112, 31);
-            label8.TabIndex = 22;
-            label8.Text = "ÜRÜNLER";
+            btnExit.BackColor = Color.FromArgb(255, 255, 192);
+            btnExit.Image = Properties.Resources.arrow_left;
+            btnExit.ImageAlign = ContentAlignment.TopCenter;
+            btnExit.Location = new Point(12, 210);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(97, 41);
+            btnExit.TabIndex = 25;
+            btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += btnExit_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Image = Properties.Resources.NİNJA;
-            pictureBox1.Location = new Point(701, 8);
+            pictureBox1.Image = Properties.Resources.NİNJA__4_;
+            pictureBox1.Location = new Point(0, -2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(366, 268);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 24;
+            pictureBox1.Size = new Size(1117, 188);
+            pictureBox1.TabIndex = 26;
             pictureBox1.TabStop = false;
             // 
-            // btnExit
+            // pictureBox2
             // 
-            btnExit.Location = new Point(12, 8);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(107, 25);
-            btnExit.TabIndex = 25;
-            btnExit.Text = "Çıkış Yap";
-            btnExit.UseVisualStyleBackColor = true;
-            btnExit.Click += btnExit_Click;
+            pictureBox2.Image = Properties.Resources.NİNJA;
+            pictureBox2.Location = new Point(820, -2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(247, 188);
+            pictureBox2.TabIndex = 27;
+            pictureBox2.TabStop = false;
             // 
             // ShoppingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gainsboro;
+            BackColor = Color.Tan;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1068, 993);
-            Controls.Add(btnExit);
+            Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Controls.Add(label8);
+            Controls.Add(btnExit);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label2);
@@ -339,6 +349,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -365,7 +376,8 @@
         private Panel panel2;
         private Label label7;
         private Label label8;
-        private PictureBox pictureBox1;
         private Button btnExit;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }
