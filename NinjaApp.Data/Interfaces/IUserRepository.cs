@@ -13,6 +13,7 @@ namespace NinjaApp.Data.Interfaces
 
        void  UpdateUserBalanceAfterPayment(int userId, decimal newBalance);
 
+        void CreateUser(AppUser newUser);
 
     }
 }

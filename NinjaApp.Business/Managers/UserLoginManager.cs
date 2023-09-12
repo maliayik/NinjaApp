@@ -17,6 +17,7 @@ namespace NinjaApp.Business.Managers
         public UserLoginDto GetUserLogin(string userName, string password)
         {
             var UserLogin = _userRepository.GetUserLogin(userName, password);
+            
 
             if (UserLogin != null)
             {

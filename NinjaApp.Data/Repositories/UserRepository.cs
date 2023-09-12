@@ -9,6 +9,33 @@ namespace NinjaApp.Data.Repositories
     public class UserRepository : IUserRepository
     {
 
+
+        public void CreateUser(AppUser newUser)
+        {
+            using (var connection = new DbConnectionHelper().Connection)
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand())
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO Users (Fullname, Username, Password, Balance, ReceiptId) VALUES (@Fullname, @Username, @Password, @Balance,@ReceiptId)";
+
+                    // Parametrelerin eklenmesi
+                    command.Parameters.Add(new SQLiteParameter("@Fullname", newUser.Fullname));
+                    command.Parameters.Add(new SQLiteParameter("@Username", newUser.Username));
+                    command.Parameters.Add(new SQLiteParameter("@Password", newUser.Password));
+                    command.Parameters.Add(new SQLiteParameter("@Balance", newUser.Balance));
+                    command.Parameters.Add(new SQLiteParameter("@ReceiptId", newUser.ReceiptId));
+
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                    connection.Close();
+                }
+            }
+        }
+
         public AppUser GetAppUserById(int id)
         {
             using (var connection = new DbConnectionHelper().Connection)
@@ -76,9 +103,10 @@ namespace NinjaApp.Data.Repositories
                             };
 
                             return user;
-                           
+
                         }
-                    }command.Parameters.Clear();
+                    }
+                    command.Parameters.Clear();
                 }
                 connection.Close();
             }

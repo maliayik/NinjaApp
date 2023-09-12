@@ -14,7 +14,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService, AdminLoginManager>().AddScoped<IReceiptService, ReceiptManager>().AddScoped<ISuplierService,SuplierManager>().AddScoped<IInboxService,InboxManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService, AdminLoginManager>().AddScoped<IReceiptService, ReceiptManager>().AddScoped<ISuplierService,SuplierManager>().AddScoped<IInboxService,InboxManager>().AddScoped<IRegisterService,RegisterManager>().BuildServiceProvider();
 
 
         }
@@ -109,6 +109,15 @@ namespace NinjaApp.Business
         public IInboxService GetInboxServiceInstance()
         {
             return serviceProvider.GetRequiredService<IInboxService>();
+        }
+
+        /// <summary>
+        /// Bu metot Register service içeriğini getirir.
+        /// </summary>
+        /// <returns></returns>
+        public IRegisterService GetRegisterServiceInstance()
+        {
+            return serviceProvider.GetRequiredService<IRegisterService>();
         }
     }
 }

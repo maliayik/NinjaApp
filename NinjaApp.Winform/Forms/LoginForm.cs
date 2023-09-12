@@ -11,6 +11,7 @@ namespace NinjaApp.Winform.Forms
         private AdminDto _admin;
         private readonly IUserLoginService _userLoginService;
         private readonly IAdminLoginService _adminLoginService;
+        
 
         public LoginForm()
         {
@@ -23,14 +24,14 @@ namespace NinjaApp.Winform.Forms
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string userName = txtUserName.Text;
-            string password = txtPass.Text;            
-            
+            string password = txtPass.Text;
+
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {
                 // Kullanıcıyı giriş yapmaya çalışın
                 _user = _userLoginService.GetUserLogin(userName, password);
-                _admin = _adminLoginService.GetAdminLogin(userName, password);
+                _admin = _adminLoginService.GetAdminLogin(userName, password);                
 
                 if (_user != null)
                 {
@@ -65,6 +66,13 @@ namespace NinjaApp.Winform.Forms
         private void label4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            this.Hide();
+            registerForm.Show(); 
         }
     }
 }
