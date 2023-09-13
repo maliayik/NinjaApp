@@ -17,7 +17,7 @@ namespace NinjaApp.Business.Managers
         public UserLoginDto GetUserLogin(string userName, string password)
         {
             var UserLogin = _userRepository.GetUserLogin(userName, password);
-            
+
 
             if (UserLogin != null)
             {
@@ -27,7 +27,7 @@ namespace NinjaApp.Business.Managers
                     UserName = UserLogin.Username,
                     Password = UserLogin.Password,
                     Fullname = UserLogin.Fullname,
-                    Balance= UserLogin.Balance,
+                    Balance = UserLogin.Balance,
                 };
 
                 return userLoginDto;
@@ -35,6 +35,26 @@ namespace NinjaApp.Business.Managers
             }
 
             return null;
+        }
+
+        public List<UserDto> GetUsers()
+        {
+            var dtoList = new List<UserDto>();
+            var list = _userRepository.GetAllUsers();
+
+            foreach (var user in list)
+            {
+                var dto = new UserDto();
+
+                dto.Id = user.Id;
+                dto.Username = user.Username;
+                dto.Fullname = user.Fullname;
+                dto.Balance = user.Balance;
+
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
         }
     }
 }

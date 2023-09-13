@@ -48,7 +48,8 @@
             txtFullname.Multiline = true;
             txtFullname.Name = "txtFullname";
             txtFullname.Size = new Size(317, 47);
-            txtFullname.TabIndex = 0;
+            txtFullname.TabIndex = 1;
+            txtFullname.WordWrap = false;
             // 
             // label1
             // 
@@ -97,7 +98,8 @@
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(317, 47);
-            txtPassword.TabIndex = 0;
+            txtPassword.TabIndex = 3;
+            txtPassword.WordWrap = false;
             // 
             // txtUsername
             // 
@@ -108,7 +110,8 @@
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(317, 47);
-            txtUsername.TabIndex = 0;
+            txtUsername.TabIndex = 2;
+            txtUsername.WordWrap = false;
             // 
             // btnRegister
             // 
@@ -120,7 +123,7 @@
             btnRegister.Location = new Point(30, 454);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(317, 45);
-            btnRegister.TabIndex = 3;
+            btnRegister.TabIndex = 4;
             btnRegister.Text = "KAYIT OL";
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
@@ -134,9 +137,10 @@
             btnExit.Location = new Point(30, 524);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(317, 45);
-            btnExit.TabIndex = 3;
+            btnExit.TabIndex = 5;
             btnExit.Text = "KAPAT";
             btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += btnExit_Click;
             // 
             // label4
             // 
@@ -147,7 +151,7 @@
             label4.Location = new Point(30, 72);
             label4.Name = "label4";
             label4.Size = new Size(209, 45);
-            label4.TabIndex = 4;
+            label4.TabIndex = 0;
             label4.Text = "KAYIT OL ";
             // 
             // RegisterForm
@@ -168,6 +172,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "RegisterForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RegisterForm";
             ResumeLayout(false);
             PerformLayout();

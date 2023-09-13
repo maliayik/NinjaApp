@@ -5,5 +5,6 @@ namespace NinjaApp.Business.Services
     public interface IUserLoginService
     {
         UserLoginDto GetUserLogin(string userName, string password);
+        List<UserDto> GetUsers();
     }
 }

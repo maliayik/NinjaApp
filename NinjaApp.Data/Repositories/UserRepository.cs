@@ -36,6 +36,43 @@ namespace NinjaApp.Data.Repositories
             }
         }
 
+        public List<AppUser> GetAllUsers()
+        {
+            List<AppUser> users = new List<AppUser>();
+
+            var connection = new DbConnectionHelper().Connection;
+
+            SQLiteCommand command = new SQLiteCommand();
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.CommandText = "SELECT  * FROM Users";
+
+            connection.Open();
+
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var user = new AppUser();
+
+                user.Id = Convert.ToInt32(reader[0]);
+                user.Fullname = Convert.ToString(reader[1]);
+                user.Username = Convert.ToString(reader[2]);
+                user.Password = Convert.ToString(reader[3]);
+                user.Balance = Convert.ToDecimal(reader[4]);
+                user.ReceiptId = Convert.ToInt32(reader[5]);               
+
+                users.Add(user);
+
+            }
+
+            reader.Close();
+            connection.Close();
+
+
+            return users;
+        }
+
         public AppUser GetAppUserById(int id)
         {
             using (var connection = new DbConnectionHelper().Connection)

@@ -45,5 +45,23 @@ namespace NinjaApp.Data.Repositories
 
             return messages;
         }
+
+
+        public void AddMessage(string message)
+        {
+            var connection = new DbConnectionHelper().Connection;
+
+            SQLiteCommand command = new SQLiteCommand();
+            command.CommandType = CommandType.Text;
+            command.Connection = connection;
+            command.CommandText = "INSERT INTO InBoxes (Description) VALUES (@Message)";
+
+            command.Parameters.AddWithValue("@Message", message);
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
+            connection.Close();
+        }
     }
 }

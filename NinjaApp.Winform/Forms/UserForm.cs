@@ -73,6 +73,9 @@ namespace NinjaApp.Winform.Forms
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
 
+        /// <summary>
+        /// Addmoney formunu göstermek için
+        /// </summary>      
         private void btnAddMoney_Click(object sender, EventArgs e)
         {
             addMoneyForm.Show();

@@ -18,6 +18,12 @@ namespace NinjaApp.Business.Managers
         {
             _inboxRepository = new DataServiceRegistration().GetInboxRepositoryInstance();
         }
+
+        public void AddMessage(string message)
+        {
+            _inboxRepository.AddMessage(message);
+        }
+
         public List<InboxDto> GetListAll()
         {
             var inboxDto = new List<InboxDto>();
