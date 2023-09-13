@@ -30,6 +30,9 @@ namespace NinjaApp.Winform.Forms
 
         }
 
+        /// <summary>
+        /// Bu metot, kullanıcının şifresini değiştirmesini ve değişiklikleri uyguladığında bir bilgi iletişim kutusu göstermesini sağlar.
+        /// </summary>    
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             string newPassword = txtPassword.Text;
@@ -37,18 +40,12 @@ namespace NinjaApp.Winform.Forms
             if (!string.IsNullOrEmpty(newPassword) && newPassword == confirmPassword)
             {
 
-                // userId değişkenini kullanmak isterseniz, burada userId'i alabilirsiniz.
-
                 // Şifre güncelleme işlemini yapmak için _userService.UpdateUserPassword metodu kullanılır.
                 _userService.UpdateUserPassword(userId, newPassword);
-
-                // Şifre güncellendiğinde ChangePassword olayını tetikleyebilirsiniz.
-
 
                 // Kullanıcıya bilgi ver
                 MessageBox.Show(this, "Şifre güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ChangePassword?.Invoke(this, EventArgs.Empty);
-                this.Close();
 
             }
             else

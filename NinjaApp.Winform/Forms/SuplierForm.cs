@@ -1,9 +1,6 @@
 ﻿using NinjaApp.Business;
-using NinjaApp.Business.Managers;
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
-using System.Data.SqlClient;
-using System.Windows.Forms;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -16,7 +13,7 @@ namespace NinjaApp.Winform.Forms
 
         private AdminDto loggedInAdmin;
         string AdminFullname;
-       
+
         public SuplierForm(string productName, AdminDto loggedInAdmin)
         {
             InitializeComponent();
@@ -25,7 +22,6 @@ namespace NinjaApp.Winform.Forms
             _productService = dependencyContainer.GetProductServiceInstance();
             _inboxService = dependencyContainer.GetInboxServiceInstance();
             var adminForm = new AdminForm(loggedInAdmin);
-            adminForm.StockBelowThreshold += HandleStockBelowThreshold;
 
             selectedProductName = productName;
 
@@ -34,15 +30,7 @@ namespace NinjaApp.Winform.Forms
 
         }
 
-        private void HandleStockBelowThreshold(string productName, int stockAmount)
-        {
-            string message = $"{productName} ürününün stok miktarı {stockAmount} oldu.";
-            MessageBox.Show(message, "Stok Uyarısı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            _inboxService.AddMessage(message);            
-            
-            Inbox();
-        }
 
         private void SuplierForm_Load(object sender, EventArgs e)
         {
@@ -52,7 +40,9 @@ namespace NinjaApp.Winform.Forms
             InitializeComboBox();
         }
 
-
+        /// <summary>
+        /// Kategori seçimini başlatmak için ComboBox'ı doldurur.
+        /// </summary>
         private void InitializeComboBox()
         {
             // ComboBox'a kategorileri ekleyin
@@ -64,7 +54,9 @@ namespace NinjaApp.Winform.Forms
             cmbSelectedCategory.SelectedIndex = 0;
         }
 
-
+        /// <summary>
+        /// DataGridView'i ürünlerin listelendiği bir arayüz olarak başlatır.
+        /// </summary>
         private void InitializeDataGridView()
         {
             // DataGridView sütunlarını tanımlayın
@@ -84,7 +76,9 @@ namespace NinjaApp.Winform.Forms
         }
 
 
-
+        /// <summary>
+        /// DataGridView'den ürün seçildiğinde ilgili verileri kullanıcı arayüzüne yükler.
+        /// </summary>  
         private void suplierGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Geçerli bir satır tıklanmış mı kontrol edin
@@ -101,6 +95,9 @@ namespace NinjaApp.Winform.Forms
             }
         }
 
+        /// <summary>
+        /// DataGridView'deki fiyat ve stok sütunlarını biçimlendirir.
+        /// </summary>    
         private void suplierGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Fiyat sütunu için işlem yapın (örneğin, 3. sütun)
@@ -126,6 +123,9 @@ namespace NinjaApp.Winform.Forms
             }
         }
 
+        /// <summary>
+        /// Kategori seçimi değiştirildiğinde ürünleri kategoriye göre listeleyen bir işlem yapar.
+        /// </summary>
         private void cmbSelectedCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedCategory = cmbSelectedCategory.SelectedItem.ToString();
@@ -149,6 +149,10 @@ namespace NinjaApp.Winform.Forms
             }
         }
 
+
+        /// <summary>
+        /// Ürün satın alma işlemi yapar ve stok miktarını günceller.
+        /// </summary>   
         private void btnBuy_Click(object sender, EventArgs e)
         {
 
@@ -164,11 +168,9 @@ namespace NinjaApp.Winform.Forms
 
                     if (purchasedStock <= currentStock)
                     {
-                        // Girdi miktarı mevcut stok miktarından küçük veya eşitse güncelleme yapın
                         _productService.UpdateProductStock(productName, purchasedStock);
 
                         MessageBox.Show("Ürün stok miktarı güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Başka işlemler veya güncelleme yapılabilir
                     }
                     else
                     {
@@ -179,6 +181,9 @@ namespace NinjaApp.Winform.Forms
 
         }
 
+        /// <summary>
+        /// Kullanıcıya gelen mesajları görüntüler.
+        /// </summary>
         public void Inbox()
         {
             var inboxData = _inboxService.GetListAll();
@@ -188,6 +193,10 @@ namespace NinjaApp.Winform.Forms
             messageDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
 
+
+        /// <summary>
+        /// Tedarikçi formunu kapatır ve admin formunu gösterir.
+        /// </summary>    
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();

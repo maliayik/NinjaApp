@@ -19,13 +19,14 @@ namespace NinjaApp.Data.Repositories
                     command.CommandType = CommandType.Text;
                     command.Connection = connection;
 
-                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate, Total,UserId) " +
-                                          "VALUES (@ProductName, @PurchaseDate, @Total,@UserId)";
+                    command.CommandText = "INSERT INTO Receipts (ProductName, PurchaseDate,Unit,Total,UserId) " +
+                                          "VALUES (@ProductName, @PurchaseDate, @Unit, @Total, @UserId)";
 
                     command.Parameters.AddWithValue("@ProductName", receipt.ProductName);
                     command.Parameters.AddWithValue("@PurchaseDate", receipt.PurchaseDate.ToString("yyyy-MM-dd HH:mm:ss"));
-                    command.Parameters.AddWithValue("@Total", receipt.Total);                  
+                    command.Parameters.AddWithValue("@Total", receipt.Total);
                     command.Parameters.AddWithValue("@UserId", receipt.UserId);
+                    command.Parameters.AddWithValue("@Unit", receipt.Unit);
 
 
                     command.ExecuteNonQuery();
@@ -62,8 +63,9 @@ namespace NinjaApp.Data.Repositories
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 ProductName = reader["ProductName"].ToString(),
-                                PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),                                
-                                Total = Convert.ToDecimal(reader["Total"]),                                
+                                PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),
+                                Unit = Convert.ToInt32(reader["Unit"]),
+                                Total = Convert.ToDecimal(reader["Total"]),
                                 UserId = Convert.ToInt32(reader["UserId"])
                             };
                             receipts.Add(receipt);

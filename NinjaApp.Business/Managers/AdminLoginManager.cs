@@ -1,13 +1,7 @@
 ﻿using NinjaApp.Business.Services;
 using NinjaApp.Data;
 using NinjaApp.Data.Interfaces;
-using NinjaApp.Data.Repositories;
 using NinjaApp.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Business.Managers
 {
@@ -18,7 +12,7 @@ namespace NinjaApp.Business.Managers
 
         public AdminLoginManager()
         {
-            _adminRepository=new DataServiceRegistration().GetAdminRepositoryInstance();
+            _adminRepository = new DataServiceRegistration().GetAdminRepositoryInstance();
         }
 
         public AdminDto GetAdminLogin(string userName, string password)
@@ -32,8 +26,8 @@ namespace NinjaApp.Business.Managers
                     Id = adminLogin.Id,
                     Username = adminLogin.Username,
                     Password = adminLogin.Password,
-                    Fullname= adminLogin.Fullname,
-                    
+                    Fullname = adminLogin.Fullname,
+
                 };
 
                 return adminLoginDto;

@@ -17,16 +17,13 @@ namespace NinjaApp.Business.Managers
 
         public void UpdateProductStock(string productName, int newStock)
         {
-            // Ürünü zaten aldığınızı varsayalım, product parametresini kullanabilirsiniz
+
             Product product = new Product();
             product.ProductName = productName;
 
             if (product != null)
             {
-                // Alınan stok miktarını mevcut stok miktarına ekleyin
                 product.Stock += newStock;
-
-                // Ürünün stok miktarını güncellemek için UpdateProductStock metodunu kullanın
                 _productRepository.UpdateProductStock(product.ProductName, product.Stock);
 
             }
@@ -56,6 +53,6 @@ namespace NinjaApp.Business.Managers
             return dtoList;
         }
 
-      
+
     }
 }

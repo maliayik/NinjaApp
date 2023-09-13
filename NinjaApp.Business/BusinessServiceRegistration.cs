@@ -14,7 +14,7 @@ namespace NinjaApp.Business
         /// </summary>
         public BusinessServiceRegistration()
         {
-            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService, AdminLoginManager>().AddScoped<IReceiptService, ReceiptManager>().AddScoped<ISuplierService,SuplierManager>().AddScoped<IInboxService,InboxManager>().AddScoped<IRegisterService,RegisterManager>().BuildServiceProvider();
+            serviceProvider = new ServiceCollection().AddScoped<IProductService, ProductManager>().AddScoped<IStockService, StockManager>().AddScoped<IPriceEditService, PriceEditManager>().AddScoped<IChartService, ChartManager>().AddScoped<IUserService, UserManager>().AddScoped<IShoppingService, ShoppingManager>().AddScoped<IUserLoginService, UserLoginManager>().AddScoped<IAdminLoginService, AdminLoginManager>().AddScoped<IReceiptService, ReceiptManager>().AddScoped<ISuplierService, SuplierManager>().AddScoped<IInboxService, InboxManager>().AddScoped<IRegisterService, RegisterManager>().BuildServiceProvider();
 
 
         }

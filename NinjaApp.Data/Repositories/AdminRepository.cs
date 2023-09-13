@@ -1,12 +1,7 @@
 ﻿using NinjaApp.Data.Helpers;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {
@@ -36,12 +31,12 @@ namespace NinjaApp.Data.Repositories
                             };
 
                             return admin;
-                            
+
                         }
                         command.Parameters.Clear();
                     }
                 }
-                
+
                 connection.Close();
             }
             return null;

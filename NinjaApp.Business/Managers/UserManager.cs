@@ -53,6 +53,7 @@ namespace NinjaApp.Business.Managers
                     Id = receipt.Id,
                     Ürünler = receipt.ProductName,
                     Tarih = receipt.PurchaseDate,
+                    Birim = receipt.Unit,
                     Toplam = receipt.Total,
                     UserId = receipt.UserId
                 };
@@ -104,6 +105,6 @@ namespace NinjaApp.Business.Managers
             }
         }
 
-       
+
     }
 }

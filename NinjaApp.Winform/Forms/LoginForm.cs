@@ -1,7 +1,6 @@
 ﻿using NinjaApp.Business;
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -11,7 +10,7 @@ namespace NinjaApp.Winform.Forms
         private AdminDto _admin;
         private readonly IUserLoginService _userLoginService;
         private readonly IAdminLoginService _adminLoginService;
-        
+
 
         public LoginForm()
         {
@@ -21,6 +20,9 @@ namespace NinjaApp.Winform.Forms
             _adminLoginService = dependencyContainer.GetAdminLoginServiceInstance();
         }
 
+        /// <summary>
+        /// Kullanıcı adı ve şifreyle giriş yapmayı deneyen kullanıcıyı doğrular ve kullanıcı veya admin olarak uygun formu açar veya yanlış giriş bilgilerini bildirir.
+        /// </summary>     
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string userName = txtUserName.Text;
@@ -31,7 +33,7 @@ namespace NinjaApp.Winform.Forms
             {
                 // Kullanıcıyı giriş yapmaya çalışın
                 _user = _userLoginService.GetUserLogin(userName, password);
-                _admin = _adminLoginService.GetAdminLogin(userName, password);                
+                _admin = _adminLoginService.GetAdminLogin(userName, password);
 
                 if (_user != null)
                 {
@@ -58,21 +60,30 @@ namespace NinjaApp.Winform.Forms
             }
         }
 
+        /// <summary>
+        /// Giriş yapma formu kapatıldığında uygulamayı tamamen kapatır.
+        /// </summary> 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
+        /// <summary>
+        /// Kullanıcı kaydı oluşturmak için yeni bir kayıt formu açar ve mevcut giriş formunu gizler.
+        /// </summary>
         private void btnRegister_Click(object sender, EventArgs e)
         {
             RegisterForm registerForm = new RegisterForm();
             this.Hide();
-            registerForm.Show(); 
+            registerForm.Show();
+        }
+
+        /// <summary>
+        /// Uygulamayı kapatma işlemi için bir etiketi tıkladığınızda uygulamayı tamamen kapatır.
+        /// </summary>    >
+        private void lblExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

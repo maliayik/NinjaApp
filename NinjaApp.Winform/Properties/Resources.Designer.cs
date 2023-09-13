@@ -103,6 +103,36 @@ namespace NinjaApp.Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap buy {
+            get {
+                object obj = ResourceManager.GetObject("buy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buy1 {
+            get {
+                object obj = ResourceManager.GetObject("buy1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buy2 {
+            get {
+                object obj = ResourceManager.GetObject("buy2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap inventory {
             get {
                 object obj = ResourceManager.GetObject("inventory", resourceCulture);
@@ -266,6 +296,26 @@ namespace NinjaApp.Winform.Properties {
         internal static System.Drawing.Bitmap wepik_export_20230910145800rKia {
             get {
                 object obj = ResourceManager.GetObject("wepik-export-20230910145800rKia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Yeşil_Modern_Mini_Market_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Yeşil Modern Mini Market Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Yeşil_Modern_Mini_Market_Logo__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Yeşil Modern Mini Market Logo (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

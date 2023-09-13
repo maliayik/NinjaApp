@@ -60,7 +60,7 @@ namespace NinjaApp.Data.Repositories
                 user.Username = Convert.ToString(reader[2]);
                 user.Password = Convert.ToString(reader[3]);
                 user.Balance = Convert.ToDecimal(reader[4]);
-                user.ReceiptId = Convert.ToInt32(reader[5]);               
+                user.ReceiptId = Convert.ToInt32(reader[5]);
 
                 users.Add(user);
 

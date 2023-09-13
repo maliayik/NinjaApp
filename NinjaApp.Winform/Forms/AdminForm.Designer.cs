@@ -203,7 +203,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.BackColor = Color.OldLace;
+            btnUpdate.BackColor = SystemColors.ActiveCaption;
             btnUpdate.Location = new Point(922, 666);
             btnUpdate.Margin = new Padding(4, 5, 4, 5);
             btnUpdate.Name = "btnUpdate";
@@ -235,7 +235,7 @@
             // 
             // btnBack
             // 
-            btnBack.BackColor = Color.OldLace;
+            btnBack.BackColor = SystemColors.ActiveCaption;
             btnBack.Location = new Point(1202, 666);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(138, 73);

@@ -43,6 +43,7 @@
             // 
             txtFullname.BackColor = Color.Gainsboro;
             txtFullname.BorderStyle = BorderStyle.None;
+            txtFullname.Font = new Font("Consolas", 18.3396225F, FontStyle.Regular, GraphicsUnit.Point);
             txtFullname.Location = new Point(30, 192);
             txtFullname.Margin = new Padding(4, 5, 4, 5);
             txtFullname.Multiline = true;
@@ -92,6 +93,7 @@
             // 
             txtPassword.BackColor = Color.Gainsboro;
             txtPassword.BorderStyle = BorderStyle.None;
+            txtPassword.Font = new Font("Consolas", 18.3396225F, FontStyle.Regular, GraphicsUnit.Point);
             txtPassword.Location = new Point(30, 383);
             txtPassword.Margin = new Padding(4, 5, 4, 5);
             txtPassword.Multiline = true;
@@ -105,6 +107,7 @@
             // 
             txtUsername.BackColor = Color.Gainsboro;
             txtUsername.BorderStyle = BorderStyle.None;
+            txtUsername.Font = new Font("Consolas", 18.3396225F, FontStyle.Regular, GraphicsUnit.Point);
             txtUsername.Location = new Point(30, 286);
             txtUsername.Margin = new Padding(4, 5, 4, 5);
             txtUsername.Multiline = true;

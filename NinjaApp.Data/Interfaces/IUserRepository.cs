@@ -11,7 +11,7 @@ namespace NinjaApp.Data.Interfaces
 
         void UpdateUserPassword(int userId, string password);
 
-       void  UpdateUserBalanceAfterPayment(int userId, decimal newBalance);
+        void UpdateUserBalanceAfterPayment(int userId, decimal newBalance);
 
         void CreateUser(AppUser newUser);
         List<AppUser> GetAllUsers();

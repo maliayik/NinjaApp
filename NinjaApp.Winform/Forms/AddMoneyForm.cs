@@ -44,7 +44,7 @@ namespace NinjaApp.Winform.Forms
                 _userService.UpdateUserBalance(userId, amount);
                 MessageBox.Show(this, "Bakiye güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MoneyAdded?.Invoke(this, EventArgs.Empty);
-                this.Close();
+                this.Hide();
             }
             else
             {
@@ -53,9 +53,6 @@ namespace NinjaApp.Winform.Forms
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }        
+
     }
 }

@@ -2,7 +2,6 @@
 using NinjaApp.Business.Services;
 using NinjaApp.DTOs;
 using System.Data;
-using System.Data.SQLite;
 
 namespace NinjaApp.Winform.Forms
 {
@@ -52,7 +51,7 @@ namespace NinjaApp.Winform.Forms
 
             if (user != null)
             {
-                txtUserLogin.Text = user.Username;
+                txtUserLogin.Text = user.Fullname;
                 txtBalance.Text = (user.Balance).ToString() + "TL";
             }
 
@@ -102,7 +101,6 @@ namespace NinjaApp.Winform.Forms
 
             Application.OpenForms.Cast<Form>().ToList().ForEach(form => form.Close());
 
-            // Yeni bir LoginForm aç
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }

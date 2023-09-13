@@ -1,13 +1,8 @@
 ﻿using NinjaApp.Data.Helpers;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {

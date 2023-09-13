@@ -11,6 +11,7 @@ namespace NinjaApp.Winform.Forms
         private readonly IShoppingService _shoppingService;
         private IUserService _userService;
         private IReceiptService _receiptService;
+        private IProductService _productService;
 
         private List<ShoppingDto> _shoppingData;
         private UserForm userForm;
@@ -27,6 +28,7 @@ namespace NinjaApp.Winform.Forms
             _shoppingService = dependencyContainer.GetShoppingServiceInstance();
             _userService = dependencyContainer.GetUserServiceInstance();
             _receiptService = dependencyContainer.GetReceiptServiceInstance();
+            _productService = dependencyContainer.GetProductServiceInstance();
 
 
             cmbCategories.SelectedIndexChanged += new EventHandler(cmbCategories_SelectedIndexChanged);
@@ -43,8 +45,6 @@ namespace NinjaApp.Winform.Forms
 
         private void ShoppingForm_Load(object sender, EventArgs e)
         {
-
-
             _shoppingData = _shoppingService.GetShoppingProductWithDto();
 
             // Form yüklendiğinde ComboBox'ı kategorilerle doldur
@@ -61,7 +61,7 @@ namespace NinjaApp.Winform.Forms
             cmbUnit.Items.Clear();
             for (int i = 1; i <= 10; i++)
             {
-                cmbUnit.Items.Add(i.ToString());
+                cmbUnit.Items.Add(i);
             }
 
             UpdateTotalLabel();
@@ -133,12 +133,14 @@ namespace NinjaApp.Winform.Forms
                 string tlPriceStr = euroPriceStr.Replace("EUR", "TL");
 
                 dataGridView2.Rows.Add(productName, unit, tlPriceStr, adetStr);
+
+                SetDataGridView2Colums();
                 UpdateTotalLabel();
             }
         }
 
         /// <summary>
-        /// DataGridView sütunlarını biçimlendiren bir metottur, özellikle "Fiyat" sütununa "TL" ekler.
+        /// DataGridView sütunlarını biçimlendiren bir metottur, özellikle "Fiyat" sütununa "TL" "Birim" sütununa "kg" ekler.
         /// </summary>       
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -148,13 +150,21 @@ namespace NinjaApp.Winform.Forms
             {
                 DataGridViewColumn column = dataGridView.Columns[e.ColumnIndex];
 
-                if (column.Name == "Fiyat")
+                if (column.Name == "Birim")
+                {
+                    // Birim sütunu ve satır indeksi uygunsa ve değer null değilse, değere "kg" ekleyin
+                    string unitStr = e.Value.ToString();
+                    string unitWithKg = unitStr + "kg";
+                    e.Value = unitWithKg;
+                    e.FormattingApplied = true;
+                }
+                else if (column.Name == "Fiyat")
                 {
                     // Fiyat sütunu ve satır indeksi uygunsa ve değer null değilse, değere "TL" ekleyin
                     string priceStr = e.Value.ToString();
-                    string tlPriceStr = priceStr + "tl";
+                    string tlPriceStr = priceStr + "TL";
                     e.Value = tlPriceStr;
-                    e.FormattingApplied = true; // Düzenleme uygulandığını işaretleyin
+                    e.FormattingApplied = true;
                 }
             }
         }
@@ -164,9 +174,7 @@ namespace NinjaApp.Winform.Forms
         /// </summary>
         private void SetupDataGridViewColumns()
         {
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SetDataGridView2Colums();
 
             DataGridViewTextBoxColumn productNameColumn = new DataGridViewTextBoxColumn();
             productNameColumn.HeaderText = "Ürünler";
@@ -189,7 +197,17 @@ namespace NinjaApp.Winform.Forms
             dataGridView2.Columns.Add(adetColumn);
 
 
-            dataGridView2.Columns["Adet"].Visible = true;          
+            dataGridView2.Columns["Adet"].Visible = false;
+        }
+
+        /// <summary>
+        /// Bu metot, bir DataGridView kontrolünün otomatik boyutlandırma ve boyutlandırma davranışını yapılandırır.
+        /// </summary>
+        private void SetDataGridView2Colums()
+        {
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
 
         /// <summary>
@@ -232,19 +250,14 @@ namespace NinjaApp.Winform.Forms
 
             if (!string.IsNullOrEmpty(txtSelectedProduct.Text))
             {
-                string selectedUnit = cmbUnit.SelectedItem?.ToString(); // Seçilen birimi alın
+                int selectedUnit = (int)cmbUnit.SelectedItem;
                 string selectedProductName = txtSelectedProduct.Text; // Seçilen ürün adını alın
 
-                // Seçilen birim sonuna "kg" ekleyin
-                if (!string.IsNullOrEmpty(selectedUnit) && !selectedUnit.EndsWith("kg"))
-                {
-                    selectedUnit += "kg";
-                }
 
                 if (!addedProducts.ContainsKey(selectedProductName))
                 {
                     // Eğer ürün daha önce eklenmediyse
-                    int unitQuantity = int.Parse(selectedUnit.Replace("kg", ""));
+                    int unitQuantity = selectedUnit;
                     decimal unitPrice = _shoppingData.First(item => item.Ürünler == selectedProductName).Fiyat; // Ürün fiyatını alın
                     decimal totalPrice = unitQuantity * unitPrice;
 
@@ -252,7 +265,7 @@ namespace NinjaApp.Winform.Forms
                     {
                         DataGridViewRow newRow = new DataGridViewRow();
                         newRow.Cells.Add(new DataGridViewTextBoxCell { Value = selectedProductName });
-                        newRow.Cells.Add(new DataGridViewTextBoxCell { Value = selectedUnit });
+                        newRow.Cells.Add(new DataGridViewTextBoxCell { Value = selectedUnit.ToString() + "" });
                         newRow.Cells.Add(new DataGridViewTextBoxCell { Value = totalPrice.ToString("") + "" });
 
                         dataGridView2.Rows.Add(newRow);
@@ -272,7 +285,7 @@ namespace NinjaApp.Winform.Forms
 
                 // İşlem tamamlandığında combobox'ı temizleyin
                 cmbUnit.SelectedIndex = -1;
-
+                SetDataGridView2Colums();
                 UpdateTotalLabel();
             }
 
@@ -351,94 +364,91 @@ namespace NinjaApp.Winform.Forms
         private void btnPay_Click(object sender, EventArgs e)
         {
 
-            decimal totalToPay = GetTotalToPay();
-            decimal balance = GetBalance(); // Kullanıcının güncel bakiyesini alın
-            int totalQuantityToPurchase = CalculateTotalQuantityToPurchase();
-
-
-            if (balance >= totalToPay && totalToPay != 0)
+            if (dataGridView2.Rows != null)
             {
-                // Bakiyeyi güncelle: Yeni bakiye, eski bakiyeden toplam tutarı çıkart
-                decimal newBalance = balance - totalToPay;
 
-                // Kullanıcının bakiyesini güncelle
-                _userService.UpdateUserBalanceAfterPayment(_loggedInUser.Id, newBalance);
+                decimal totalToPay = GetTotalToPay();
+                decimal balance = GetBalance();
 
-                // Yeni bakiyeyi lblBalance içinde göster
-                lblBalance.Text = "Bakiyeniz: " + newBalance.ToString("0.00") + " TL";
 
-                List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
 
-                foreach (DataGridViewRow row in dataGridView2.Rows)
+                if (balance >= totalToPay && totalToPay != 0)
                 {
-                    string productName = row.Cells["Ürünler"].Value?.ToString();
+                    // Bakiyeyi güncelle: Yeni bakiye, eski bakiyeden toplam tutarı çıkart
+                    decimal newBalance = balance - totalToPay;
 
-                    decimal price;
-                    if (decimal.TryParse(row.Cells["Fiyat"].Value?.ToString()?.Replace("TL", "").Trim(), out price))
+                    // Kullanıcının bakiyesini güncelle
+                    _userService.UpdateUserBalanceAfterPayment(_loggedInUser.Id, newBalance);
+
+                    // Yeni bakiyeyi lblBalance içinde göster
+                    lblBalance.Text = "Bakiyeniz: " + newBalance.ToString("0.00") + " TL";
+
+                    List<ReceiptDto> receiptDataList = new List<ReceiptDto>();
+
+                    foreach (DataGridViewRow row in dataGridView2.Rows)
                     {
-                        ReceiptDto receiptData = new ReceiptDto
+                        string productName = row.Cells["Ürünler"].Value?.ToString();
+                        object unitcell = row.Cells["Birim"].Value;
+
+                        int unit;
+                        decimal price;
+
+
+                        if (decimal.TryParse(row.Cells["Fiyat"].Value?.ToString()?.Replace("TL", "").Trim(), out price) && unitcell != null && int.TryParse(unitcell.ToString(), out unit))
+
                         {
-                            Ürünler = productName ?? "",
-                            Toplam = price,
-                            Tarih = DateTime.Now,
-                            UserId = _loggedInUser.Id
-                        };
+                            ReceiptDto receiptData = new ReceiptDto
+                            {
+                                Ürünler = productName ?? "",
+                                Toplam = price,
+                                Birim = unit,
+                                Tarih = DateTime.Now,
+                                UserId = _loggedInUser.Id
+                            };
 
-                        receiptDataList.Add(receiptData);
+                            receiptDataList.Add(receiptData);
+                        }
                     }
+
+                    foreach (var receiptData in receiptDataList)
+                    {
+                        _receiptService.AddReceipt(receiptData);
+                        _productService.UpdateProductStock(receiptData.Ürünler, receiptData.Birim);
+
+                    }
+
+                    // Ödeme başarılı mesajını göster
+                    ShowPaymentSuccessMessage();
+
+                    // ReceiptForm'u göster ve bu formu gizle
+                    ReceiptForm receiptForm = new ReceiptForm(receiptDataList);
+                    receiptForm.FormClosed += (formSender, formArgs) =>
+                    {
+                        this.Show();
+                    };
+                    receiptForm.Show();
+
+                    // Ödeme işlemi tamamlandığında alışveriş sepetini temizle
+                    dataGridView2.Rows.Clear();
+                    UpdateTotalLabel();
+                }
+                else
+                {
+                    MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
                 }
 
-                foreach (var receiptData in receiptDataList)
-                {
-                    _receiptService.AddReceipt(receiptData);
-                }
-
-                // Ödeme başarılı mesajını göster
-                ShowPaymentSuccessMessage();
-
-                // ReceiptForm'u göster ve bu formu gizle
-                ReceiptForm receiptForm = new ReceiptForm(receiptDataList);
-                receiptForm.FormClosed += (formSender, formArgs) =>
-                {
-                    this.Show();
-                };
-                receiptForm.Show();
-
-                // Ödeme işlemi tamamlandığında alışveriş sepetini temizle
-                dataGridView2.Rows.Clear();
-                UpdateTotalLabel();
             }
             else
             {
-                MessageBox.Show("Bakiyeniz yetersiz. Ödeme işlemi gerçekleştirilemedi.");
+                MessageBox.Show("Lütfen almak istediğiniz ürünü sepete ekleyiniz.");
             }
-        }       
-
-
-        private int CalculateTotalQuantityToPurchase()
-        {
-            int totalQuantityToPurchase = 0;
-
-            foreach (DataGridViewRow row in dataGridView2.Rows)
-            {
-                string birimStr = row.Cells["Birim"].Value?.ToString();
-                if (!string.IsNullOrEmpty(birimStr) && birimStr.EndsWith("kg"))
-                {
-                    // Birim ifadesini kg'yi kaldırarak alın
-                    string birimMiktarStr = birimStr.Replace("kg", "").Trim();
-
-                    // Birim miktarını tam sayıya çevirin
-                    if (int.TryParse(birimMiktarStr, out int birimMiktar))
-                    {
-                        totalQuantityToPurchase += birimMiktar;
-                    }
-                }
-            }
-
-            return totalQuantityToPurchase;
         }
 
 
+
+        /// <summary>
+        /// Sepetteki ürünlerin toplam ödeme tutarını hesaplar ve döndürür.
+        /// </summary>   
         private decimal GetTotalToPay()
         {
             decimal total = 0;
@@ -457,7 +467,9 @@ namespace NinjaApp.Winform.Forms
             return total;
         }
 
-
+        /// <summary>
+        /// Kullanıcının bakiyesini alır ve döndürür.
+        /// </summary>      
         private decimal GetBalance()
         {
             decimal balance = 0;
@@ -469,18 +481,24 @@ namespace NinjaApp.Winform.Forms
         }
 
 
-
-
-
+        /// <summary>
+        /// deme işleminin başarılı olduğuna dair bir mesaj gösterir.
+        /// </summary>
         private void ShowPaymentSuccessMessage()
         {
             MessageBox.Show("Satın alma işlemi başarıyla gerçekleşti. Bizi tercih ettiğiniz için teşekkür ederiz.", "Ödeme Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// bu formu kapatır.
+        /// </summary>
+
+        private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+
     }
 }
 

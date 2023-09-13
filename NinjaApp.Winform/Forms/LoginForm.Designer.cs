@@ -32,7 +32,7 @@
             txtPass = new TextBox();
             btnLogin = new Button();
             btnRegister = new Button();
-            label4 = new Label();
+            lblExit = new Label();
             label5 = new Label();
             label6 = new Label();
             label1 = new Label();
@@ -44,17 +44,20 @@
             // 
             txtUserName.BackColor = Color.Gainsboro;
             txtUserName.BorderStyle = BorderStyle.None;
+            txtUserName.Font = new Font("Consolas", 18.3396225F, FontStyle.Regular, GraphicsUnit.Point);
             txtUserName.Location = new Point(24, 189);
             txtUserName.Margin = new Padding(5, 4, 5, 4);
             txtUserName.Multiline = true;
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(290, 46);
             txtUserName.TabIndex = 1;
+            txtUserName.WordWrap = false;
             // 
             // txtPass
             // 
             txtPass.BackColor = Color.Gainsboro;
             txtPass.BorderStyle = BorderStyle.None;
+            txtPass.Font = new Font("Consolas", 18.3396225F, FontStyle.Regular, GraphicsUnit.Point);
             txtPass.Location = new Point(24, 287);
             txtPass.Margin = new Padding(5, 4, 5, 4);
             txtPass.Multiline = true;
@@ -62,6 +65,7 @@
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(290, 46);
             txtPass.TabIndex = 2;
+            txtPass.WordWrap = false;
             // 
             // btnLogin
             // 
@@ -97,19 +101,19 @@
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
             // 
-            // label4
+            // lblExit
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Red;
-            label4.Cursor = Cursors.Hand;
-            label4.Font = new Font("Georgia", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(298, -1);
-            label4.Name = "label4";
-            label4.Size = new Size(33, 31);
-            label4.TabIndex = 8;
-            label4.Text = "X";
-            label4.Click += label4_Click;
+            lblExit.AutoSize = true;
+            lblExit.BackColor = Color.Red;
+            lblExit.Cursor = Cursors.Hand;
+            lblExit.Font = new Font("Georgia", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lblExit.ForeColor = Color.White;
+            lblExit.Location = new Point(298, -1);
+            lblExit.Name = "lblExit";
+            lblExit.Size = new Size(33, 31);
+            lblExit.TabIndex = 8;
+            lblExit.Text = "X";
+            lblExit.Click += lblExit_Click;
             // 
             // label5
             // 
@@ -180,7 +184,7 @@
             Controls.Add(label5);
             Controls.Add(txtUserName);
             Controls.Add(txtPass);
-            Controls.Add(label4);
+            Controls.Add(lblExit);
             Font = new Font("Consolas", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(5, 4, 5, 4);
@@ -197,7 +201,7 @@
         private TextBox txtPass;
         private Button btnLogin;
         private Button btnRegister;
-        private Label label4;
+        private Label lblExit;
         private Label label5;
         private Label label6;
         private Label label1;

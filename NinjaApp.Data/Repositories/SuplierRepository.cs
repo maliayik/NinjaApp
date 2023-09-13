@@ -1,13 +1,8 @@
 ﻿using NinjaApp.Data.Helpers;
 using NinjaApp.Data.Interfaces;
 using NinjaApp.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NinjaApp.Data.Repositories
 {
@@ -36,7 +31,7 @@ namespace NinjaApp.Data.Repositories
                 suplier.Id = Convert.ToInt32(reader[0]);
                 suplier.ProductName = Convert.ToString(reader[1]);
                 suplier.CategoryName = Convert.ToString(reader[2]);
-                suplier.Unit = Convert.ToString(reader[3]);
+                suplier.Unit = Convert.ToInt32(reader[3]);
                 suplier.Stock = Convert.ToInt32(reader[4]);
                 suplier.Price = Convert.ToDecimal(reader[5]);
                 suplier.CategoryId = Convert.ToInt32(reader[6]);

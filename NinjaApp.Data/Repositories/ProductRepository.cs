@@ -31,7 +31,7 @@ namespace NinjaApp.Data.Repositories
                 product.Id = Convert.ToInt32(reader[0]);
                 product.ProductName = Convert.ToString(reader[1]);
                 product.CategoryName = Convert.ToString(reader[2]);
-                product.Unit = Convert.ToString(reader[3]);
+                product.Unit = Convert.ToInt32(reader[3]);
                 product.Price = Convert.ToDecimal(reader[4]);
                 product.Stock = Convert.ToInt32(reader[5]);
                 product.CategoryId = Convert.ToInt32(reader[6]);
@@ -71,7 +71,7 @@ namespace NinjaApp.Data.Repositories
                 product.Id = Convert.ToInt32(reader[0]);
                 product.ProductName = Convert.ToString(reader[1]);
                 product.CategoryName = Convert.ToString(reader[2]);
-                product.Unit = Convert.ToString(reader[3]);
+                product.Unit = Convert.ToInt32(reader[3]);
                 product.Price = Convert.ToDecimal(reader[4]);
                 product.Stock = Convert.ToInt32(reader[5]);
                 product.CategoryId = Convert.ToInt32(reader[6]);
@@ -94,7 +94,7 @@ namespace NinjaApp.Data.Repositories
             SQLiteCommand command = new SQLiteCommand();
             command.CommandType = CommandType.Text;
             command.Connection = connection;
-            command.CommandText = "UPDATE Products SET Stock = Stock + @NewStock WHERE ProductName = @ProductName";
+            command.CommandText = "UPDATE Products SET Stock = Stock - @NewStock WHERE ProductName = @ProductName";
 
             command.Parameters.AddWithValue("@ProductName", productName);
             command.Parameters.AddWithValue("@NewStock", newStock);
@@ -122,8 +122,6 @@ namespace NinjaApp.Data.Repositories
             command.Parameters.Clear();
             connection.Close();
         }
-
-
 
     }
 

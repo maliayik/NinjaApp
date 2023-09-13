@@ -11,6 +11,7 @@ namespace NinjaApp.Winform.Forms
         private readonly IStockService _stockService;
         private readonly IPriceEditService _priceEditService;
         private readonly IChartService _chartService;
+        private readonly IInboxService _inboxService;
 
         private AdminDto _loggedInAdmin;
 
@@ -31,6 +32,7 @@ namespace NinjaApp.Winform.Forms
             _stockService = dependencyContainer.GetStockServiceInstance();
             _priceEditService = dependencyContainer.GetPriceEditServiceInstance();
             _chartService = dependencyContainer.GetChartServiceInstance();
+            _inboxService = dependencyContainer.GetInboxServiceInstance();
             _loggedInAdmin = loggedInAdmin;
         }
 
@@ -117,6 +119,9 @@ namespace NinjaApp.Winform.Forms
         }
 
 
+
+
+
         /// <summary>
         /// Bu metot Fiyat güncellemesi işlemlerini gerçekleştirir.
         /// </summary>
@@ -130,6 +135,7 @@ namespace NinjaApp.Winform.Forms
             dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView2.CellClick += DataGridViewCellClick;
+
         }
 
 
@@ -155,8 +161,10 @@ namespace NinjaApp.Winform.Forms
 
                 if (stockAmount < 200)
                 {
-                    // Stok 200'ün altındaysa bildirim gönder
-                    StockBelowThreshold?.Invoke(productName, stockAmount);
+                    string message = $"{productName} ürününün stok miktarı {stockAmount} oldu.";
+
+                    _inboxService.AddMessage(message);
+
                 }
             }
         }
@@ -229,11 +237,9 @@ namespace NinjaApp.Winform.Forms
 
         }
 
-        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
+        /// <summary>
+        /// bu metod, mevcut pencereyi kapatıp giriş yapma ekranını açar. 
+        /// </summary>    
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -241,6 +247,9 @@ namespace NinjaApp.Winform.Forms
             loginForm.Show();
         }
 
+        /// <summary>
+        /// bu metod ise mevcut pencereyi gizler ve tedarikçi işlemleri için bir tedarikçi formunu açar.
+        /// </summary>     
         private void btnSuplier_Click(object sender, EventArgs e)
         {
             this.Hide();
