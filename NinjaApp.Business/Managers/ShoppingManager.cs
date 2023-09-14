@@ -14,6 +14,9 @@ namespace NinjaApp.Business.Managers
             _productRepository = new DataServiceRegistration().GetProductRepositoryInstance();
         }
 
+        /// <summary>
+        /// Belirli bir kategoriye ait alışveriş ürünlerini DTO nesneleri olarak alır.
+        /// </summary>     
         public List<ShoppingDto> GetShoppingProductByCategoryWithDto(string categoryName)
         {
             var dtoList = new List<ShoppingDto>();
@@ -42,6 +45,9 @@ namespace NinjaApp.Business.Managers
 
         }
 
+        /// <summary>
+        ///  Tüm alışveriş ürünlerini DTO nesneleri olarak alır.
+        /// </summary>    
         public List<ShoppingDto> GetShoppingProductWithDto()
         {
             var dtoList = new List<ShoppingDto>();

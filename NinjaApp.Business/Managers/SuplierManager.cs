@@ -15,6 +15,9 @@ namespace NinjaApp.Business.Managers
             _suplierRepository = new DataServiceRegistration().GetSuplierRepositoryInstance();
         }
 
+        /// <summary>
+        /// Belirli bir kategoriye ait tedarikçi ürünlerini DTO nesneleri olarak alır.
+        /// </summary>   
         public List<SupliersDto> GetSupliersByCategory(string categoryName)
         {
             var dtoList = new List<SupliersDto>();

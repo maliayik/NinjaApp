@@ -14,11 +14,17 @@ namespace NinjaApp.Business.Managers
             _inboxRepository = new DataServiceRegistration().GetInboxRepositoryInstance();
         }
 
+        /// <summary>
+        /// Bu metot ınbox tablosuna yeni mesaj eklemeye yarar.
+        /// </summary>       
         public void AddMessage(string message)
         {
             _inboxRepository.AddMessage(message);
         }
 
+        /// <summary>
+        /// Bu metot, gelen kutusundaki mesajların DTO temsilini oluşturarak ve bu mesajları bir liste halinde döndürerek iletişim verilerini sağlar.
+        /// </summary>    
         public List<InboxDto> GetListAll()
         {
             var inboxDto = new List<InboxDto>();

@@ -14,6 +14,9 @@ namespace NinjaApp.Business.Managers
             _productRepository = new DataServiceRegistration().GetProductRepositoryInstance();
         }
 
+        /// <summary>
+        /// Bu metot, ürünlerin fiyatlarını düzenlemek için kullanılacak verileri DTO nesneleri olarak alır.
+        /// </summary>    
         public List<PriceEditDto> GetPriceEditDtos()
         {
             var dtoList = new List<PriceEditDto>();
@@ -35,6 +38,9 @@ namespace NinjaApp.Business.Managers
             return dtoList;
         }
 
+        /// <summary>
+        ///  Bu metot, seçilen bir ürünün fiyatını güncellemek için kullanılır.
+        /// </summary>     
         public void UpdatePriceEdit(PriceEditDto priceEditDto)
         {
             int productId = priceEditDto.Id;

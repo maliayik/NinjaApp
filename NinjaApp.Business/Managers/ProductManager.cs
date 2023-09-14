@@ -15,6 +15,9 @@ namespace NinjaApp.Business.Managers
             _productRepository = new DataServiceRegistration().GetProductRepositoryInstance();
         }
 
+        /// <summary>
+        /// Ürünün stok miktarını günceller.
+        /// </summary>   
         public void UpdateProductStock(string productName, int newStock)
         {
 
@@ -29,7 +32,9 @@ namespace NinjaApp.Business.Managers
             }
         }
 
-
+        /// <summary>
+        /// Ürünlerin listesini DTO nesneleri olarak alır.
+        /// </summary>  
         public List<ProductListDto> GetProductListDto()
         {
             var dtoList = new List<ProductListDto>();

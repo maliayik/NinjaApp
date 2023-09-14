@@ -67,6 +67,8 @@ namespace NinjaApp.Winform.Forms
             dataGridView1.DataSource = ordersData;
             dataGridView1.Columns["Id"].Visible = false;
             dataGridView1.Columns["UserId"].Visible = false;
+            dataGridView1.Columns["Birim"].Visible = false;
+            dataGridView1.Columns["Toplam"].Visible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;

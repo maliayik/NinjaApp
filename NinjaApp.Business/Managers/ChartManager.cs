@@ -13,6 +13,10 @@ namespace NinjaApp.Business.Managers
             _receiptRepository = new DataServiceRegistration().GetReceiptRepositoryInstance();
         }
 
+
+        /// <summary>
+        /// Bu metot, en çok satılan ürünleri ve bu ürünlerin satış adetlerini içeren bir veri listesi döndürür.
+        /// </summary>     
         public List<ChartDto> GetChart(int count)
         {
             List<ChartDto> chartData = new List<ChartDto>();

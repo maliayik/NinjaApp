@@ -17,11 +17,17 @@ namespace NinjaApp.Business.Managers
             _receiptRepository = new DataServiceRegistration().GetReceiptRepositoryInstance();
         }
 
+        /// <summary>
+        /// Kullanıcının bakiyesini ödeme sonrası günceller.
+        /// </summary>        
         public void UpdateUserBalanceAfterPayment(int userId, decimal newBalance)
         {
             _userRepository.UpdateUserBalanceAfterPayment(userId, newBalance);
         }
 
+        /// <summary>
+        /// Kullanıcının bakiyesini belirtilen miktarla günceller.
+        /// </summary>    
         public void UpdateUserBalance(int userId, decimal additionalBalance)
         {
 
@@ -38,7 +44,9 @@ namespace NinjaApp.Business.Managers
             }
         }
 
-
+        /// <summary>
+        /// Belirli bir kullanıcının satın aldığı ürünlerin alışveriş fişlerini alır ve DTO nesneleri olarak döndürür.
+        /// </summary>
         public List<ReceiptDto> GetReceiptByUserId(int userId)
         {
             var user = _userRepository.GetAppUserById(userId);
@@ -65,6 +73,9 @@ namespace NinjaApp.Business.Managers
             return receiptDtos;
         }
 
+        /// <summary>
+        /// Belirli bir kullanıcının bilgilerini alır ve DTO nesnesi olarak döndürür.
+        /// </summary>
         public UserDto GetUsersById(int id)
         {
             var appUseR = _userRepository.GetAppUserById(id);
@@ -91,7 +102,9 @@ namespace NinjaApp.Business.Managers
         }
 
 
-
+        /// <summary>
+        /// Kullanıcının şifresini günceller.
+        /// </summary>
         public void UpdateUserPassword(int userId, string password)
         {
             AppUser user = _userRepository.GetAppUserById(userId);

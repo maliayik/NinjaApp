@@ -14,6 +14,9 @@ namespace NinjaApp.Business.Managers
             _userRepository = new DataServiceRegistration().GetUserRepositoryInstance();
         }
 
+        /// <summary>
+        /// Kullanıcı adı ve şifre ile kullanıcı giriş bilgilerini kontrol eder ve doğruysa kullanıcıyı DTO nesnesi olarak döndürür.
+        /// </summary>   
         public UserLoginDto GetUserLogin(string userName, string password)
         {
             var UserLogin = _userRepository.GetUserLogin(userName, password);
@@ -37,6 +40,9 @@ namespace NinjaApp.Business.Managers
             return null;
         }
 
+        /// <summary>
+        /// Tüm kullanıcıların bilgilerini DTO nesneleri olarak alır.
+        /// </summary>     
         public List<UserDto> GetUsers()
         {
             var dtoList = new List<UserDto>();

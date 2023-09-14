@@ -15,6 +15,9 @@ namespace NinjaApp.Business.Managers
             _adminRepository = new DataServiceRegistration().GetAdminRepositoryInstance();
         }
 
+        /// <summary>
+        /// Bu metot, verilen kullanıcı adı ve şifre bilgileriyle yönetici (admin) girişi yapmayı deneyerek, eğer doğru bilgilerle giriş yapılabilirse ilgili yönetici (admin) bilgilerini içeren bir AdminDto nesnesini döndürür.
+        /// </summary>  
         public AdminDto GetAdminLogin(string userName, string password)
         {
             var adminLogin = _adminRepository.GetAdminLogin(userName, password);

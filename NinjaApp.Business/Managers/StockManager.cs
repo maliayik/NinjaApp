@@ -15,7 +15,9 @@ namespace NinjaApp.Business.Managers
         }
 
 
-
+        /// <summary>
+        /// Tüm ürünlerin stok bilgilerini DTO nesneleri olarak alır.
+        /// </summary>   
         public List<StockDto> GetStockListDto()
         {
 
@@ -34,7 +36,6 @@ namespace NinjaApp.Business.Managers
             }
 
             return dtoList;
-
         }
     }
 }

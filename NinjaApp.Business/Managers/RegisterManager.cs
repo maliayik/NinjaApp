@@ -13,6 +13,9 @@ namespace NinjaApp.Business.Managers
             _userRepository = new DataServiceRegistration().GetUserRepositoryInstance();
 
         }
+        /// <summary>
+        /// Yeni bir kullanıcı oluşturmayı sağlar.
+        /// </summary>
         public void CreateUser(AppUser user)
         {
             _userRepository.CreateUser(user);
