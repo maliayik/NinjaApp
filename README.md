@@ -14,3 +14,4 @@ Uygulamamızın özellikleri arasında;
 <br>
 -Ödeme hizmeti sonrası kullanıcıya özel fatura hizmeti formu.
 ***
+*Kodumuzu clone'ladıktan sonra çalıştırmak için Data katmanında bulunan helpers klasörünün içerisindeki DbConnectionHelper clasının databasePathındaki yolu kendinize göre ayarlamanız gerekmektedir.
