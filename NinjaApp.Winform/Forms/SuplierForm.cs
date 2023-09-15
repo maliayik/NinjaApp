@@ -191,6 +191,8 @@ namespace NinjaApp.Winform.Forms
             messageDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             messageDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             messageDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            messageDataGridView.Columns["Id"].Visible = false;
+            messageDataGridView.Columns["Description"].HeaderText = "Mesajlar";
         }
 
 

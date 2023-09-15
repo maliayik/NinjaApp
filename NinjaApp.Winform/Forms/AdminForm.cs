@@ -269,7 +269,7 @@ namespace NinjaApp.Winform.Forms
         /// </summary>    
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
