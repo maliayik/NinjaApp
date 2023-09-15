@@ -7,7 +7,7 @@ namespace NinjaApp.Data.Helpers
         private string GetDatabasePath()
         {
             string baseFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string databasePath = Path.Combine(baseFolder, "ninjaCodersProje", "NinjaApp", "NinjaApp.Data", "Db", "NinjaDb.db");
+            string databasePath = Path.Combine(baseFolder, "C:","Users","efe38","source","repos", "NinjaApp", "NinjaApp.Data", "Db", "NinjaDb.db");
             return databasePath;
         }
 
