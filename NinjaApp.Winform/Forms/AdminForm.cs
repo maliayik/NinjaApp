@@ -135,9 +135,39 @@ namespace NinjaApp.Winform.Forms
             dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView2.CellClick += DataGridViewCellClick;
-
+            dataGridView2.CellFormatting += DataGridView2_CellFormatting;
         }
 
+        /// <summary>
+        /// Bu olay, DataGridView2'nin hücrelerinin içeriği formatlanmadan önce tetiklenecektir.
+        /// </summary>
+        private void DataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            {
+                // Fiyat sütunu
+                if (dataGridView2.Columns[e.ColumnIndex].Name == "Fiyat")
+                {
+                    if (e.Value != null)
+                    {
+                        decimal fiyat;
+                        if (decimal.TryParse(e.Value.ToString(), out fiyat))
+                        {
+                            e.Value = fiyat.ToString("") + "TL";
+                            e.FormattingApplied = true;
+                        }
+                    }
+                }
+                else if (dataGridView2.Columns[e.ColumnIndex].Name == "Birim")
+                {
+                    if (e.Value != null)
+                    {
+                        e.Value = e.Value.ToString() + "kg";
+                        e.FormattingApplied = true;
+                    }
+                }
+            }
+        }
 
 
         /// <summary>
@@ -168,9 +198,6 @@ namespace NinjaApp.Winform.Forms
                 }
             }
         }
-
-
-
 
         private void AdminForm_Load(object sender, EventArgs e)
         {

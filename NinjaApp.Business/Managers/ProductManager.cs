@@ -18,7 +18,7 @@ namespace NinjaApp.Business.Managers
         /// <summary>
         /// Ürünün stok miktarını günceller.
         /// </summary>   
-        public void UpdateProductStock(string productName, int newStock)
+        public void IncreaseProductStock(string productName, int newStock)
         {
 
             Product product = new Product();
@@ -27,7 +27,7 @@ namespace NinjaApp.Business.Managers
             if (product != null)
             {
                 product.Stock += newStock;
-                _productRepository.UpdateProductStock(product.ProductName, product.Stock);
+                _productRepository.IncreaseProductStock(product.ProductName, product.Stock);
 
             }
         }
@@ -58,6 +58,17 @@ namespace NinjaApp.Business.Managers
             return dtoList;
         }
 
+        public void DecreaseProductStock(string productName, int newStock)
+        {
+            Product product = new Product();
+            product.ProductName = productName;
 
+            if (product != null)
+            {
+                product.Stock += newStock;
+                _productRepository.IncreaseProductStock(product.ProductName, product.Stock);
+
+            }
+        }
     }
 }

@@ -86,7 +86,7 @@ namespace NinjaApp.Winform.Forms
                 // Seçilen satırın ürün, stok ve fiyat bilgilerini alın
                 string selectedProduct = suplierGridView.Rows[e.RowIndex].Cells["Ürünler"].Value.ToString();
                 string stockInfo = suplierGridView.Rows[e.RowIndex].Cells["Stok"].Value.ToString();
-                string priceInfo = suplierGridView.Rows[e.RowIndex].Cells["Fiyat"].Value.ToString();
+                string priceInfo = suplierGridView.Rows[e.RowIndex].Cells["Fiyat"].Value.ToString()+"TL";
 
                 // Değerleri ilgili kontrollere aktarın
                 txtSelectedProduct.Text = selectedProduct;
@@ -112,7 +112,7 @@ namespace NinjaApp.Winform.Forms
             }
 
             // Stok sütunu için işlem yapın (örneğin, 4. sütun)
-            if (e.ColumnIndex == 4) // 4. sütun (sıfırdan başladığına dikkat edin)
+            if (e.ColumnIndex == 2) // 4. sütun (sıfırdan başladığına dikkat edin)
             {
                 if (e.Value != null)
                 {
@@ -168,7 +168,7 @@ namespace NinjaApp.Winform.Forms
 
                     if (purchasedStock <= currentStock)
                     {
-                        _productService.UpdateProductStock(productName, purchasedStock);
+                        _productService.IncreaseProductStock(productName, purchasedStock);
 
                         MessageBox.Show("Ürün stok miktarı güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

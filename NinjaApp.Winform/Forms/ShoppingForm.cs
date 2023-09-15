@@ -413,7 +413,7 @@ namespace NinjaApp.Winform.Forms
                     foreach (var receiptData in receiptDataList)
                     {
                         _receiptService.AddReceipt(receiptData);
-                        _productService.UpdateProductStock(receiptData.Ürünler, receiptData.Birim);
+                        _productService.DecreaseProductStock(receiptData.Ürünler, receiptData.Birim);
 
                     }
 

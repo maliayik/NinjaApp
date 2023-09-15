@@ -8,6 +8,7 @@ namespace NinjaApp.Data.Interfaces
         void UpdateProductPrice(int productId, decimal newPrice);
         List<Product> GetProductsByCategory(string categoryName);
 
-        void UpdateProductStock(string productName, int newStock);
+        void IncreaseProductStock(string productName, int newStock);
+        void DecreaseProductStock(string productName, int newStock);
     }
 }
